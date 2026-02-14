@@ -25,7 +25,7 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git config --global user.name "github-actions[bot]"
+          git config --global user.name "Victor Uzunov"
           git config --global user.email "uzunovvictor@gmail.com"
           
           git add README.md crypto_history.db
