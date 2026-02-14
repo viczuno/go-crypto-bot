@@ -1,4 +1,4 @@
-module github.com/viczuno/go-crypto-bot.git
+module github.com/viczuno/go-crypto-bot
 
 go 1.24.3
 

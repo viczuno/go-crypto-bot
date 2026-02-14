@@ -18,10 +18,10 @@ jobs:
       - name: Setup Go Environment
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22' 
+          go-version: '1.24'
 
       - name: Run Go-Crypto-Bot
-        run: go run *.go
+        run: go run ./cmd/main.go
 
       - name: Commit and Push Changes
         run: |

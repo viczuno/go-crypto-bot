@@ -3,83 +3,112 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"time"
 
-	"github.com/viczuno/go-crypto-bot.git/internal/api"
+	"github.com/viczuno/go-crypto-bot/internal/domain"
 	_ "modernc.org/sqlite"
 )
 
-type CryptoDB struct {
+// SQLiteRepository implements domain.PriceRepository using SQLite
+type SQLiteRepository struct {
 	conn *sql.DB
 }
 
-type PriceChange struct {
-	PastPrice float64
-	AbsChange float64
-	PctChange float64
-	HasData   bool
-}
-
-func InitDB(filepath string) (*CryptoDB, error) {
+// NewSQLiteRepository creates and initializes a new SQLite repository
+func NewSQLiteRepository(filepath string) (*SQLiteRepository, error) {
 	db, err := sql.Open("sqlite", filepath)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to open database: %w", err)
 	}
 
-	query := `CREATE TABLE IF NOT EXISTS prices (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		coin TEXT NOT NULL,
-		price REAL NOT NULL,
-		timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-	);`
-
-	if _, err = db.Exec(query); err != nil {
-		return nil, err
+	// Test the connection
+	if err := db.Ping(); err != nil {
+		db.Close()
+		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
-	return &CryptoDB{conn: db}, nil
+	repo := &SQLiteRepository{conn: db}
+	if err := repo.initSchema(); err != nil {
+		db.Close()
+		return nil, fmt.Errorf("failed to initialize schema: %w", err)
+	}
+
+	return repo, nil
 }
 
-func (db *CryptoDB) SavePrices(prices map[string]api.CryptoData) error {
-	tx, err := db.conn.Begin()
+// initSchema creates the required database tables
+func (r *SQLiteRepository) initSchema() error {
+	query := `
+		CREATE TABLE IF NOT EXISTS prices (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			coin TEXT NOT NULL,
+			price REAL NOT NULL,
+			timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+		);
+		CREATE INDEX IF NOT EXISTS idx_prices_coin_timestamp ON prices(coin, timestamp);
+	`
+	_, err := r.conn.Exec(query)
+	return err
+}
+
+// SavePrices stores the current prices in the database
+func (r *SQLiteRepository) SavePrices(prices map[string]domain.CryptoPrice) error {
+	tx, err := r.conn.Begin()
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to begin transaction: %w", err)
 	}
 
 	stmt, err := tx.Prepare("INSERT INTO prices (coin, price, timestamp) VALUES (?, ?, ?)")
 	if err != nil {
-		return err
+		tx.Rollback()
+		return fmt.Errorf("failed to prepare statement: %w", err)
 	}
 	defer stmt.Close()
 
-	now := time.Now().UTC()
-	for coin, data := range prices {
-		if _, err = stmt.Exec(coin, data.USD, now); err != nil {
+	for _, data := range prices {
+		if _, err := stmt.Exec(data.Coin, data.PriceUSD, data.FetchedAt); err != nil {
 			tx.Rollback()
-			return err
+			return fmt.Errorf("failed to insert price for %s: %w", data.Coin, err)
 		}
 	}
-	return tx.Commit()
+
+	if err := tx.Commit(); err != nil {
+		return fmt.Errorf("failed to commit transaction: %w", err)
+	}
+
+	return nil
 }
 
-func (db *CryptoDB) GetHistoricalChange(coin string, currentPrice float64, days int) PriceChange {
-	var pastPrice float64
+// GetHistoricalPrice retrieves the price from a specified number of days ago
+func (r *SQLiteRepository) GetHistoricalPrice(coinID string, daysAgo int) (float64, bool, error) {
+	query := `
+		SELECT price 
+		FROM prices 
+		WHERE coin = ? AND timestamp <= datetime('now', ?) 
+		ORDER BY timestamp DESC 
+		LIMIT 1
+	`
+	timeModifier := fmt.Sprintf("-%d days", daysAgo)
 
-	query := `SELECT price FROM prices WHERE coin = ? AND timestamp <= datetime('now', ?) ORDER BY timestamp DESC LIMIT 1`
-	timeModifier := fmt.Sprintf("-%d days", days)
+	var price float64
+	err := r.conn.QueryRow(query, coinID, timeModifier).Scan(&price)
 
-	err := db.conn.QueryRow(query, coin, timeModifier).Scan(&pastPrice)
+	if err == sql.ErrNoRows {
+		return 0, false, nil
+	}
 	if err != nil {
-		return PriceChange{HasData: false}
+		return 0, false, fmt.Errorf("failed to query historical price: %w", err)
 	}
 
-	absChange := currentPrice - pastPrice
-	pctChange := (absChange / pastPrice) * 100.0
-
-	return PriceChange{
-		PastPrice: pastPrice,
-		AbsChange: absChange,
-		PctChange: pctChange,
-		HasData:   true,
-	}
+	return price, true, nil
 }
+
+// Close closes the database connection
+func (r *SQLiteRepository) Close() error {
+	if r.conn != nil {
+		return r.conn.Close()
+	}
+	return nil
+}
+
+// Ensure SQLiteRepository implements PriceRepository
+var _ domain.PriceRepository = (*SQLiteRepository)(nil)
