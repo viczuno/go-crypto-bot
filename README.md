@@ -8,7 +8,7 @@
 
 **Real-time cryptocurrency tracking powered by GitHub Actions**
 
-🕐 *Last updated: Friday, February 20, 2026 at 12:34 UTC*
+🕐 *Last updated: Saturday, February 21, 2026 at 01:06 UTC*
 
 </div>
 
@@ -19,9 +19,9 @@
 <table>
 <tr>
 <td align="center"><b>Market Sentiment</b><br/>🟡 Neutral</td>
-<td align="center"><b>Avg 24h Change</b><br/>🟢 +1.14%</td>
-<td align="center"><b>Gainers</b><br/>🟢 4</td>
-<td align="center"><b>Losers</b><br/>🔴 1</td>
+<td align="center"><b>Avg 24h Change</b><br/>🟢 +1.73%</td>
+<td align="center"><b>Gainers</b><br/>🟢 5</td>
+<td align="center"><b>Losers</b><br/>🔴 0</td>
 </tr>
 </table>
 
@@ -41,40 +41,40 @@
 <tbody>
 <tr>
 <td><b>Bitcoin BTC</b><br/><sub>%!s(MISSING)</sub></td>
-<td align="right"><code>$67349.00</code></td>
-<td align="center">🟢 +1.11%</td>
+<td align="right"><code>$67854.00</code></td>
+<td align="center">🟢 +0.84%</td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center">➡️</td>
 </tr>
 <tr>
 <td><b>Ethereum ETH</b><br/><sub>%!s(MISSING)</sub></td>
-<td align="right"><code>$1945.91</code></td>
-<td align="center">🔴 -0.39%</td>
+<td align="right"><code>$1964.17</code></td>
+<td align="center">🟢 +0.29%</td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center">➡️</td>
 </tr>
 <tr>
 <td><b>Solana SOL</b><br/><sub>%!s(MISSING)</sub></td>
-<td align="right"><code>$83.66</code></td>
-<td align="center">🟢 +3.13%</td>
+<td align="right"><code>$84.44</code></td>
+<td align="center">🟢 +1.78%</td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center">➡️</td>
 </tr>
 <tr>
 <td><b>Cardano ADA</b><br/><sub>%!s(MISSING)</sub></td>
-<td align="right"><code>$0.2766</code></td>
-<td align="center">🟢 +1.61%</td>
+<td align="right"><code>$0.2826</code></td>
+<td align="center">🟢 +3.12%</td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center">➡️</td>
 </tr>
 <tr>
 <td><b>Polkadot DOT</b><br/><sub>%!s(MISSING)</sub></td>
-<td align="right"><code>$1.30</code></td>
-<td align="center">🟢 +0.27%</td>
+<td align="right"><code>$1.33</code></td>
+<td align="center">🟢 +2.62%</td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center"><sub>📊 Collecting...</sub></td>
 <td align="center">➡️</td>
@@ -86,7 +86,7 @@
 
 <div align="center">
 
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B1.11%2C+-0.39%2C+3.13%2C+1.61%2C+0.27%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
+![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B0.84%2C+0.29%2C+1.78%2C+3.12%2C+2.62%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
 
 </div>
 
