@@ -1,0 +1,14 @@
+baseURL = "https://viczuno.github.io/go-crypto-bot/"
+languageCode = "en-us"
+title = "Crypto Dashboard"
+
+# Disable unused features for faster builds
+disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
+
+[build]
+  writeStats = false
+
+[params]
+  description = "Mobile-optimized cryptocurrency price tracker"
+
+

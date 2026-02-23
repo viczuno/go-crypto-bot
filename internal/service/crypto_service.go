@@ -29,7 +29,7 @@ func NewCryptoService(
 }
 
 // UpdateAndGenerateReport fetches latest prices, stores them, and generates a report
-func (s *CryptoService) UpdateAndGenerateReport(ctx context.Context, coins []domain.CoinMetadata) (string, error) {
+func (s *CryptoService) UpdateAndGenerateReport(ctx context.Context, coins []domain.CoinMetadata) (string, []domain.CoinStats, error) {
 	coinIDs := make([]string, len(coins))
 	for i, c := range coins {
 		coinIDs[i] = c.ID
@@ -39,14 +39,14 @@ func (s *CryptoService) UpdateAndGenerateReport(ctx context.Context, coins []dom
 	log.Println("Fetching latest prices from API...")
 	prices, err := s.fetcher.FetchPrices(ctx, coinIDs)
 	if err != nil {
-		return "", fmt.Errorf("failed to fetch prices: %w", err)
+		return "", nil, fmt.Errorf("failed to fetch prices: %w", err)
 	}
 	log.Printf("Successfully fetched prices for %d coins", len(prices))
 
 	// Save to database
 	log.Println("Saving prices to database...")
 	if err := s.repo.SavePrices(prices); err != nil {
-		return "", fmt.Errorf("failed to save prices: %w", err)
+		return "", nil, fmt.Errorf("failed to save prices: %w", err)
 	}
 	log.Println("Prices saved successfully")
 
@@ -57,7 +57,7 @@ func (s *CryptoService) UpdateAndGenerateReport(ctx context.Context, coins []dom
 	log.Println("Generating README...")
 	content := s.generator.Generate(stats, coins)
 
-	return content, nil
+	return content, stats, nil
 }
 
 func (s *CryptoService) buildStats(coins []domain.CoinMetadata, prices map[string]domain.CryptoPrice) []domain.CoinStats {
