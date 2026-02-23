@@ -14,6 +14,8 @@
 
 ---
 
+## You can open the following link for more details: https://viczuno.github.io/go-crypto-bot/
+
 ## 💰 Live Prices & Trends
 
 <table>
@@ -84,6 +86,7 @@ This automated tracker runs every 12 hours via GitHub Actions.
 - Auto-updates twice daily
 - Historical trend tracking using SQLite
 - Dynamic chart generation
+- Using Hugo as Server Site Generator
 - No external server required
 
 **Tech Stack:** Go • SQLite • GitHub Actions • CoinGecko API
