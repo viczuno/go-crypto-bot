@@ -61,7 +61,7 @@ func (c *CoinGeckoClient) FetchPrices(ctx context.Context, coinIDs []string) (ma
 	if err != nil {
 		return nil, fmt.Errorf("network error: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("API returned status %d: %s", resp.StatusCode, resp.Status)
@@ -106,7 +106,7 @@ func (c *CoinGeckoClient) FetchHistoricalPrices(ctx context.Context, coinID stri
 	if err != nil {
 		return nil, fmt.Errorf("network error: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("API returned status %d: %s", resp.StatusCode, resp.Status)

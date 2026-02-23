@@ -35,7 +35,6 @@ func (s *CryptoService) UpdateAndGenerateReport(ctx context.Context, coins []dom
 		coinIDs[i] = c.ID
 	}
 
-	// Fetch latest prices
 	log.Println("Fetching latest prices from API...")
 	prices, err := s.fetcher.FetchPrices(ctx, coinIDs)
 	if err != nil {
@@ -43,17 +42,14 @@ func (s *CryptoService) UpdateAndGenerateReport(ctx context.Context, coins []dom
 	}
 	log.Printf("Successfully fetched prices for %d coins", len(prices))
 
-	// Save to database
 	log.Println("Saving prices to database...")
 	if err := s.repo.SavePrices(prices); err != nil {
 		return "", nil, fmt.Errorf("failed to save prices: %w", err)
 	}
 	log.Println("Prices saved successfully")
 
-	// Build stats with historical data
 	stats := s.buildStats(coins, prices)
 
-	// Generate README
 	log.Println("Generating README...")
 	content := s.generator.Generate(stats, coins)
 

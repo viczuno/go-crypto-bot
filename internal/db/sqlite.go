@@ -23,13 +23,13 @@ func NewSQLiteRepository(filepath string) (*SQLiteRepository, error) {
 
 	// Test the connection
 	if err := db.Ping(); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
 	repo := &SQLiteRepository{conn: db}
 	if err := repo.initSchema(); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, fmt.Errorf("failed to initialize schema: %w", err)
 	}
 
@@ -60,14 +60,14 @@ func (r *SQLiteRepository) SavePrices(prices map[string]domain.CryptoPrice) erro
 
 	stmt, err := tx.Prepare("INSERT INTO prices (coin, price, timestamp) VALUES (?, ?, ?)")
 	if err != nil {
-		tx.Rollback()
+		_ = tx.Rollback()
 		return fmt.Errorf("failed to prepare statement: %w", err)
 	}
-	defer stmt.Close()
+	defer func() { _ = stmt.Close() }()
 
 	for _, data := range prices {
 		if _, err := stmt.Exec(data.Coin, data.PriceUSD, data.FetchedAt); err != nil {
-			tx.Rollback()
+			_ = tx.Rollback()
 			return fmt.Errorf("failed to insert price for %s: %w", data.Coin, err)
 		}
 	}
