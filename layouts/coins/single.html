@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>{{ .Params.name }} - {{ .Site.Title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 16px;
+            padding-top: env(safe-area-inset-top, 16px);
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 16px;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #111111;
+            border: 1px solid #222222;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: background 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .back-button:active {
+            background: #222222;
+        }
+
+        .coin-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .coin-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .coin-icon.btc { background: linear-gradient(135deg, #f7931a 0%, #e8800a 100%); }
+        .coin-icon.eth { background: linear-gradient(135deg, #627eea 0%, #4e6dde 100%); }
+        .coin-icon.sol { background: linear-gradient(135deg, #00ffa3 0%, #dc1fff 100%); color: #000; }
+        .coin-icon.ada { background: linear-gradient(135deg, #0033ad 0%, #002080 100%); }
+        .coin-icon.dot { background: linear-gradient(135deg, #e6007a 0%, #c30066 100%); }
+        .coin-icon.default { background: linear-gradient(135deg, #555555 0%, #333333 100%); }
+
+        .coin-title h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .coin-title .symbol {
+            font-size: 0.75rem;
+            color: #888888;
+            margin-top: 2px;
+        }
+
+        .price-section {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .current-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .price-change {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .positive { color: #00d26a; }
+        .negative { color: #ff4757; }
+        .neutral { color: #888888; }
+
+        .chart-container {
+            position: relative;
+            height: 200px;
+            margin: 0 -16px 32px -16px;
+            padding: 0 8px;
+        }
+
+        .chart-period {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666666;
+            margin-bottom: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            border: 1px solid #1a1a1a;
+        }
+
+        .stat-label {
+            font-size: 0.625rem;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .updated {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #444444;
+        }
+
+        @media (max-width: 360px) {
+            .current-price {
+                font-size: 2rem;
+            }
+
+            .stat-card {
+                padding: 12px 8px;
+            }
+
+            .stat-value {
+                font-size: 0.875rem;
+            }
+        }
+
+        /* Prevent text selection for app-like feel */
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Touch feedback */
+        .back-button:active,
+        .stat-card:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="{{ .Site.BaseURL }}" class="back-button">‹</a>
+        <div class="coin-header">
+            <div class="coin-icon {{ lower .Params.symbol }}">{{ .Params.symbol }}</div>
+            <div class="coin-title">
+                <h1>{{ .Params.name }}</h1>
+                <div class="symbol">{{ .Params.symbol }}</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="price-section">
+        <div class="current-price">${{ lang.FormatNumber 2 .Params.price }}</div>
+        {{ $change := .Params.change_30d }}
+        {{ $changeClass := "neutral" }}
+        {{ if gt $change 0.0 }}{{ $changeClass = "positive" }}{{ else if lt $change 0.0 }}{{ $changeClass = "negative" }}{{ end }}
+        <div class="price-change {{ $changeClass }}">
+            {{ if .Params.change_30d_ok }}
+                {{ if gt $change 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 $change }}% (30d)
+            {{ else }}
+                —
+            {{ end }}
+        </div>
+    </section>
+
+    <div class="chart-period">Last 30 Days</div>
+    <div class="chart-container">
+        <canvas id="priceChart"></canvas>
+    </div>
+
+    <section class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">24h</div>
+            <div class="stat-value {{ if gt .Params.change_24h 0.0 }}positive{{ else if lt .Params.change_24h 0.0 }}negative{{ else }}neutral{{ end }}">
+                {{ if gt .Params.change_24h 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 .Params.change_24h }}%
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">7 Days</div>
+            <div class="stat-value {{ if not .Params.change_7d_ok }}neutral{{ else if gt .Params.change_7d 0.0 }}positive{{ else if lt .Params.change_7d 0.0 }}negative{{ else }}neutral{{ end }}">
+                {{ if .Params.change_7d_ok }}
+                    {{ if gt .Params.change_7d 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 .Params.change_7d }}%
+                {{ else }}
+                    —
+                {{ end }}
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">30 Days</div>
+            <div class="stat-value {{ if not .Params.change_30d_ok }}neutral{{ else if gt .Params.change_30d 0.0 }}positive{{ else if lt .Params.change_30d 0.0 }}negative{{ else }}neutral{{ end }}">
+                {{ if .Params.change_30d_ok }}
+                    {{ if gt .Params.change_30d 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 .Params.change_30d }}%
+                {{ else }}
+                    —
+                {{ end }}
+            </div>
+        </div>
+    </section>
+
+    <p class="updated">Updated: {{ .Params.updated_at | time.Format "Jan 2, 2006 3:04 PM UTC" }}</p>
+
+    <script>
+        // Price history data from Hugo
+        const priceHistory = [
+            {{ range $i, $point := .Params.history }}
+            {{ if $i }},{{ end }}{ timestamp: "{{ $point.timestamp }}", price: {{ $point.price }} }
+            {{ end }}
+        ];
+
+        // Determine trend color based on 30-day change
+        const change30d = {{ if .Params.change_30d_ok }}{{ .Params.change_30d }}{{ else }}0{{ end }};
+        const isPositive = change30d >= 0;
+        const lineColor = isPositive ? '#00d26a' : '#ff4757';
+        const gradientColorStart = isPositive ? 'rgba(0, 210, 106, 0.3)' : 'rgba(255, 71, 87, 0.3)';
+        const gradientColorEnd = 'rgba(0, 0, 0, 0)';
+
+        // Prepare chart data
+        const labels = priceHistory.map(p => {
+            const date = new Date(p.timestamp);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        const prices = priceHistory.map(p => p.price);
+
+        // Create gradient
+        const ctx = document.getElementById('priceChart').getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+        gradient.addColorStop(0, gradientColorStart);
+        gradient.addColorStop(1, gradientColorEnd);
+
+        // Chart.js configuration - Revolut style
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: prices,
+                    borderColor: lineColor,
+                    backgroundColor: gradient,
+                    borderWidth: 2.5,
+                    fill: true,
+                    tension: 0.4, // Smooth curves like Revolut
+                    pointRadius: 0, // No visible points
+                    pointHitRadius: 20, // Large touch target
+                    pointHoverRadius: 6,
+                    pointHoverBackgroundColor: lineColor,
+                    pointHoverBorderColor: '#ffffff',
+                    pointHoverBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(17, 17, 17, 0.95)',
+                        titleColor: '#888888',
+                        bodyColor: '#ffffff',
+                        bodyFont: {
+                            size: 16,
+                            weight: 'bold'
+                        },
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: {
+                            title: function(items) {
+                                return items[0].label;
+                            },
+                            label: function(context) {
+                                return '$' + context.parsed.y.toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                });
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        display: false, // Hide x-axis for floating look
+                        grid: {
+                            display: false
+                        },
+                        border: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        display: false, // Hide y-axis for floating look
+                        grid: {
+                            display: false
+                        },
+                        border: {
+                            display: false
+                        }
+                    }
+                },
+                elements: {
+                    line: {
+                        capBezierPoints: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -18,12 +18,15 @@ import (
 )
 
 const (
-	dbPath       = "./crypto_history.db"
-	readmePath   = "./README.md"
-	hugoDataPath = "./data/crypto.json"
-	fileMode     = 0644
-	dirMode      = 0755
-	timeout      = 2 * time.Minute
+	dbPath          = "./crypto_history.db"
+	readmePath      = "./README.md"
+	hugoDataPath    = "./data/crypto.json"
+	hugoHistoryPath = "./data/history"
+	fileMode        = 0644
+	dirMode         = 0755
+	timeout         = 5 * time.Minute
+	requiredDays    = 30
+	rateLimitDelay  = 6 * time.Second
 )
 
 func main() {
@@ -44,7 +47,6 @@ func main() {
 }
 
 func run(ctx context.Context) error {
-	// Initialize dependencies
 	fetcher := api.NewCoinGeckoClient()
 
 	repo, err := db.NewSQLiteRepository(dbPath)
@@ -55,23 +57,71 @@ func run(ctx context.Context) error {
 
 	generator := markdown.NewReadmeBuilder()
 
-	// Create and run service
+	coins := domain.DefaultCoins()
+
+	if err := ensureHistoricalData(ctx, fetcher, repo, coins); err != nil {
+		log.Printf("Warning: failed to backfill some historical data: %v", err)
+	}
+
 	svc := service.NewCryptoService(fetcher, repo, generator)
 
-	coins := domain.DefaultCoins()
 	content, stats, err := svc.UpdateAndGenerateReport(ctx, coins)
 	if err != nil {
 		return err
 	}
 
-	// Write README
 	if err := os.WriteFile(readmePath, []byte(content), fileMode); err != nil {
 		return err
 	}
 
-	// Export JSON data for Hugo
 	if err := exportJSONData(stats, coins); err != nil {
 		return err
+	}
+
+	if err := exportCoinHistories(repo, coins); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ensureHistoricalData checks if we have enough history and backfills if needed
+func ensureHistoricalData(ctx context.Context, fetcher domain.PriceFetcher, repo *db.SQLiteRepository, coins []domain.CoinMetadata) error {
+	for _, coin := range coins {
+		daysAvailable, err := repo.GetHistoryDaysCount(coin.ID)
+		if err != nil {
+			log.Printf("Error checking history for %s: %v", coin.ID, err)
+			continue
+		}
+
+		if daysAvailable >= requiredDays {
+			log.Printf("%s: %d days of history available (sufficient)", coin.Name, daysAvailable)
+			continue
+		}
+
+		daysNeeded := requiredDays + 5 // Fetch extra days for buffer
+		log.Printf("%s: only %d days available, fetching %d days of history...", coin.Name, daysAvailable, daysNeeded)
+
+		// Rate limiting
+		time.Sleep(rateLimitDelay)
+
+		prices, err := fetcher.FetchHistoricalPrices(ctx, coin.ID, daysNeeded)
+		if err != nil {
+			log.Printf("Error fetching history for %s: %v", coin.ID, err)
+			continue
+		}
+
+		// Save each price point
+		for _, price := range prices {
+			priceMap := map[string]domain.CryptoPrice{
+				coin.ID: price,
+			}
+			if err := repo.SavePrices(priceMap); err != nil {
+				log.Printf("Error saving historical price for %s: %v", coin.ID, err)
+			}
+		}
+
+		log.Printf("%s: saved %d historical price points", coin.Name, len(prices))
 	}
 
 	return nil
@@ -155,5 +205,128 @@ func exportJSONData(stats []domain.CoinStats, coins []domain.CoinMetadata) error
 	}
 
 	log.Printf("JSON data exported to %s", hugoDataPath)
+	return nil
+}
+
+// CoinHistory represents the JSON structure for individual coin history
+type CoinHistory struct {
+	ID        string           `json:"id"`
+	Name      string           `json:"name"`
+	Symbol    string           `json:"symbol"`
+	UpdatedAt string           `json:"updated_at"`
+	Current   CryptoDataItem   `json:"current"`
+	History   []PriceDataPoint `json:"history"`
+}
+
+// PriceDataPoint represents a single price point in history
+type PriceDataPoint struct {
+	Timestamp string  `json:"timestamp"`
+	Price     float64 `json:"price"`
+}
+
+// exportCoinHistories exports individual history files for each coin
+func exportCoinHistories(repo *db.SQLiteRepository, coins []domain.CoinMetadata) error {
+	log.Println("Exporting individual coin history files...")
+
+	// Ensure history directory exists
+	if err := os.MkdirAll(hugoHistoryPath, dirMode); err != nil {
+		return err
+	}
+
+	for _, coin := range coins {
+		history, err := repo.GetPriceHistory(coin.ID, requiredDays)
+		if err != nil {
+			log.Printf("Error getting history for %s: %v", coin.ID, err)
+			continue
+		}
+
+		// Get current price (most recent)
+		var currentPrice float64
+		var change24h, change7d, change30d float64
+		var has7d, has30d bool
+		if len(history) > 0 {
+			currentPrice = history[len(history)-1].PriceUSD
+		}
+
+		// Calculate changes from history
+		if len(history) > 1 {
+			now := time.Now().UTC()
+
+			// Find prices at different intervals by looking backwards
+			for i := len(history) - 2; i >= 0; i-- {
+				hoursDiff := now.Sub(history[i].FetchedAt).Hours()
+				daysDiff := hoursDiff / 24
+
+				// 24h change - find first price at least 20 hours ago
+				if change24h == 0 && hoursDiff >= 20 {
+					change24h = ((currentPrice - history[i].PriceUSD) / history[i].PriceUSD) * 100
+				}
+				// 7d change - find first price at least 6.5 days ago
+				if !has7d && daysDiff >= 6.5 {
+					change7d = ((currentPrice - history[i].PriceUSD) / history[i].PriceUSD) * 100
+					has7d = true
+				}
+				// 30d change - find first price at least 28 days ago
+				if !has30d && daysDiff >= 28 {
+					change30d = ((currentPrice - history[i].PriceUSD) / history[i].PriceUSD) * 100
+					has30d = true
+					break
+				}
+			}
+
+			// If we don't have 30d data but have old enough history, use oldest price
+			if !has30d && len(history) > 0 {
+				oldestDays := now.Sub(history[0].FetchedAt).Hours() / 24
+				if oldestDays >= 25 { // Use oldest if it's at least 25 days old
+					change30d = ((currentPrice - history[0].PriceUSD) / history[0].PriceUSD) * 100
+					has30d = true
+				}
+			}
+		}
+
+		// Build history data points
+		historyPoints := make([]PriceDataPoint, 0, len(history))
+		for _, h := range history {
+			historyPoints = append(historyPoints, PriceDataPoint{
+				Timestamp: h.FetchedAt.Format(time.RFC3339),
+				Price:     h.PriceUSD,
+			})
+		}
+
+		coinHistory := CoinHistory{
+			ID:        coin.ID,
+			Name:      coin.Name,
+			Symbol:    coin.Symbol,
+			UpdatedAt: time.Now().UTC().Format(time.RFC3339),
+			Current: CryptoDataItem{
+				ID:          coin.ID,
+				Name:        coin.Name,
+				Symbol:      coin.Symbol,
+				Price:       currentPrice,
+				Change24h:   change24h,
+				Change7d:    change7d,
+				Change7dOk:  has7d,
+				Change30d:   change30d,
+				Change30dOk: has30d,
+			},
+			History: historyPoints,
+		}
+
+		// Write to file
+		filePath := filepath.Join(hugoHistoryPath, coin.ID+".json")
+		jsonBytes, err := json.MarshalIndent(coinHistory, "", "  ")
+		if err != nil {
+			log.Printf("Error marshaling history for %s: %v", coin.ID, err)
+			continue
+		}
+
+		if err := os.WriteFile(filePath, jsonBytes, fileMode); err != nil {
+			log.Printf("Error writing history file for %s: %v", coin.ID, err)
+			continue
+		}
+
+		log.Printf("Exported history for %s (%d points)", coin.Name, len(historyPoints))
+	}
+
 	return nil
 }

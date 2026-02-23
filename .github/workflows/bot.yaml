@@ -51,7 +51,7 @@ jobs:
           git config --global user.name "Victor Uzunov"
           git config --global user.email "uzunovvictor@gmail.com"
           
-          git add README.md crypto_history.db data/crypto.json
+          git add README.md crypto_history.db data/crypto.json data/history/
           
           if git diff --staged --quiet; then
             echo "No changes to commit."

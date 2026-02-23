@@ -158,6 +158,26 @@
             color: #888888;
         }
 
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card-link:hover .card {
+            border-color: #333333;
+        }
+
+        .card-link:active .card {
+            transform: scale(0.98);
+        }
+
+        .card .chevron {
+            color: #444444;
+            font-size: 1.25rem;
+            margin-left: 8px;
+        }
+
         @media (max-width: 480px) {
             body {
                 padding: 12px;
@@ -180,7 +200,7 @@
 </head>
 <body>
     <header class="header">
-        <h1>📈 Crypto Dashboard</h1>
+        <h1>Crypto Dashboard</h1>
         {{ with .Site.Data.crypto }}
         <p class="updated">Last updated: {{ .updated_at | time.Format "Jan 2, 2006 3:04 PM UTC" }}</p>
         {{ end }}
@@ -189,6 +209,7 @@
     <main class="cards">
         {{ with .Site.Data.crypto }}
         {{ range .coins }}
+        <a href="{{ $.Site.BaseURL }}coins/{{ .id }}/" class="card-link">
         <article class="card">
             <div class="card-header">
                 <div class="coin-info">
@@ -198,7 +219,10 @@
                         <div class="coin-symbol">{{ .symbol }}</div>
                     </div>
                 </div>
-                <div class="price">${{ lang.FormatNumber 2 .price }}</div>
+                <div style="display: flex; align-items: center;">
+                    <div class="price">${{ lang.FormatNumber 2 .price }}</div>
+                    <span class="chevron">›</span>
+                </div>
             </div>
             <div class="changes">
                 <div class="change-item">
@@ -229,6 +253,7 @@
                 </div>
             </div>
         </article>
+        </a>
         {{ end }}
         {{ end }}
     </main>
