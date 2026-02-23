@@ -14,7 +14,12 @@
 
 ---
 
-## You can open the following link for more details: https://viczuno.github.io/go-crypto-bot/
+<div align="center">
+
+## Click the link below for more details
+https://viczuno.github.io/go-crypto-bot/
+
+</div>
 
 ## 💰 Live Prices & Trends
 
