@@ -10,12 +10,6 @@
 
 🕐 *Last updated: Monday, February 23, 2026 at 21:34 UTC*
 
-</div>
-
----
-
-<div align="center">
-
 ## Click the link below for more details
 https://viczuno.github.io/go-crypto-bot/
 
