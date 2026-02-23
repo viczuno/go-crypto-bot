@@ -17,13 +17,14 @@ func NewReadmeBuilder() *ReadmeBuilder {
 	return &ReadmeBuilder{}
 }
 
+var _ domain.ReadmeGenerator = (*ReadmeBuilder)(nil)
+
 // Generate creates the README content from coin statistics
 func (b *ReadmeBuilder) Generate(stats []domain.CoinStats, coins []domain.CoinMetadata) string {
 	var sb strings.Builder
 	now := time.Now().UTC()
 
 	b.writeHeader(&sb, now)
-	b.writeMarketOverview(&sb, stats, coins)
 	b.writePriceTable(&sb, stats, coins)
 	b.writePerformanceChart(&sb, stats, coins)
 	b.writeFooter(&sb)
@@ -85,7 +86,6 @@ func (b *ReadmeBuilder) writePriceTable(sb *strings.Builder, stats []domain.Coin
 	sb.WriteString("<th align=\"center\">24h</th>\n")
 	sb.WriteString("<th align=\"center\">7 Days</th>\n")
 	sb.WriteString("<th align=\"center\">30 Days</th>\n")
-	sb.WriteString("<th align=\"center\">Trend</th>\n")
 	sb.WriteString("</tr>\n")
 	sb.WriteString("</thead>\n")
 	sb.WriteString("<tbody>\n")
@@ -106,16 +106,12 @@ func (b *ReadmeBuilder) writePriceTable(sb *strings.Builder, stats []domain.Coin
 		change7d := b.formatHistoricalChange(s.Change7d)
 		change30d := b.formatHistoricalChange(s.Change30d)
 
-		// Determine trend
-		trend := b.calculateTrend(s)
-
 		sb.WriteString("<tr>\n")
-		sb.WriteString(fmt.Sprintf("<td><b>%s %s</b><br/><sub>%s</sub></td>\n", meta.Name, meta.Symbol))
+		sb.WriteString(fmt.Sprintf("<td><b>%s %s</b><br/></td>\n", meta.Name, meta.Symbol))
 		sb.WriteString(fmt.Sprintf("<td align=\"right\"><code>%s</code></td>\n", priceStr))
 		sb.WriteString(fmt.Sprintf("<td align=\"center\">%s</td>\n", change24h))
 		sb.WriteString(fmt.Sprintf("<td align=\"center\">%s</td>\n", change7d))
 		sb.WriteString(fmt.Sprintf("<td align=\"center\">%s</td>\n", change30d))
-		sb.WriteString(fmt.Sprintf("<td align=\"center\">%s</td>\n", trend))
 		sb.WriteString("</tr>\n")
 	}
 
@@ -218,42 +214,3 @@ func (b *ReadmeBuilder) formatHistoricalChange(pc domain.PriceChange) string {
 	}
 	return b.formatChangeWithColor(pc.PctChange)
 }
-
-func (b *ReadmeBuilder) calculateTrend(s domain.CoinStats) string {
-	// Simple trend calculation based on available data
-	score := 0
-
-	if s.Change24h > 0 {
-		score++
-	} else if s.Change24h < 0 {
-		score--
-	}
-
-	if s.Change7d.HasData {
-		if s.Change7d.PctChange > 0 {
-			score++
-		} else if s.Change7d.PctChange < 0 {
-			score--
-		}
-	}
-
-	if s.Change30d.HasData {
-		if s.Change30d.PctChange > 0 {
-			score++
-		} else if s.Change30d.PctChange < 0 {
-			score--
-		}
-	}
-
-	switch {
-	case score >= 2:
-		return "📈"
-	case score <= -2:
-		return "📉"
-	default:
-		return "➡️"
-	}
-}
-
-// Ensure ReadmeBuilder implements ReadmeGenerator
-var _ domain.ReadmeGenerator = (*ReadmeBuilder)(nil)
