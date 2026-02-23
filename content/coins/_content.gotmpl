@@ -1,0 +1,40 @@
+{{/* Content adapter to generate pages for each coin from data files */}}
+
+{{ $coins := slice }}
+
+{{ range $file := (os.ReadDir "data/history") }}
+  {{ if strings.HasSuffix $file.Name ".json" }}
+    {{ $data := os.ReadFile (printf "data/history/%s" $file.Name) | transform.Unmarshal }}
+    {{ $coins = $coins | append $data }}
+  {{ end }}
+{{ end }}
+
+{{ range $coins }}
+  {{ $content := dict
+    "mediaType" "text/html"
+    "value" ""
+    "path" .id
+  }}
+  {{ $params := dict
+    "id" .id
+    "name" .name
+    "symbol" .symbol
+    "price" .current.price
+    "change_24h" .current.change_24h
+    "change_7d" .current.change_7d
+    "change_7d_ok" .current.change_7d_ok
+    "change_30d" .current.change_30d
+    "change_30d_ok" .current.change_30d_ok
+    "history" .history
+    "updated_at" .updated_at
+  }}
+  {{ $page := dict
+    "content" $content
+    "kind" "page"
+    "title" .name
+    "path" .id
+    "params" $params
+  }}
+  {{ $.AddPage $page }}
+{{ end }}
+

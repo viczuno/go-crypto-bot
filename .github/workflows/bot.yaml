@@ -6,10 +6,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-portfolio:
+  update-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
+      id-token: write
+
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
 
     steps:
       - name: Checkout Repository
@@ -20,15 +26,32 @@ jobs:
         with:
           go-version: '1.24'
 
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Restore SQLite Database
+        run: |
+          if [ -f "crypto_history.db" ]; then
+            echo "Database file found, preserving historical data"
+          else
+            echo "No existing database, will be created on first run"
+          fi
+
       - name: Run Go-Crypto-Bot
         run: go run ./cmd/main.go
 
-      - name: Commit and Push Changes
+      - name: Build Hugo Site
+        run: hugo --minify
+
+      - name: Commit Data Files
         run: |
           git config --global user.name "Victor Uzunov"
           git config --global user.email "uzunovvictor@gmail.com"
           
-          git add README.md crypto_history.db
+          git add README.md crypto_history.db data/crypto.json data/history/
           
           if git diff --staged --quiet; then
             echo "No changes to commit."
@@ -36,3 +59,12 @@ jobs:
             git commit -m "Daily crypto prices update (automated)"
             git push
           fi
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

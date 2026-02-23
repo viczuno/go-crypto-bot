@@ -6,3 +6,9 @@
 *.dylib
 .DS_Store
 Thumbs.db
+
+# Hugo output
+public/
+resources/_gen/
+.hugo_build.lock
+

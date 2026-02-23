@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/viczuno/go-crypto-bot/internal/domain"
 	_ "modernc.org/sqlite"
@@ -22,13 +23,13 @@ func NewSQLiteRepository(filepath string) (*SQLiteRepository, error) {
 
 	// Test the connection
 	if err := db.Ping(); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
 	repo := &SQLiteRepository{conn: db}
 	if err := repo.initSchema(); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, fmt.Errorf("failed to initialize schema: %w", err)
 	}
 
@@ -59,14 +60,14 @@ func (r *SQLiteRepository) SavePrices(prices map[string]domain.CryptoPrice) erro
 
 	stmt, err := tx.Prepare("INSERT INTO prices (coin, price, timestamp) VALUES (?, ?, ?)")
 	if err != nil {
-		tx.Rollback()
+		_ = tx.Rollback()
 		return fmt.Errorf("failed to prepare statement: %w", err)
 	}
-	defer stmt.Close()
+	defer func() { _ = stmt.Close() }()
 
 	for _, data := range prices {
 		if _, err := stmt.Exec(data.Coin, data.PriceUSD, data.FetchedAt); err != nil {
-			tx.Rollback()
+			_ = tx.Rollback()
 			return fmt.Errorf("failed to insert price for %s: %w", data.Coin, err)
 		}
 	}
@@ -83,7 +84,7 @@ func (r *SQLiteRepository) GetHistoricalPrice(coinID string, daysAgo int) (float
 	query := `
 		SELECT price 
 		FROM prices 
-		WHERE coin = ? AND timestamp <= datetime('now', ?) 
+		WHERE coin = ? AND substr(timestamp, 1, 19) <= datetime('now', ?) 
 		ORDER BY timestamp DESC 
 		LIMIT 1
 	`
@@ -100,6 +101,62 @@ func (r *SQLiteRepository) GetHistoricalPrice(coinID string, daysAgo int) (float
 	}
 
 	return price, true, nil
+}
+
+// GetPriceHistory retrieves price history for a coin for the last N days
+func (r *SQLiteRepository) GetPriceHistory(coinID string, days int) ([]domain.CryptoPrice, error) {
+	query := `
+		SELECT coin, price, timestamp 
+		FROM prices 
+		WHERE coin = ? AND substr(timestamp, 1, 19) >= datetime('now', ?)
+		ORDER BY timestamp ASC
+	`
+	timeModifier := fmt.Sprintf("-%d days", days)
+
+	rows, err := r.conn.Query(query, coinID, timeModifier)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query price history: %w", err)
+	}
+	defer rows.Close()
+
+	var prices []domain.CryptoPrice
+	for rows.Next() {
+		var p domain.CryptoPrice
+		var timestamp string
+		if err := rows.Scan(&p.Coin, &p.PriceUSD, &timestamp); err != nil {
+			return nil, fmt.Errorf("failed to scan row: %w", err)
+		}
+
+		parsed, err := time.Parse(time.RFC3339, timestamp)
+		if err != nil {
+			parsed, err = time.Parse("2006-01-02 15:04:05 +0000 UTC", timestamp)
+			if err != nil {
+				parsed, _ = time.Parse("2006-01-02 15:04:05", timestamp[:min(19, len(timestamp))])
+			}
+		}
+		p.FetchedAt = parsed
+		prices = append(prices, p)
+	}
+
+	return prices, rows.Err()
+}
+
+// GetHistoryDaysCount returns the number of days of history available for a coin
+func (r *SQLiteRepository) GetHistoryDaysCount(coinID string) (int, error) {
+	query := `
+		SELECT CAST(julianday('now') - julianday(MIN(substr(timestamp, 1, 19))) AS INTEGER)
+		FROM prices 
+		WHERE coin = ?
+	`
+	var days sql.NullInt64
+	err := r.conn.QueryRow(query, coinID).Scan(&days)
+	if err != nil {
+		return 0, fmt.Errorf("failed to query history days: %w", err)
+	}
+	if !days.Valid {
+		return 0, nil
+	}
+	return int(days.Int64), nil
 }
 
 // Close closes the database connection

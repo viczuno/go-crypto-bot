@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>{{ .Site.Title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 16px;
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-top: env(safe-area-inset-top, 8px);
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .updated {
+            font-size: 0.75rem;
+            color: #666666;
+        }
+
+        .cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #1a1a1a;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .coin-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .coin-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .coin-icon.btc { background: linear-gradient(135deg, #f7931a 0%, #e8800a 100%); }
+        .coin-icon.eth { background: linear-gradient(135deg, #627eea 0%, #4e6dde 100%); }
+        .coin-icon.sol { background: linear-gradient(135deg, #00ffa3 0%, #dc1fff 100%); color: #000; }
+        .coin-icon.ada { background: linear-gradient(135deg, #0033ad 0%, #002080 100%); }
+        .coin-icon.dot { background: linear-gradient(135deg, #e6007a 0%, #c30066 100%); }
+        .coin-icon.default { background: linear-gradient(135deg, #555555 0%, #333333 100%); }
+
+        .coin-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .coin-symbol {
+            font-size: 0.75rem;
+            color: #888888;
+            margin-top: 2px;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .changes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .change-item {
+            background: #0d0d0d;
+            border-radius: 8px;
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .change-label {
+            font-size: 0.625rem;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .change-value {
+            font-size: 0.9375rem;
+            font-weight: 600;
+        }
+
+        .positive { color: #00d26a; }
+        .negative { color: #ff4757; }
+        .neutral { color: #888888; }
+
+        .footer {
+            text-align: center;
+            margin-top: 32px;
+            padding-bottom: 16px;
+        }
+
+        .footer a {
+            color: #666666;
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+
+        .footer a:hover {
+            color: #888888;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card-link:hover .card {
+            border-color: #333333;
+        }
+
+        .card-link:active .card {
+            transform: scale(0.98);
+        }
+
+        .card .chevron {
+            color: #444444;
+            font-size: 1.25rem;
+            margin-left: 8px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .price {
+                font-size: 1.25rem;
+            }
+        }
+
+        .card, .header {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Crypto Dashboard</h1>
+        {{ with .Site.Data.crypto }}
+        <p class="updated">Last updated: {{ .updated_at | time.Format "Jan 2, 2006 3:04 PM UTC" }}</p>
+        {{ end }}
+    </header>
+
+    <main class="cards">
+        {{ with .Site.Data.crypto }}
+        {{ range .coins }}
+        <a href="{{ $.Site.BaseURL }}coins/{{ .id }}/" class="card-link">
+        <article class="card">
+            <div class="card-header">
+                <div class="coin-info">
+                    <div class="coin-icon {{ lower .symbol }}">{{ .symbol }}</div>
+                    <div>
+                        <div class="coin-name">{{ .name }}</div>
+                        <div class="coin-symbol">{{ .symbol }}</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div class="price">${{ lang.FormatNumber 2 .price }}</div>
+                    <span class="chevron">›</span>
+                </div>
+            </div>
+            <div class="changes">
+                <div class="change-item">
+                    <div class="change-label">24h</div>
+                    <div class="change-value {{ if gt .change_24h 0.0 }}positive{{ else if lt .change_24h 0.0 }}negative{{ else }}neutral{{ end }}">
+                        {{ if gt .change_24h 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 .change_24h }}%
+                    </div>
+                </div>
+                <div class="change-item">
+                    <div class="change-label">7d</div>
+                    <div class="change-value {{ if not .change_7d_ok }}neutral{{ else if gt .change_7d 0.0 }}positive{{ else if lt .change_7d 0.0 }}negative{{ else }}neutral{{ end }}">
+                        {{ if .change_7d_ok }}
+                            {{ if gt .change_7d 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 .change_7d }}%
+                        {{ else }}
+                            —
+                        {{ end }}
+                    </div>
+                </div>
+                <div class="change-item">
+                    <div class="change-label">30d</div>
+                    <div class="change-value {{ if not .change_30d_ok }}neutral{{ else if gt .change_30d 0.0 }}positive{{ else if lt .change_30d 0.0 }}negative{{ else }}neutral{{ end }}">
+                        {{ if .change_30d_ok }}
+                            {{ if gt .change_30d 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 .change_30d }}%
+                        {{ else }}
+                            —
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </article>
+        </a>
+        {{ end }}
+        {{ end }}
+    </main>
+
+    <footer class="footer">
+        <a href="https://github.com/viczuno/go-crypto-bot">View on GitHub</a>
+    </footer>
+</body>
+</html>
+

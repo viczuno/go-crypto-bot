@@ -11,6 +11,7 @@ type PriceFetcher interface {
 type PriceRepository interface {
 	SavePrices(prices map[string]CryptoPrice) error
 	GetHistoricalPrice(coinID string, daysAgo int) (float64, bool, error)
+	GetPriceHistory(coinID string, days int) ([]CryptoPrice, error)
 	Close() error
 }
 
