@@ -14,6 +14,12 @@
 
 ---
 
+<div align="center">
+
+## Crypto dasboard link - https://viczuno.github.io/go-crypto-bot/
+
+</div>
+
 ## 💰 Live Prices & Trends
 
 <table>
