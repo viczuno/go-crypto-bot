@@ -158,6 +158,32 @@
             color: #888888;
         }
 
+        .refresh-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            padding: 10px 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            margin-top: 16px;
+            text-decoration: none;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.02);
+            color: white;
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.98);
+        }
+
         .card-link {
             text-decoration: none;
             color: inherit;
@@ -202,8 +228,12 @@
     <header class="header">
         <h1>Crypto Dashboard</h1>
         {{ with .Site.Data.crypto }}
-        <p class="updated">Last updated: {{ .updated_at | time.Format "Jan 2, 2006 3:04 PM UTC" }}</p>
+        <p class="updated" id="lastUpdated">Last updated: {{ .updated_at | time.Format "Jan 2, 2006 3:04 PM UTC" }}</p>
         {{ end }}
+        <a href="https://github.com/viczuno/go-crypto-bot/actions/workflows/bot.yaml" target="_blank" class="refresh-btn">
+            <span>↻</span>
+            <span>Refresh Prices</span>
+        </a>
     </header>
 
     <main class="cards">
