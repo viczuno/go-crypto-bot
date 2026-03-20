@@ -1,48 +1,48 @@
 {
-  "updated_at": "2026-03-20T01:10:05Z",
+  "updated_at": "2026-03-20T12:34:33Z",
   "coins": [
     {
       "id": "bitcoin",
       "name": "Bitcoin",
       "symbol": "BTC",
-      "price": 70385,
-      "change_24h": -0.929741866364716,
-      "change_7d": -1.7668978800016748,
+      "price": 70375,
+      "change_24h": 1.1238015663655982,
+      "change_7d": -2.9096076375475968,
       "change_7d_ok": true,
-      "change_30d": 4.290365924638049,
+      "change_30d": 4.9261230636191495,
       "change_30d_ok": true
     },
     {
       "id": "ethereum",
       "name": "Ethereum",
       "symbol": "ETH",
-      "price": 2151.61,
-      "change_24h": -1.9229025273176221,
-      "change_7d": 1.1651142780570238,
+      "price": 2138.47,
+      "change_24h": -0.7370302496799603,
+      "change_7d": 0.24892647527611367,
       "change_7d_ok": true,
-      "change_30d": 8.012286976856833,
+      "change_30d": 8.411447111606796,
       "change_30d_ok": true
     },
     {
       "id": "solana",
       "name": "Solana",
       "symbol": "SOL",
-      "price": 89.56,
-      "change_24h": -0.6122577611165214,
-      "change_7d": -0.5220482061535031,
+      "price": 89.19,
+      "change_24h": 0.0955817180949879,
+      "change_7d": -1.3057430563240089,
       "change_7d_ok": true,
-      "change_30d": 5.260612610911694,
+      "change_30d": 5.575284090909084,
       "change_30d_ok": true
     },
     {
       "id": "cardano",
       "name": "Cardano",
       "symbol": "ADA",
-      "price": 0.270209,
-      "change_24h": -1.0404257463861821,
-      "change_7d": 0.06221277509711544,
+      "price": 0.267691,
+      "change_24h": 0.014909966392592485,
+      "change_7d": -2.991527327810518,
       "change_7d_ok": true,
-      "change_30d": -3.838877039336282,
+      "change_30d": -4.217505492382224,
       "change_30d_ok": true
     },
     {
@@ -50,10 +50,10 @@
       "name": "Polkadot",
       "symbol": "DOT",
       "price": 1.53,
-      "change_24h": -1.8141280125389472,
-      "change_7d": -0.6493506493506499,
+      "change_24h": -0.3481871676495178,
+      "change_7d": 0.6578947368421059,
       "change_7d_ok": true,
-      "change_30d": 13.510874282676848,
+      "change_30d": 14.179104477611936,
       "change_30d_ok": true
     }
   ]
