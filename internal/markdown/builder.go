@@ -1,3 +1,4 @@
+// Package markdown provides README generation for the crypto bot.
 package markdown
 
 import (
@@ -10,17 +11,17 @@ import (
 	"github.com/viczuno/go-crypto-bot/internal/domain"
 )
 
-// ReadmeBuilder implements domain.ReadmeGenerator
+// ReadmeBuilder implements domain.ReadmeGenerator.
 type ReadmeBuilder struct{}
 
-// NewReadmeBuilder creates a new README builder
+// NewReadmeBuilder creates a new README builder.
 func NewReadmeBuilder() *ReadmeBuilder {
 	return &ReadmeBuilder{}
 }
 
 var _ domain.ReadmeGenerator = (*ReadmeBuilder)(nil)
 
-// Generate creates the README content from coin statistics
+// Generate creates the README content from coin statistics.
 func (b *ReadmeBuilder) Generate(stats []domain.CoinStats, coins []domain.CoinMetadata) string {
 	var sb strings.Builder
 	now := time.Now().UTC()
@@ -66,11 +67,7 @@ func (b *ReadmeBuilder) writePriceTable(sb *strings.Builder, stats []domain.Coin
 
 	for _, s := range stats {
 		meta := coinMap[s.ID]
-
-		// Format price with proper formatting
 		priceStr := b.formatPrice(s.Price)
-
-		// Format changes
 		change24h := b.formatChangeWithColor(s.Change24h)
 		change7d := b.formatHistoricalChange(s.Change7d)
 		change30d := b.formatHistoricalChange(s.Change30d)
@@ -160,9 +157,7 @@ func (b *ReadmeBuilder) writeFooter(sb *strings.Builder) {
 }
 
 func (b *ReadmeBuilder) formatPrice(price float64) string {
-	if price >= 1000 {
-		return fmt.Sprintf("$%.2f", price)
-	} else if price >= 1 {
+	if price >= 1 {
 		return fmt.Sprintf("$%.2f", price)
 	}
 	return fmt.Sprintf("$%.4f", price)

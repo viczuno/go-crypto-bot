@@ -93,6 +93,5 @@ func (s *CryptoService) getHistoricalChange(ctx context.Context, coinID string, 
 		return domain.PriceChange{HasData: false, Days: days}
 	}
 
-	// Use the shared calculation function from domain
 	return domain.CalculatePriceChange(currentPrice, result.Price, days)
 }

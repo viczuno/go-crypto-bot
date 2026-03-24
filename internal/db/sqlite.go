@@ -13,7 +13,6 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-// timestampFormat is the standard format for storing timestamps.
 const timestampFormat = time.RFC3339
 
 // SQLiteRepository implements domain.PriceRepository using SQLite.
@@ -42,7 +41,6 @@ func NewSQLiteRepository(filepath string) (*SQLiteRepository, error) {
 	return repo, nil
 }
 
-// initSchema creates the required database tables.
 func (r *SQLiteRepository) initSchema() error {
 	query := `
 		CREATE TABLE IF NOT EXISTS prices (
@@ -149,25 +147,19 @@ func (r *SQLiteRepository) GetPriceHistory(ctx context.Context, coinID string, d
 	return prices, nil
 }
 
-// parseTimestamp attempts to parse a timestamp string with multiple format fallbacks.
-// This handles legacy data that may have been stored in different formats.
 func parseTimestamp(timestamp string) time.Time {
-	// Try RFC3339 first (preferred format)
 	if t, err := time.Parse(time.RFC3339, timestamp); err == nil {
 		return t
 	}
 
-	// Try Go's default format
 	if t, err := time.Parse("2006-01-02 15:04:05 +0000 UTC", timestamp); err == nil {
 		return t
 	}
 
-	// Try SQLite's default datetime format
 	if t, err := time.Parse("2006-01-02 15:04:05", timestamp); err == nil {
 		return t
 	}
 
-	// Last resort: truncate and try again
 	if len(timestamp) >= 19 {
 		if t, err := time.Parse("2006-01-02 15:04:05", timestamp[:19]); err == nil {
 			return t
@@ -203,5 +195,4 @@ func (r *SQLiteRepository) Close() error {
 	return nil
 }
 
-// Ensure SQLiteRepository implements PriceRepository.
 var _ domain.PriceRepository = (*SQLiteRepository)(nil)

@@ -10,23 +10,16 @@ import (
 
 // Config holds all application configuration values.
 type Config struct {
-	// Database configuration
-	DatabasePath string
-
-	// Output paths
+	DatabasePath    string
 	ReadmePath      string
 	HugoDataPath    string
 	HugoHistoryPath string
-
-	// API configuration
-	APIBaseURL   string
-	APITimeout   time.Duration
-	MaxRetries   int
-	RetryBackoff time.Duration
-
-	// Application settings
-	Timeout     time.Duration
-	HistoryDays int
+	APIBaseURL      string
+	APITimeout      time.Duration
+	MaxRetries      int
+	RetryBackoff    time.Duration
+	Timeout         time.Duration
+	HistoryDays     int
 }
 
 // Default configuration values.

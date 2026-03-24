@@ -69,7 +69,6 @@ func NewCoinGeckoClient(opts ...ClientOption) *CoinGeckoClient {
 	return c
 }
 
-// coinGeckoResponse represents the API response structure.
 type coinGeckoResponse map[string]struct {
 	USD          float64 `json:"usd"`
 	USD24hChange float64 `json:"usd_24h_change"`
@@ -104,9 +103,8 @@ func (c *CoinGeckoClient) FetchPrices(ctx context.Context, coinIDs []string) (ma
 	return result, nil
 }
 
-// historicalResponse represents CoinGecko market_chart response.
 type historicalResponse struct {
-	Prices [][]float64 `json:"prices"` // [[timestamp, price], ...]
+	Prices [][]float64 `json:"prices"`
 }
 
 // FetchHistoricalPrices retrieves historical prices for a coin.
@@ -137,7 +135,6 @@ func (c *CoinGeckoClient) FetchHistoricalPrices(ctx context.Context, coinID stri
 	return prices, nil
 }
 
-// doWithRetry performs an HTTP GET request with exponential backoff retry.
 func (c *CoinGeckoClient) doWithRetry(ctx context.Context, url string, result interface{}) error {
 	var lastErr error
 
@@ -158,19 +155,16 @@ func (c *CoinGeckoClient) doWithRetry(ctx context.Context, url string, result in
 
 		lastErr = err
 
-		// Don't retry on context cancellation or non-retryable errors
 		if ctx.Err() != nil {
 			return ctx.Err()
 		}
 
-		// Check if it's a rate limit error - worth retrying
 		if apperrors.IsAPIError(err) {
 			var apiErr *apperrors.APIError
 			if apperrors.IsAPIError(err) {
 				_ = err.(*apperrors.APIError)
 			}
 			if apiErr != nil && apiErr.StatusCode >= 400 && apiErr.StatusCode < 500 && apiErr.StatusCode != 429 {
-				// Client errors (except rate limit) are not retryable
 				return err
 			}
 		}
@@ -179,7 +173,6 @@ func (c *CoinGeckoClient) doWithRetry(ctx context.Context, url string, result in
 	return fmt.Errorf("max retries exceeded: %w", lastErr)
 }
 
-// doRequest performs a single HTTP GET request.
 func (c *CoinGeckoClient) doRequest(ctx context.Context, url string, result interface{}) error {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
@@ -209,7 +202,6 @@ func (c *CoinGeckoClient) doRequest(ctx context.Context, url string, result inte
 	return nil
 }
 
-// Ensure CoinGeckoClient implements interfaces.
 var (
 	_ domain.PriceFetcher           = (*CoinGeckoClient)(nil)
 	_ domain.HistoricalPriceFetcher = (*CoinGeckoClient)(nil)

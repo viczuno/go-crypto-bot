@@ -209,7 +209,6 @@ func calculateChanges(history []domain.CryptoPrice) priceChanges {
 		}
 	}
 
-	// Fallback for 30d if we have enough data but didn't hit the threshold
 	if !changes.change30d.HasData {
 		oldestDays := now.Sub(history[0].FetchedAt).Hours() / 24
 		if oldestDays >= domain.Days30Fallback {
