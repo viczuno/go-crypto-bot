@@ -20,9 +20,10 @@ type PriceChange struct {
 	Days         int
 }
 
-// CoinStats aggregates all statistics for a single coin
+// CoinStats aggregates all statistics for a single coin.
+// ID is the coin identifier (e.g., "bitcoin"), not the display name.
 type CoinStats struct {
-	Name      string
+	ID        string
 	Symbol    string
 	Price     float64
 	Change24h float64

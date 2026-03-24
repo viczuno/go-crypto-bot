@@ -1,3 +1,4 @@
+// Package service provides business logic orchestration for the crypto bot.
 package service
 
 import (
@@ -8,14 +9,14 @@ import (
 	"github.com/viczuno/go-crypto-bot/internal/domain"
 )
 
-// CryptoService coordinates fetching, storing, and reporting crypto prices
+// CryptoService coordinates fetching, storing, and reporting crypto prices.
 type CryptoService struct {
 	fetcher   domain.PriceFetcher
 	repo      domain.PriceRepository
 	generator domain.ReadmeGenerator
 }
 
-// NewCryptoService creates a new crypto service
+// NewCryptoService creates a new crypto service.
 func NewCryptoService(
 	fetcher domain.PriceFetcher,
 	repo domain.PriceRepository,
@@ -28,7 +29,7 @@ func NewCryptoService(
 	}
 }
 
-// UpdateAndGenerateReport fetches latest prices, stores them, and generates a report
+// UpdateAndGenerateReport fetches latest prices, stores them, and generates a report.
 func (s *CryptoService) UpdateAndGenerateReport(ctx context.Context, coins []domain.CoinMetadata) (string, []domain.CoinStats, error) {
 	coinIDs := make([]string, len(coins))
 	for i, c := range coins {
@@ -43,12 +44,12 @@ func (s *CryptoService) UpdateAndGenerateReport(ctx context.Context, coins []dom
 	log.Printf("Successfully fetched prices for %d coins", len(prices))
 
 	log.Println("Saving prices to database...")
-	if err := s.repo.SavePrices(prices); err != nil {
+	if err := s.repo.SavePrices(ctx, prices); err != nil {
 		return "", nil, fmt.Errorf("failed to save prices: %w", err)
 	}
 	log.Println("Prices saved successfully")
 
-	stats := s.buildStats(coins, prices)
+	stats := s.buildStats(ctx, coins, prices)
 
 	log.Println("Generating README...")
 	content := s.generator.Generate(stats, coins)
@@ -56,7 +57,7 @@ func (s *CryptoService) UpdateAndGenerateReport(ctx context.Context, coins []dom
 	return content, stats, nil
 }
 
-func (s *CryptoService) buildStats(coins []domain.CoinMetadata, prices map[string]domain.CryptoPrice) []domain.CoinStats {
+func (s *CryptoService) buildStats(ctx context.Context, coins []domain.CoinMetadata, prices map[string]domain.CryptoPrice) []domain.CoinStats {
 	stats := make([]domain.CoinStats, 0, len(coins))
 
 	for _, coin := range coins {
@@ -67,12 +68,12 @@ func (s *CryptoService) buildStats(coins []domain.CoinMetadata, prices map[strin
 		}
 
 		stat := domain.CoinStats{
-			Name:      coin.ID,
+			ID:        coin.ID,
 			Symbol:    coin.Symbol,
 			Price:     price.PriceUSD,
 			Change24h: price.Change24h,
-			Change7d:  s.getHistoricalChange(coin.ID, price.PriceUSD, 7),
-			Change30d: s.getHistoricalChange(coin.ID, price.PriceUSD, 30),
+			Change7d:  s.getHistoricalChange(ctx, coin.ID, price.PriceUSD, domain.Days7),
+			Change30d: s.getHistoricalChange(ctx, coin.ID, price.PriceUSD, domain.Days30),
 		}
 
 		stats = append(stats, stat)
@@ -81,31 +82,16 @@ func (s *CryptoService) buildStats(coins []domain.CoinMetadata, prices map[strin
 	return stats
 }
 
-func (s *CryptoService) getHistoricalChange(coinID string, currentPrice float64, days int) domain.PriceChange {
-	pastPrice, hasData, err := s.repo.GetHistoricalPrice(coinID, days)
+func (s *CryptoService) getHistoricalChange(ctx context.Context, coinID string, currentPrice float64, days int) domain.PriceChange {
+	result, err := s.repo.GetHistoricalPrice(ctx, coinID, days)
 	if err != nil {
 		log.Printf("Error getting %d-day history for %s: %v", days, coinID, err)
 		return domain.PriceChange{HasData: false, Days: days}
 	}
 
-	if !hasData {
+	if !result.Found {
 		return domain.PriceChange{HasData: false, Days: days}
 	}
 
-	absChange := currentPrice - pastPrice
-	pctChange := (absChange / pastPrice) * 100.0
-
-	return domain.PriceChange{
-		PastPrice:    pastPrice,
-		CurrentPrice: currentPrice,
-		AbsChange:    absChange,
-		PctChange:    pctChange,
-		HasData:      true,
-		Days:         days,
-	}
-}
-
-// Close cleans up service resources
-func (s *CryptoService) Close() error {
-	return s.repo.Close()
+	return domain.CalculatePriceChange(currentPrice, result.Price, days)
 }

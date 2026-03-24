@@ -1,7 +1,9 @@
+// Package markdown provides README generation for the crypto bot.
 package markdown
 
 import (
 	"fmt"
+	"html"
 	"net/url"
 	"strings"
 	"time"
@@ -9,17 +11,17 @@ import (
 	"github.com/viczuno/go-crypto-bot/internal/domain"
 )
 
-// ReadmeBuilder implements domain.ReadmeGenerator
+// ReadmeBuilder implements domain.ReadmeGenerator.
 type ReadmeBuilder struct{}
 
-// NewReadmeBuilder creates a new README builder
+// NewReadmeBuilder creates a new README builder.
 func NewReadmeBuilder() *ReadmeBuilder {
 	return &ReadmeBuilder{}
 }
 
 var _ domain.ReadmeGenerator = (*ReadmeBuilder)(nil)
 
-// Generate creates the README content from coin statistics
+// Generate creates the README content from coin statistics.
 func (b *ReadmeBuilder) Generate(stats []domain.CoinStats, coins []domain.CoinMetadata) string {
 	var sb strings.Builder
 	now := time.Now().UTC()
@@ -39,41 +41,9 @@ func (b *ReadmeBuilder) writeHeader(sb *strings.Builder, now time.Time) {
 	sb.WriteString("[![Data Source](https://img.shields.io/badge/data-CoinGecko-orange)](https://coingecko.com)\n")
 	sb.WriteString("[![Built with Go](https://img.shields.io/badge/built%20with-Go-00ADD8?logo=go)](https://golang.org)\n\n")
 	sb.WriteString("**Real-time cryptocurrency tracking powered by GitHub Actions**\n\n")
-	sb.WriteString(fmt.Sprintf("🕐 *Last updated: %s*\n\n", now.Format("Monday, January 2, 2006 at 15:04 UTC")))
+	fmt.Fprintf(sb, "🕐 *Last updated: %s*\n\n", now.Format("Monday, January 2, 2006 at 15:04 UTC"))
 	sb.WriteString("</div>\n\n")
 	sb.WriteString("---\n\n")
-}
-
-func (b *ReadmeBuilder) writeMarketOverview(sb *strings.Builder, stats []domain.CoinStats, coins []domain.CoinMetadata) {
-	// Calculate market sentiment
-	gainers := 0
-	losers := 0
-	totalChange := 0.0
-
-	for _, s := range stats {
-		totalChange += s.Change24h
-		if s.Change24h > 0 {
-			gainers++
-		} else {
-			losers--
-		}
-	}
-
-	avgChange := totalChange / float64(len(stats))
-	sentiment := "🔴 Bearish"
-	if avgChange > 2 {
-		sentiment = "🟢 Bullish"
-	} else if avgChange > 0 {
-		sentiment = "🟡 Neutral"
-	}
-
-	sb.WriteString("## 📊 Market Overview\n\n")
-	sb.WriteString("<table>\n<tr>\n")
-	sb.WriteString(fmt.Sprintf("<td align=\"center\"><b>Market Sentiment</b><br/>%s</td>\n", sentiment))
-	sb.WriteString(fmt.Sprintf("<td align=\"center\"><b>Avg 24h Change</b><br/>%s</td>\n", b.formatChangeWithColor(avgChange)))
-	sb.WriteString(fmt.Sprintf("<td align=\"center\"><b>Gainers</b><br/>🟢 %d</td>\n", gainers))
-	sb.WriteString(fmt.Sprintf("<td align=\"center\"><b>Losers</b><br/>🔴 %d</td>\n", len(stats)-gainers))
-	sb.WriteString("</tr>\n</table>\n\n")
 }
 
 func (b *ReadmeBuilder) writePriceTable(sb *strings.Builder, stats []domain.CoinStats, coins []domain.CoinMetadata) {
@@ -96,22 +66,18 @@ func (b *ReadmeBuilder) writePriceTable(sb *strings.Builder, stats []domain.Coin
 	}
 
 	for _, s := range stats {
-		meta := coinMap[s.Name]
-
-		// Format price with proper formatting
+		meta := coinMap[s.ID]
 		priceStr := b.formatPrice(s.Price)
-
-		// Format changes
 		change24h := b.formatChangeWithColor(s.Change24h)
 		change7d := b.formatHistoricalChange(s.Change7d)
 		change30d := b.formatHistoricalChange(s.Change30d)
 
 		sb.WriteString("<tr>\n")
-		sb.WriteString(fmt.Sprintf("<td><b>%s %s</b><br/></td>\n", meta.Name, meta.Symbol))
-		sb.WriteString(fmt.Sprintf("<td align=\"right\"><code>%s</code></td>\n", priceStr))
-		sb.WriteString(fmt.Sprintf("<td align=\"center\">%s</td>\n", change24h))
-		sb.WriteString(fmt.Sprintf("<td align=\"center\">%s</td>\n", change7d))
-		sb.WriteString(fmt.Sprintf("<td align=\"center\">%s</td>\n", change30d))
+		fmt.Fprintf(sb, "<td><b>%s %s</b><br/></td>\n", html.EscapeString(meta.Name), html.EscapeString(meta.Symbol))
+		fmt.Fprintf(sb, "<td align=\"right\"><code>%s</code></td>\n", priceStr)
+		fmt.Fprintf(sb, "<td align=\"center\">%s</td>\n", change24h)
+		fmt.Fprintf(sb, "<td align=\"center\">%s</td>\n", change7d)
+		fmt.Fprintf(sb, "<td align=\"center\">%s</td>\n", change30d)
 		sb.WriteString("</tr>\n")
 	}
 
@@ -130,7 +96,7 @@ func (b *ReadmeBuilder) writePerformanceChart(sb *strings.Builder, stats []domai
 	var colors []string
 
 	for _, s := range stats {
-		meta := coinMap[s.Name]
+		meta := coinMap[s.ID]
 		labels = append(labels, fmt.Sprintf("'%s'", meta.Symbol))
 		data = append(data, fmt.Sprintf("%.2f", s.Change24h))
 		if s.Change24h >= 0 {
@@ -169,7 +135,7 @@ func (b *ReadmeBuilder) writePerformanceChart(sb *strings.Builder, stats []domai
 
 	sb.WriteString("## 24-Hour Performance\n\n")
 	sb.WriteString("<div align=\"center\">\n\n")
-	sb.WriteString(fmt.Sprintf("![24h Performance Chart](%s)\n\n", chartURL))
+	fmt.Fprintf(sb, "![24h Performance Chart](%s)\n\n", chartURL)
 	sb.WriteString("</div>\n\n")
 }
 
@@ -191,9 +157,7 @@ func (b *ReadmeBuilder) writeFooter(sb *strings.Builder) {
 }
 
 func (b *ReadmeBuilder) formatPrice(price float64) string {
-	if price >= 1000 {
-		return fmt.Sprintf("$%.2f", price)
-	} else if price >= 1 {
+	if price >= 1 {
 		return fmt.Sprintf("$%.2f", price)
 	}
 	return fmt.Sprintf("$%.4f", price)
