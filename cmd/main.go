@@ -2,13 +2,14 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
 	"github.com/viczuno/go-crypto-bot/internal/api"
+	"github.com/viczuno/go-crypto-bot/internal/config"
 	"github.com/viczuno/go-crypto-bot/internal/db"
 	"github.com/viczuno/go-crypto-bot/internal/domain"
 	"github.com/viczuno/go-crypto-bot/internal/exporter"
@@ -16,37 +17,46 @@ import (
 	"github.com/viczuno/go-crypto-bot/internal/service"
 )
 
-const (
-	dbPath          = "./crypto_history.db"
-	readmePath      = "./README.md"
-	hugoDataPath    = "./data/crypto.json"
-	hugoHistoryPath = "./data/history"
-	timeout         = 5 * time.Minute
-	historyDays     = 30
-)
-
 func main() {
 	log.Println("Starting Go-Crypto-Bot...")
 
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	cfg, err := config.Load()
+	if err != nil {
+		log.Fatalf("Failed to load configuration: %v", err)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), cfg.Timeout)
 	defer cancel()
 
 	go handleShutdown(cancel)
 
-	if err := run(ctx); err != nil {
+	if err := run(ctx, cfg); err != nil {
 		log.Fatalf("Error: %v", err)
 	}
 
 	log.Println("Successfully completed all tasks")
 }
 
-func run(ctx context.Context) error {
-	fetcher := api.NewCoinGeckoClient()
-	repo, err := db.NewSQLiteRepository(dbPath)
+func run(ctx context.Context, cfg *config.Config) (err error) {
+	fetcher := api.NewCoinGeckoClient(
+		api.WithBaseURL(cfg.APIBaseURL),
+		api.WithTimeout(cfg.APITimeout),
+		api.WithRetry(cfg.MaxRetries, cfg.RetryBackoff),
+	)
+
+	repo, err := db.NewSQLiteRepository(cfg.DatabasePath)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to create repository: %w", err)
 	}
-	defer func() { _ = repo.Close() }()
+	defer func() {
+		if closeErr := repo.Close(); closeErr != nil {
+			if err == nil {
+				err = fmt.Errorf("failed to close repository: %w", closeErr)
+			} else {
+				log.Printf("Warning: failed to close repository: %v", closeErr)
+			}
+		}
+	}()
 
 	coins := domain.DefaultCoins()
 
@@ -56,12 +66,12 @@ func run(ctx context.Context) error {
 		return err
 	}
 
-	if err := os.WriteFile(readmePath, []byte(content), 0644); err != nil {
-		return err
+	if err := os.WriteFile(cfg.ReadmePath, []byte(content), 0644); err != nil {
+		return fmt.Errorf("failed to write README: %w", err)
 	}
 
-	hugo := exporter.NewHugoExporter(hugoDataPath, hugoHistoryPath)
-	return hugo.ExportAll(stats, coins, repo, historyDays)
+	hugo := exporter.NewHugoExporter(cfg.HugoDataPath, cfg.HugoHistoryPath)
+	return hugo.ExportAll(ctx, stats, coins, repo, cfg.HistoryDays)
 }
 
 func handleShutdown(cancel context.CancelFunc) {
