@@ -37,6 +37,12 @@ type ReadmeGenerator interface {
 	Generate(stats []CoinStats, coins []CoinMetadata) string
 }
 
+// CoinSource defines the interface for fetching coin metadata from various sources.
+type CoinSource interface {
+	FetchCoins(ctx context.Context) ([]CoinMetadata, error)
+	Type() string
+}
+
 // PriceChangeCalculator calculates price changes between two prices.
 func CalculatePriceChange(current, past float64, days int) PriceChange {
 	if past == 0 {
