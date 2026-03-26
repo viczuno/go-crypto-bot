@@ -84,16 +84,6 @@ func mergeCoinMetadata(existing, new domain.CoinMetadata) domain.CoinMetadata {
 		merged.Rank = new.Rank
 	}
 
-	tagMap := make(map[string]bool)
-	for _, tag := range merged.Tags {
-		tagMap[tag] = true
-	}
-	for _, tag := range new.Tags {
-		if !tagMap[tag] {
-			merged.Tags = append(merged.Tags, tag)
-		}
-	}
-
 	return merged
 }
 

@@ -76,7 +76,6 @@ func (t *TrendingSource) FetchCoins(ctx context.Context) ([]domain.CoinMetadata,
 			ID:     item.ID,
 			Name:   item.Name,
 			Symbol: strings.ToUpper(item.Symbol),
-			Tags:   []string{"trending"},
 			Rank:   item.MarketCap,
 		})
 	}

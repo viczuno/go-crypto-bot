@@ -19,28 +19,24 @@ type CoinConfig struct {
 
 // CoinSourceConfig represents a single coin source configuration.
 type CoinSourceConfig struct {
-	Type       string                   `yaml:"type"`
-	Coins      []StaticCoinConfig       `yaml:"coins,omitempty"`
-	Count      int                      `yaml:"count,omitempty"`
-	Exclude    []string                 `yaml:"exclude,omitempty"`
-	TimeWindow string                   `yaml:"time_window,omitempty"`
-	Name       string                   `yaml:"name,omitempty"`
-	Tags       []string                 `yaml:"tags,omitempty"`
+	Type       string             `yaml:"type"`
+	Coins      []StaticCoinConfig `yaml:"coins,omitempty"`
+	Count      int                `yaml:"count,omitempty"`
+	Exclude    []string           `yaml:"exclude,omitempty"`
+	TimeWindow string             `yaml:"time_window,omitempty"`
+	Name       string             `yaml:"name,omitempty"`
 }
 
 // StaticCoinConfig represents a static coin entry.
 type StaticCoinConfig struct {
-	ID     string   `yaml:"id"`
-	Name   string   `yaml:"name,omitempty"`
-	Symbol string   `yaml:"symbol,omitempty"`
-	Tags   []string `yaml:"tags,omitempty"`
+	ID     string `yaml:"id"`
+	Name   string `yaml:"name,omitempty"`
+	Symbol string `yaml:"symbol,omitempty"`
 }
 
 // DisplayOptions controls how coins are displayed.
 type DisplayOptions struct {
-	GroupByTags bool   `yaml:"group_by_tags"`
-	SortBy      string `yaml:"sort_by"`
-	MaxDisplay  int    `yaml:"max_display"`
+	MaxDisplay int `yaml:"max_display"`
 }
 
 // LoadCoinsFromConfig loads coin configuration from a YAML file.
@@ -94,7 +90,6 @@ func createCoinSource(cfg CoinSourceConfig, apiBaseURL string) (domain.CoinSourc
 				ID:     c.ID,
 				Name:   c.Name,
 				Symbol: c.Symbol,
-				Tags:   c.Tags,
 			}
 		}
 		return coins.NewStaticSource(staticCoins), nil
@@ -127,11 +122,7 @@ func ValidateCoins(ctx context.Context, configPath, apiBaseURL string) error {
 
 	fmt.Printf("✓ Successfully loaded %d coins:\n", len(coins))
 	for _, coin := range coins {
-		tags := ""
-		if len(coin.Tags) > 0 {
-			tags = fmt.Sprintf(" [%s]", strings.Join(coin.Tags, ", "))
-		}
-		fmt.Printf("  - %s (%s)%s\n", coin.Name, coin.Symbol, tags)
+		fmt.Printf("  - %s (%s)\n", coin.Name, coin.Symbol)
 	}
 
 	return nil

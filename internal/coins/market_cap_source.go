@@ -85,7 +85,6 @@ func (m *MarketCapSource) FetchCoins(ctx context.Context) ([]domain.CoinMetadata
 			ID:        data.ID,
 			Name:      data.Name,
 			Symbol:    strings.ToUpper(data.Symbol),
-			Tags:      []string{"top-market-cap"},
 			MarketCap: data.MarketCap,
 			Rank:      data.MarketCapRank,
 		})

@@ -1,30 +1,21 @@
-# Crypto Bot Coin Configuration
-# This file defines which cryptocurrencies to track.
-
 coin_sources:
-  # Static list of must-track coins
   - type: static
     coins:
       - id: bitcoin
         name: Bitcoin
         symbol: BTC
-        tags: [layer1, pow, top-5]
       - id: ethereum
         name: Ethereum
         symbol: ETH
-        tags: [layer1, pos, smart-contracts, top-5]
       - id: solana
         name: Solana
         symbol: SOL
-        tags: [layer1, pos, top-10]
       - id: cardano
         name: Cardano
         symbol: ADA
-        tags: [layer1, pos, top-10]
       - id: polkadot
         name: Polkadot
         symbol: DOT
-        tags: [layer1, pos, interoperability]
 
   # Uncomment to add top coins by market cap
   # - type: top_by_market_cap
@@ -36,9 +27,4 @@ coin_sources:
   #   count: 5
 
 display_options:
-  # Group coins by tags in output
-  group_by_tags: false
-  # Sort by: market_cap, name, symbol
-  sort_by: market_cap
-  # Maximum number of coins to display (0 = unlimited)
-  max_display: 0
+  max_display: 5

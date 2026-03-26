@@ -16,8 +16,8 @@ func TestStaticSource(t *testing.T) {
 		{
 			name: "returns predefined coins",
 			coins: []domain.CoinMetadata{
-				{ID: "bitcoin", Name: "Bitcoin", Symbol: "BTC", Tags: []string{"top-5"}},
-				{ID: "ethereum", Name: "Ethereum", Symbol: "ETH", Tags: []string{"top-5"}},
+				{ID: "bitcoin", Name: "Bitcoin", Symbol: "BTC"},
+				{ID: "ethereum", Name: "Ethereum", Symbol: "ETH"},
 			},
 			wantCount: 2,
 		},

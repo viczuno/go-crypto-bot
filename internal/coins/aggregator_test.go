@@ -57,13 +57,13 @@ func TestAggregator(t *testing.T) {
 			sources: []domain.CoinSource{
 				&mockCoinSource{
 					coins: []domain.CoinMetadata{
-						{ID: "bitcoin", Name: "Bitcoin", Symbol: "BTC", Tags: []string{"layer1"}},
+						{ID: "bitcoin", Name: "Bitcoin", Symbol: "BTC"},
 					},
 					typ: "source1",
 				},
 				&mockCoinSource{
 					coins: []domain.CoinMetadata{
-						{ID: "bitcoin", Name: "Bitcoin", Symbol: "BTC", Tags: []string{"top-5"}},
+						{ID: "bitcoin", Name: "Bitcoin", Symbol: "BTC"},
 					},
 					typ: "source2",
 				},
@@ -136,21 +136,6 @@ func TestMergeCoinMetadata(t *testing.T) {
 		want     domain.CoinMetadata
 	}{
 		{
-			name: "merges tags from both coins",
-			existing: domain.CoinMetadata{
-				ID:   "bitcoin",
-				Tags: []string{"layer1"},
-			},
-			new: domain.CoinMetadata{
-				ID:   "bitcoin",
-				Tags: []string{"top-5"},
-			},
-			want: domain.CoinMetadata{
-				ID:   "bitcoin",
-				Tags: []string{"layer1", "top-5"},
-			},
-		},
-		{
 			name: "prefers non-empty values",
 			existing: domain.CoinMetadata{
 				ID:     "bitcoin",
@@ -206,9 +191,6 @@ func TestMergeCoinMetadata(t *testing.T) {
 			}
 			if got.Rank != tt.want.Rank {
 				t.Errorf("Rank = %v, want %v", got.Rank, tt.want.Rank)
-			}
-			if len(got.Tags) != len(tt.want.Tags) {
-				t.Errorf("Tags length = %v, want %v", len(got.Tags), len(tt.want.Tags))
 			}
 		})
 	}

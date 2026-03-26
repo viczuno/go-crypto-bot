@@ -36,7 +36,6 @@ type CoinMetadata struct {
 	ID        string
 	Name      string
 	Symbol    string
-	Tags      []string
 	MarketCap float64
 	Rank      int
 }

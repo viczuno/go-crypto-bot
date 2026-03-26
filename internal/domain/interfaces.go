@@ -43,7 +43,7 @@ type CoinSource interface {
 	Type() string
 }
 
-// PriceChangeCalculator calculates price changes between two prices.
+// CalculatePriceChange calculates price changes between two prices.
 func CalculatePriceChange(current, past float64, days int) PriceChange {
 	if past == 0 {
 		return PriceChange{HasData: false, Days: days}
