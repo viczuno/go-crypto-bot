@@ -1,0 +1,23 @@
+{
+  "id": "figure-heloc",
+  "name": "Figure Heloc",
+  "symbol": "FIGR_HELOC",
+  "updated_at": "2026-03-26T04:51:43Z",
+  "current": {
+    "id": "figure-heloc",
+    "name": "Figure Heloc",
+    "symbol": "FIGR_HELOC",
+    "price": 1.024,
+    "change_24h": 0,
+    "change_7d": 0,
+    "change_7d_ok": false,
+    "change_30d": 0,
+    "change_30d_ok": false
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-26T04:51:43Z",
+      "price": 1.024
+    }
+  ]
+}

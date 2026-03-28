@@ -33,9 +33,11 @@ type CoinStats struct {
 
 // CoinMetadata contains display information for coins
 type CoinMetadata struct {
-	ID     string
-	Name   string
-	Symbol string
+	ID        string
+	Name      string
+	Symbol    string
+	MarketCap float64
+	Rank      int
 }
 
 // DefaultCoins returns the list of tracked cryptocurrencies with metadata

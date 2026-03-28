@@ -1,0 +1,30 @@
+coin_sources:
+  - type: static
+    coins:
+      - id: bitcoin
+        name: Bitcoin
+        symbol: BTC
+      - id: ethereum
+        name: Ethereum
+        symbol: ETH
+      - id: solana
+        name: Solana
+        symbol: SOL
+      - id: cardano
+        name: Cardano
+        symbol: ADA
+      - id: polkadot
+        name: Polkadot
+        symbol: DOT
+
+  # Uncomment to add top coins by market cap
+  # - type: top_by_market_cap
+  #   count: 10
+  #   exclude: [tether, usd-coin, binance-usd]  # Exclude stablecoins
+
+  # Uncomment to add trending coins
+  # - type: trending
+  #   count: 5
+
+display_options:
+  max_display: 5
