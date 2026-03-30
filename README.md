@@ -8,7 +8,7 @@
 
 **Real-time cryptocurrency tracking powered by GitHub Actions**
 
-🕐 *Last updated: Sunday, March 29, 2026 at 12:31 UTC*
+🕐 *Last updated: Monday, March 30, 2026 at 01:22 UTC*
 
 </div>
 
@@ -29,38 +29,38 @@
 <tbody>
 <tr>
 <td><b>Ethereum ETH</b><br/></td>
-<td align="right"><code>$2001.53</code></td>
-<td align="center">🟢 +0.27%</td>
-<td align="center">🔴 -3.79%</td>
-<td align="center">🔴 -0.41%</td>
+<td align="right"><code>$2003.04</code></td>
+<td align="center">🔴 -0.00%</td>
+<td align="center">🔴 -2.29%</td>
+<td align="center">🟢 +3.66%</td>
 </tr>
 <tr>
 <td><b>Solana SOL</b><br/></td>
-<td align="right"><code>$82.36</code></td>
-<td align="center">🔴 -0.69%</td>
-<td align="center">🔴 -5.51%</td>
-<td align="center">🔴 -3.85%</td>
+<td align="right"><code>$82.25</code></td>
+<td align="center">🔴 -0.08%</td>
+<td align="center">🔴 -4.50%</td>
+<td align="center">🟢 +0.19%</td>
 </tr>
 <tr>
 <td><b>Cardano ADA</b><br/></td>
-<td align="right"><code>$0.2428</code></td>
-<td align="center">🔴 -2.07%</td>
-<td align="center">🔴 -5.15%</td>
-<td align="center">🔴 -15.19%</td>
+<td align="right"><code>$0.2426</code></td>
+<td align="center">🔴 -1.43%</td>
+<td align="center">🔴 -3.65%</td>
+<td align="center">🔴 -12.70%</td>
 </tr>
 <tr>
 <td><b>Polkadot DOT</b><br/></td>
-<td align="right"><code>$1.26</code></td>
-<td align="center">🔴 -1.49%</td>
-<td align="center">🔴 -12.50%</td>
-<td align="center">🔴 -21.74%</td>
+<td align="right"><code>$1.27</code></td>
+<td align="center">🟢 +0.08%</td>
+<td align="center">🔴 -10.56%</td>
+<td align="center">🔴 -20.63%</td>
 </tr>
 <tr>
 <td><b>Bitcoin BTC</b><br/></td>
-<td align="right"><code>$66741.00</code></td>
-<td align="center">🟢 +0.60%</td>
-<td align="center">🔴 -2.72%</td>
-<td align="center">🔴 -0.49%</td>
+<td align="right"><code>$66452.00</code></td>
+<td align="center">🔴 -0.10%</td>
+<td align="center">🔴 -2.05%</td>
+<td align="center">🟢 +0.78%</td>
 </tr>
 </tbody>
 </table>
@@ -69,7 +69,7 @@
 
 <div align="center">
 
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%2C+%27BTC%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B0.27%2C+-0.69%2C+-2.07%2C+-1.49%2C+0.60%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
+![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%2C+%27BTC%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B-0.00%2C+-0.08%2C+-1.43%2C+0.08%2C+-0.10%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
 
 </div>
 
