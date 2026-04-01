@@ -28,6 +28,7 @@ func (b *ReadmeBuilder) Generate(stats []domain.CoinStats, coins []domain.CoinMe
 
 	b.writeHeader(&sb, now)
 	b.writePriceTable(&sb, stats, coins)
+	b.writeTechnicalAnalysis(&sb, stats, coins)
 	b.writePerformanceChart(&sb, stats, coins)
 	b.writeFooter(&sb)
 
@@ -177,4 +178,169 @@ func (b *ReadmeBuilder) formatHistoricalChange(pc domain.PriceChange) string {
 		return "<sub>📊 Collecting...</sub>"
 	}
 	return b.formatChangeWithColor(pc.PctChange)
+}
+
+func (b *ReadmeBuilder) writeTechnicalAnalysis(sb *strings.Builder, stats []domain.CoinStats, coins []domain.CoinMetadata) {
+	// Check if any coin has indicator data
+	hasIndicators := false
+	for _, s := range stats {
+		if s.Indicators != nil && !s.Indicators.InsufficientData {
+			hasIndicators = true
+			break
+		}
+	}
+
+	if !hasIndicators {
+		return
+	}
+
+	coinMap := make(map[string]domain.CoinMetadata)
+	for _, c := range coins {
+		coinMap[c.ID] = c
+	}
+
+	sb.WriteString("## 📈 Technical Analysis\n\n")
+	sb.WriteString("<table>\n")
+	sb.WriteString("<thead>\n")
+	sb.WriteString("<tr>\n")
+	sb.WriteString("<th align=\"left\">Asset</th>\n")
+	sb.WriteString("<th align=\"center\">Signal</th>\n")
+	sb.WriteString("<th align=\"center\">RSI</th>\n")
+	sb.WriteString("<th align=\"center\">MACD</th>\n")
+	sb.WriteString("<th align=\"center\">MA</th>\n")
+	sb.WriteString("<th align=\"center\">Bollinger</th>\n")
+	sb.WriteString("</tr>\n")
+	sb.WriteString("</thead>\n")
+	sb.WriteString("<tbody>\n")
+
+	for _, s := range stats {
+		meta := coinMap[s.ID]
+
+		if s.Indicators == nil || s.Indicators.InsufficientData {
+			sb.WriteString("<tr>\n")
+			fmt.Fprintf(sb, "<td><b>%s</b></td>\n", html.EscapeString(meta.Symbol))
+			sb.WriteString("<td align=\"center\" colspan=\"5\"><sub>📊 Collecting data...</sub></td>\n")
+			sb.WriteString("</tr>\n")
+			continue
+		}
+
+		// Format consensus signal
+		consensusStr := b.formatSignal(s.Indicators.Consensus, s.Indicators.Confidence)
+
+		// Format individual indicators
+		var rsiStr, macdStr, maStr, bbStr string
+		for _, ind := range s.Indicators.Indicators {
+			switch ind.Indicator {
+			case domain.IndicatorRSI:
+				rsiStr = b.formatIndicatorValue(ind, "%.1f")
+			case domain.IndicatorMACD:
+				macdStr = b.formatIndicatorSignal(ind)
+			case domain.IndicatorMovingAverage:
+				maStr = b.formatMAIndicator(ind)
+			case domain.IndicatorBollingerBands:
+				bbStr = b.formatBBIndicator(ind)
+			}
+		}
+
+		sb.WriteString("<tr>\n")
+		fmt.Fprintf(sb, "<td><b>%s</b></td>\n", html.EscapeString(meta.Symbol))
+		fmt.Fprintf(sb, "<td align=\"center\">%s</td>\n", consensusStr)
+		fmt.Fprintf(sb, "<td align=\"center\">%s</td>\n", rsiStr)
+		fmt.Fprintf(sb, "<td align=\"center\">%s</td>\n", macdStr)
+		fmt.Fprintf(sb, "<td align=\"center\">%s</td>\n", maStr)
+		fmt.Fprintf(sb, "<td align=\"center\">%s</td>\n", bbStr)
+		sb.WriteString("</tr>\n")
+	}
+
+	sb.WriteString("</tbody>\n")
+	sb.WriteString("</table>\n\n")
+
+	// Add legend
+	sb.WriteString("<details>\n")
+	sb.WriteString("<summary><b>📖 Signal Legend</b></summary>\n\n")
+	sb.WriteString("| Signal | Meaning |\n")
+	sb.WriteString("|--------|--------|\n")
+	sb.WriteString("| 🟢 Strong Buy | Multiple indicators suggest strong upward momentum |\n")
+	sb.WriteString("| 🔵 Buy | Indicators lean bullish |\n")
+	sb.WriteString("| ⚪ Hold | Mixed or neutral signals |\n")
+	sb.WriteString("| 🟠 Sell | Indicators lean bearish |\n")
+	sb.WriteString("| 🔴 Strong Sell | Multiple indicators suggest strong downward momentum |\n\n")
+	sb.WriteString("**Indicators used:** RSI (14), MACD (12/26/9), Moving Averages (50/200), Bollinger Bands (20, 2σ)\n\n")
+	sb.WriteString("</details>\n\n")
+}
+
+func (b *ReadmeBuilder) formatSignal(signal domain.Signal, confidence float64) string {
+	emoji := signal.Emoji()
+	name := signal.String()
+	confPct := int(confidence * 100)
+	return fmt.Sprintf("%s <b>%s</b><br/><sub>%d%% conf</sub>", emoji, name, confPct)
+}
+
+func (b *ReadmeBuilder) formatIndicatorValue(ind domain.IndicatorResult, format string) string {
+	if ind.Error != nil {
+		return "<sub>N/A</sub>"
+	}
+	emoji := ind.Signal.Emoji()
+	value := fmt.Sprintf(format, ind.Value)
+	return fmt.Sprintf("%s %s", emoji, value)
+}
+
+func (b *ReadmeBuilder) formatIndicatorSignal(ind domain.IndicatorResult) string {
+	if ind.Error != nil {
+		return "<sub>N/A</sub>"
+	}
+	emoji := ind.Signal.Emoji()
+	hist := ind.Metadata["histogram"]
+	var direction string
+	if hist > 0 {
+		direction = "↑"
+	} else if hist < 0 {
+		direction = "↓"
+	} else {
+		direction = "→"
+	}
+	return fmt.Sprintf("%s %s", emoji, direction)
+}
+
+func (b *ReadmeBuilder) formatMAIndicator(ind domain.IndicatorResult) string {
+	if ind.Error != nil {
+		return "<sub>N/A</sub>"
+	}
+	emoji := ind.Signal.Emoji()
+
+	// Check for golden/death cross
+	if ind.Metadata["golden_cross"] == 1.0 {
+		return fmt.Sprintf("%s ✨ Golden", emoji)
+	}
+	if ind.Metadata["death_cross"] == 1.0 {
+		return fmt.Sprintf("%s ☠️ Death", emoji)
+	}
+
+	// Show trend direction
+	sma50 := ind.Metadata["sma_50"]
+	sma200 := ind.Metadata["sma_200"]
+	if sma50 > sma200 {
+		return fmt.Sprintf("%s ↑ Bullish", emoji)
+	}
+	return fmt.Sprintf("%s ↓ Bearish", emoji)
+}
+
+func (b *ReadmeBuilder) formatBBIndicator(ind domain.IndicatorResult) string {
+	if ind.Error != nil {
+		return "<sub>N/A</sub>"
+	}
+	emoji := ind.Signal.Emoji()
+	percentB := ind.Metadata["percent_b"]
+
+	var position string
+	switch {
+	case percentB <= 0.2:
+		position = "Lower"
+	case percentB >= 0.8:
+		position = "Upper"
+	default:
+		position = "Middle"
+	}
+
+	return fmt.Sprintf("%s %s", emoji, position)
 }

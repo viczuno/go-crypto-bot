@@ -14,6 +14,7 @@ import (
 	"github.com/viczuno/go-crypto-bot/internal/db"
 	"github.com/viczuno/go-crypto-bot/internal/domain"
 	"github.com/viczuno/go-crypto-bot/internal/exporter"
+	"github.com/viczuno/go-crypto-bot/internal/indicators"
 	"github.com/viczuno/go-crypto-bot/internal/markdown"
 	"github.com/viczuno/go-crypto-bot/internal/service"
 )
@@ -77,7 +78,8 @@ func run(ctx context.Context, cfg *config.Config) (err error) {
 
 	coins := loadCoins(ctx, *coinConfigPath, cfg.APIBaseURL)
 
-	svc := service.NewCryptoService(fetcher, repo, markdown.NewReadmeBuilder())
+	svc := service.NewCryptoService(fetcher, repo, markdown.NewReadmeBuilder()).
+		WithSignalGenerator(indicators.NewSignalGenerator())
 	content, stats, err := svc.UpdateAndGenerateReport(ctx, coins)
 	if err != nil {
 		return err
