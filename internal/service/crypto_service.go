@@ -11,9 +11,10 @@ import (
 
 // CryptoService coordinates fetching, storing, and reporting crypto prices.
 type CryptoService struct {
-	fetcher   domain.PriceFetcher
-	repo      domain.PriceRepository
-	generator domain.ReadmeGenerator
+	fetcher         domain.PriceFetcher
+	repo            domain.PriceRepository
+	generator       domain.ReadmeGenerator
+	signalGenerator domain.SignalGenerator
 }
 
 // NewCryptoService creates a new crypto service.
@@ -27,6 +28,12 @@ func NewCryptoService(
 		repo:      repo,
 		generator: generator,
 	}
+}
+
+// WithSignalGenerator sets the signal generator for technical analysis.
+func (s *CryptoService) WithSignalGenerator(sg domain.SignalGenerator) *CryptoService {
+	s.signalGenerator = sg
+	return s
 }
 
 // UpdateAndGenerateReport fetches latest prices, stores them, and generates a report.
@@ -76,10 +83,32 @@ func (s *CryptoService) buildStats(ctx context.Context, coins []domain.CoinMetad
 			Change30d: s.getHistoricalChange(ctx, coin.ID, price.PriceUSD, domain.Days30),
 		}
 
+		// Calculate technical indicators if signal generator is available
+		if s.signalGenerator != nil {
+			stat.Indicators = s.calculateIndicators(ctx, coin.ID)
+		}
+
 		stats = append(stats, stat)
 	}
 
 	return stats
+}
+
+func (s *CryptoService) calculateIndicators(ctx context.Context, coinID string) *domain.IndicatorSummary {
+	// Fetch enough historical data for all indicators (200+ days for MA200)
+	history, err := s.repo.GetPriceHistory(ctx, coinID, domain.MinDataForMA+10)
+	if err != nil {
+		log.Printf("Error fetching price history for indicators (%s): %v", coinID, err)
+		return nil
+	}
+
+	if len(history) < domain.MinDataForBollinger {
+		log.Printf("Insufficient data for indicators (%s): have %d, need at least %d", coinID, len(history), domain.MinDataForBollinger)
+		return nil
+	}
+
+	summary := s.signalGenerator.GenerateSignals(coinID, history)
+	return &summary
 }
 
 func (s *CryptoService) getHistoricalChange(ctx context.Context, coinID string, currentPrice float64, days int) domain.PriceChange {

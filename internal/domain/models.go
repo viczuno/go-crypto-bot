@@ -23,12 +23,13 @@ type PriceChange struct {
 // CoinStats aggregates all statistics for a single coin.
 // ID is the coin identifier (e.g., "bitcoin"), not the display name.
 type CoinStats struct {
-	ID        string
-	Symbol    string
-	Price     float64
-	Change24h float64
-	Change7d  PriceChange
-	Change30d PriceChange
+	ID         string
+	Symbol     string
+	Price      float64
+	Change24h  float64
+	Change7d   PriceChange
+	Change30d  PriceChange
+	Indicators *IndicatorSummary
 }
 
 // CoinMetadata contains display information for coins

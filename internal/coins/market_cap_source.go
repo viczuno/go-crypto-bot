@@ -20,13 +20,13 @@ type MarketCapSource struct {
 }
 
 type coinGeckoMarketData struct {
-	ID              string  `json:"id"`
-	Symbol          string  `json:"symbol"`
-	Name            string  `json:"name"`
-	MarketCap       float64 `json:"market_cap"`
-	MarketCapRank   int     `json:"market_cap_rank"`
-	CurrentPrice    float64 `json:"current_price"`
-	PriceChange24h  float64 `json:"price_change_percentage_24h"`
+	ID             string  `json:"id"`
+	Symbol         string  `json:"symbol"`
+	Name           string  `json:"name"`
+	MarketCap      float64 `json:"market_cap"`
+	MarketCapRank  int     `json:"market_cap_rank"`
+	CurrentPrice   float64 `json:"current_price"`
+	PriceChange24h float64 `json:"price_change_percentage_24h"`
 }
 
 // NewMarketCapSource creates a new market cap-based coin source.
@@ -55,7 +55,11 @@ func (m *MarketCapSource) FetchCoins(ctx context.Context) ([]domain.CoinMetadata
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch market data: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if closeErr := resp.Body.Close(); closeErr != nil && err == nil {
+			err = fmt.Errorf("failed to close response body: %w", closeErr)
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)

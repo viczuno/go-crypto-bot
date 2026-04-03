@@ -14,12 +14,13 @@ import (
 	"github.com/viczuno/go-crypto-bot/internal/db"
 	"github.com/viczuno/go-crypto-bot/internal/domain"
 	"github.com/viczuno/go-crypto-bot/internal/exporter"
+	"github.com/viczuno/go-crypto-bot/internal/indicators"
 	"github.com/viczuno/go-crypto-bot/internal/markdown"
 	"github.com/viczuno/go-crypto-bot/internal/service"
 )
 
 var (
-	validateCoins = flag.Bool("validate-coins", false, "Validate coin configuration and exit")
+	validateCoins  = flag.Bool("validate-coins", false, "Validate coin configuration and exit")
 	coinConfigPath = flag.String("coin-config", "coins.yaml", "Path to coin configuration file")
 )
 
@@ -77,7 +78,8 @@ func run(ctx context.Context, cfg *config.Config) (err error) {
 
 	coins := loadCoins(ctx, *coinConfigPath, cfg.APIBaseURL)
 
-	svc := service.NewCryptoService(fetcher, repo, markdown.NewReadmeBuilder())
+	svc := service.NewCryptoService(fetcher, repo, markdown.NewReadmeBuilder()).
+		WithSignalGenerator(indicators.NewSignalGenerator())
 	content, stats, err := svc.UpdateAndGenerateReport(ctx, coins)
 	if err != nil {
 		return err
