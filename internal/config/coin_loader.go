@@ -13,8 +13,8 @@ import (
 
 // CoinConfig represents the coin configuration file structure.
 type CoinConfig struct {
-	CoinSources  []CoinSourceConfig `yaml:"coin_sources"`
-	DisplayOpts  DisplayOptions     `yaml:"display_options,omitempty"`
+	CoinSources []CoinSourceConfig `yaml:"coin_sources"`
+	DisplayOpts DisplayOptions     `yaml:"display_options,omitempty"`
 }
 
 // CoinSourceConfig represents a single coin source configuration.

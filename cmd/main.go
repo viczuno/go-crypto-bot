@@ -20,7 +20,7 @@ import (
 )
 
 var (
-	validateCoins = flag.Bool("validate-coins", false, "Validate coin configuration and exit")
+	validateCoins  = flag.Bool("validate-coins", false, "Validate coin configuration and exit")
 	coinConfigPath = flag.String("coin-config", "coins.yaml", "Path to coin configuration file")
 )
 

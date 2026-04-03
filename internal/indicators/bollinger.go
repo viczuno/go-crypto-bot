@@ -123,7 +123,7 @@ func (bb *BollingerBandsCalculator) determineSignal(
 	case percentB >= 0.4 && percentB <= 0.6:
 		// Price in middle zone - Neutral
 		// Higher confidence when exactly at middle
-		distanceFromMiddle := abs(percentB - 0.5) / 0.1
+		distanceFromMiddle := abs(percentB-0.5) / 0.1
 		confidence := 0.5 - (0.2 * distanceFromMiddle)
 		return domain.SignalHold, confidence
 

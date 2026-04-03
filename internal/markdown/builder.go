@@ -42,6 +42,7 @@ func (b *ReadmeBuilder) writeHeader(sb *strings.Builder, now time.Time) {
 	sb.WriteString("[![Data Source](https://img.shields.io/badge/data-CoinGecko-orange)](https://coingecko.com)\n")
 	sb.WriteString("[![Built with Go](https://img.shields.io/badge/built%20with-Go-00ADD8?logo=go)](https://golang.org)\n\n")
 	sb.WriteString("**Real-time cryptocurrency tracking powered by GitHub Actions**\n\n")
+	sb.WriteString("[![View Dashboard](https://img.shields.io/badge/View-Live%20Dashboard-blue?style=for-the-badge)](https://viczuno.github.io/go-crypto-bot/)\n\n")
 	fmt.Fprintf(sb, "🕐 *Last updated: %s*\n\n", now.Format("Monday, January 2, 2006 at 15:04 UTC"))
 	sb.WriteString("</div>\n\n")
 	sb.WriteString("---\n\n")

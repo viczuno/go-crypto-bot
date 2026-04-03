@@ -73,12 +73,12 @@ type IndicatorResult struct {
 
 // IndicatorSummary aggregates multiple indicator results with a consensus signal.
 type IndicatorSummary struct {
-	CoinID          string
-	Indicators      []IndicatorResult
-	Consensus       Signal
-	Confidence      float64
-	SignalCounts    SignalCounts
-	CalculatedAt    time.Time
+	CoinID           string
+	Indicators       []IndicatorResult
+	Consensus        Signal
+	Confidence       float64
+	SignalCounts     SignalCounts
+	CalculatedAt     time.Time
 	InsufficientData bool
 }
 
@@ -99,9 +99,9 @@ func (sc SignalCounts) Total() int {
 // Indicator calculation parameters.
 const (
 	// RSI parameters
-	RSIPeriod        = 14
-	RSIOverbought    = 70.0
-	RSIOversold      = 30.0
+	RSIPeriod           = 14
+	RSIOverbought       = 70.0
+	RSIOversold         = 30.0
 	RSIStrongOverbought = 80.0
 	RSIStrongOversold   = 20.0
 
@@ -111,18 +111,18 @@ const (
 	MACDSignalPeriod = 9
 
 	// Moving Average parameters
-	MAShortPeriod  = 50
-	MALongPeriod   = 200
+	MAShortPeriod = 50
+	MALongPeriod  = 200
 
 	// Bollinger Bands parameters
-	BollingerPeriod    = 20
-	BollingerStdDev    = 2.0
+	BollingerPeriod = 20
+	BollingerStdDev = 2.0
 
 	// Minimum data requirements
-	MinDataForRSI        = RSIPeriod + 1
-	MinDataForMACD       = MACDSlowPeriod + MACDSignalPeriod
-	MinDataForMA         = MALongPeriod
-	MinDataForBollinger  = BollingerPeriod
+	MinDataForRSI       = RSIPeriod + 1
+	MinDataForMACD      = MACDSlowPeriod + MACDSignalPeriod
+	MinDataForMA        = MALongPeriod
+	MinDataForBollinger = BollingerPeriod
 )
 
 // Indicator weights for consensus calculation.

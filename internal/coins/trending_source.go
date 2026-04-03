@@ -21,10 +21,10 @@ type TrendingSource struct {
 type trendingResponse struct {
 	Coins []struct {
 		Item struct {
-			ID         string  `json:"id"`
-			Symbol     string  `json:"symbol"`
-			Name       string  `json:"name"`
-			MarketCap  int     `json:"market_cap_rank"`
+			ID        string `json:"id"`
+			Symbol    string `json:"symbol"`
+			Name      string `json:"name"`
+			MarketCap int    `json:"market_cap_rank"`
 		} `json:"item"`
 	} `json:"coins"`
 }
@@ -53,7 +53,11 @@ func (t *TrendingSource) FetchCoins(ctx context.Context) ([]domain.CoinMetadata,
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch trending data: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if closeErr := resp.Body.Close(); closeErr != nil && err == nil {
+			err = fmt.Errorf("failed to close response body: %w", closeErr)
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
