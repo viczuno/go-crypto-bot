@@ -10,7 +10,7 @@
 
 [![View Dashboard](https://img.shields.io/badge/View-Live%20Dashboard-blue?style=for-the-badge)](https://viczuno.github.io/go-crypto-bot/)
 
-🕐 *Last updated: Saturday, April 4, 2026 at 12:32 UTC*
+🕐 *Last updated: Sunday, April 5, 2026 at 01:22 UTC*
 
 </div>
 
@@ -31,38 +31,38 @@
 <tbody>
 <tr>
 <td><b>Bitcoin BTC</b><br/></td>
-<td align="right"><code>$67109.00</code></td>
-<td align="center">🟢 +0.27%</td>
-<td align="center">🟢 +0.84%</td>
-<td align="center">🔴 -7.97%</td>
+<td align="right"><code>$67168.00</code></td>
+<td align="center">🟢 +0.49%</td>
+<td align="center">🟢 +1.16%</td>
+<td align="center">🔴 -5.23%</td>
 </tr>
 <tr>
 <td><b>Ethereum ETH</b><br/></td>
-<td align="right"><code>$2051.32</code></td>
-<td align="center">🔴 -0.43%</td>
-<td align="center">🟢 +3.26%</td>
-<td align="center">🔴 -3.85%</td>
+<td align="right"><code>$2059.88</code></td>
+<td align="center">🟢 +0.48%</td>
+<td align="center">🟢 +2.97%</td>
+<td align="center">🔴 -0.85%</td>
 </tr>
 <tr>
 <td><b>Solana SOL</b><br/></td>
-<td align="right"><code>$80.20</code></td>
-<td align="center">🟢 +0.16%</td>
-<td align="center">🔴 -3.57%</td>
-<td align="center">🔴 -11.72%</td>
+<td align="right"><code>$80.71</code></td>
+<td align="center">🟢 +0.77%</td>
+<td align="center">🔴 -2.83%</td>
+<td align="center">🔴 -9.14%</td>
 </tr>
 <tr>
 <td><b>Cardano ADA</b><br/></td>
-<td align="right"><code>$0.2448</code></td>
-<td align="center">🔴 -0.47%</td>
-<td align="center">🔴 -0.62%</td>
-<td align="center">🔴 -10.89%</td>
+<td align="right"><code>$0.2475</code></td>
+<td align="center">🟢 +0.98%</td>
+<td align="center">🔴 -0.37%</td>
+<td align="center">🔴 -7.82%</td>
 </tr>
 <tr>
 <td><b>Polkadot DOT</b><br/></td>
-<td align="right"><code>$1.26</code></td>
-<td align="center">🟢 +0.25%</td>
-<td align="center">🔴 -1.56%</td>
-<td align="center">🔴 -17.65%</td>
+<td align="right"><code>$1.25</code></td>
+<td align="center">🟢 +1.12%</td>
+<td align="center">🔴 -2.34%</td>
+<td align="center">🔴 -18.30%</td>
 </tr>
 </tbody>
 </table>
@@ -71,7 +71,7 @@
 
 <div align="center">
 
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B0.27%2C+-0.43%2C+0.16%2C+-0.47%2C+0.25%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
+![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B0.49%2C+0.48%2C+0.77%2C+0.98%2C+1.12%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
 
 </div>
 
