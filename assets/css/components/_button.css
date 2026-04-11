@@ -1,0 +1,86 @@
+/* Button Component */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-2xl);
+    transition:
+        transform var(--transition-fast),
+        opacity var(--transition-fast),
+        box-shadow var(--transition-fast);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: scale(1.02);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Primary button (gradient) */
+.btn--primary {
+    background: var(--gradient-accent);
+    color: var(--color-text-primary);
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--font-size-base);
+}
+
+.btn--primary:hover {
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+/* Small variant */
+.btn--sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-xl);
+}
+
+/* Refresh button specific styling */
+.refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--gradient-accent);
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: var(--radius-2xl);
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition:
+        transform var(--transition-fast),
+        opacity var(--transition-fast),
+        box-shadow var(--transition-fast);
+    margin-top: var(--space-4);
+    text-decoration: none;
+}
+
+.refresh-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+    color: var(--color-text-primary);
+}
+
+.refresh-btn:active {
+    transform: scale(0.98);
+}
+
+/* Small refresh button */
+.refresh-btn--sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-3);
+}
+
+/* Refresh container for centering */
+.refresh-container {
+    text-align: center;
+    margin-top: var(--space-4);
+}

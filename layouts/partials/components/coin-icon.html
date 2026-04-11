@@ -1,0 +1,8 @@
+{{/*
+    Coin Icon Component
+    Usage: {{ partial "components/coin-icon.html" (dict "symbol" "BTC" "class" "coin-icon--lg") }}
+*/}}
+{{- $symbol := .symbol | default "" -}}
+{{- $extraClass := .class | default "" -}}
+{{- $iconClass := lower $symbol -}}
+<div class="coin-icon {{ $iconClass }} {{ $extraClass }}">{{ upper $symbol }}</div>
