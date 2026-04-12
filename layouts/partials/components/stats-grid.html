@@ -1,0 +1,52 @@
+{{/*
+    Stats Grid Component
+    Usage: {{ partial "components/stats-grid.html" (dict "change_24h" . "change_7d" . "change_7d_ok" . "change_30d" . "change_30d_ok" .) }}
+*/}}
+{{- $change_24h := .change_24h | default 0.0 -}}
+{{- $change_7d := .change_7d | default 0.0 -}}
+{{- $change_7d_ok := .change_7d_ok | default false -}}
+{{- $change_30d := .change_30d | default 0.0 -}}
+{{- $change_30d_ok := .change_30d_ok | default false -}}
+
+{{/* Helper for class determination */}}
+{{- $class_24h := "neutral" -}}
+{{- if gt $change_24h 0.0 }}{{ $class_24h = "positive" }}{{ else if lt $change_24h 0.0 }}{{ $class_24h = "negative" }}{{ end -}}
+
+{{- $class_7d := "neutral" -}}
+{{- if $change_7d_ok -}}
+    {{- if gt $change_7d 0.0 }}{{ $class_7d = "positive" }}{{ else if lt $change_7d 0.0 }}{{ $class_7d = "negative" }}{{ end -}}
+{{- end -}}
+
+{{- $class_30d := "neutral" -}}
+{{- if $change_30d_ok -}}
+    {{- if gt $change_30d 0.0 }}{{ $class_30d = "positive" }}{{ else if lt $change_30d 0.0 }}{{ $class_30d = "negative" }}{{ end -}}
+{{- end -}}
+
+<section class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">24h</div>
+        <div class="stat-value {{ $class_24h }}">
+            {{- if gt $change_24h 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 $change_24h }}%
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">7 Days</div>
+        <div class="stat-value {{ $class_7d }}">
+            {{- if $change_7d_ok -}}
+                {{- if gt $change_7d 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 $change_7d }}%
+            {{- else -}}
+                —
+            {{- end -}}
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">30 Days</div>
+        <div class="stat-value {{ $class_30d }}">
+            {{- if $change_30d_ok -}}
+                {{- if gt $change_30d 0.0 }}+{{ end }}{{ lang.FormatNumberCustom 2 $change_30d }}%
+            {{- else -}}
+                —
+            {{- end -}}
+        </div>
+    </div>
+</section>

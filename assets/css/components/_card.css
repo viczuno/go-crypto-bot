@@ -1,0 +1,137 @@
+/* Card Component */
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    background: var(--color-bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base),
+        border-color var(--transition-base),
+        background var(--transition-base);
+}
+
+.card:hover {
+    background: var(--color-bg-card-hover);
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-card);
+}
+
+.card-link:hover .card {
+    transform: translateY(-2px);
+}
+
+.card:active,
+.card-link:active .card {
+    transform: scale(0.98);
+}
+
+/* Card header with coin info and price */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+}
+
+.coin-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.coin-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.coin-symbol {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+}
+
+/* Price display */
+.card-price {
+    display: flex;
+    align-items: center;
+}
+
+.price {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    text-align: right;
+}
+
+.chevron {
+    color: var(--color-text-dim);
+    font-size: var(--font-size-xl);
+    margin-left: var(--space-2);
+    transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.card-link:hover .chevron {
+    transform: translateX(4px);
+    color: var(--color-text-secondary);
+}
+
+/* Price change grid */
+.changes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+}
+
+.change-item {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-2);
+    text-align: center;
+}
+
+.change-label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-1);
+}
+
+.change-value {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* Detail page large price display */
+.price-section {
+    text-align: center;
+    margin-bottom: var(--space-8);
+}
+
+.current-price {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-2);
+}
+
+.price-change {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+}

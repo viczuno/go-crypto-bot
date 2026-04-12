@@ -1,0 +1,28 @@
+{{/*
+    Price Change Component
+    Usage: {{ partial "components/price-change.html" (dict "label" "24h" "value" .change_24h "ok" true) }}
+*/}}
+{{- $label := .label | default "" -}}
+{{- $value := .value | default 0.0 -}}
+{{- $ok := .ok | default true -}}
+
+{{- $class := "neutral" -}}
+{{- if $ok -}}
+    {{- if gt $value 0.0 -}}
+        {{- $class = "positive" -}}
+    {{- else if lt $value 0.0 -}}
+        {{- $class = "negative" -}}
+    {{- end -}}
+{{- end -}}
+
+<div class="change-item">
+    <div class="change-label">{{ $label }}</div>
+    <div class="change-value {{ $class }}">
+        {{- if $ok -}}
+            {{- if gt $value 0.0 }}+{{ end -}}
+            {{- lang.FormatNumberCustom 2 $value -}}%
+        {{- else -}}
+            —
+        {{- end -}}
+    </div>
+</div>

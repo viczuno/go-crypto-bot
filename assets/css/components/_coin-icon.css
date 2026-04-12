@@ -1,0 +1,109 @@
+/* Coin Icon Component */
+.coin-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Large icon variant for detail pages */
+.coin-icon--lg {
+    width: 52px;
+    height: 52px;
+    font-size: var(--font-size-md);
+}
+
+/* Coin-specific gradients */
+.coin-icon.btc,
+.coin-icon.bitcoin {
+    background: linear-gradient(135deg, var(--color-btc) 0%, var(--color-btc-dark) 100%);
+}
+
+.coin-icon.eth,
+.coin-icon.ethereum {
+    background: linear-gradient(135deg, var(--color-eth) 0%, var(--color-eth-dark) 100%);
+}
+
+.coin-icon.sol,
+.coin-icon.solana {
+    background: linear-gradient(135deg, var(--color-sol-start) 0%, var(--color-sol-end) 100%);
+    color: #000000;
+    text-shadow: none;
+}
+
+.coin-icon.ada,
+.coin-icon.cardano {
+    background: linear-gradient(135deg, var(--color-ada) 0%, var(--color-ada-dark) 100%);
+}
+
+.coin-icon.dot,
+.coin-icon.polkadot {
+    background: linear-gradient(135deg, var(--color-dot) 0%, var(--color-dot-dark) 100%);
+}
+
+.coin-icon.xrp,
+.coin-icon.ripple {
+    background: linear-gradient(135deg, #23292f 0%, #1a1f24 100%);
+}
+
+.coin-icon.doge,
+.coin-icon.dogecoin {
+    background: linear-gradient(135deg, #c3a634 0%, #a08a2b 100%);
+}
+
+.coin-icon.avax,
+.coin-icon.avalanche-2 {
+    background: linear-gradient(135deg, #e84142 0%, #c43838 100%);
+}
+
+.coin-icon.matic,
+.coin-icon.matic-network {
+    background: linear-gradient(135deg, #8247e5 0%, #6b3cc4 100%);
+}
+
+.coin-icon.link,
+.coin-icon.chainlink {
+    background: linear-gradient(135deg, #375bd2 0%, #2c4ab0 100%);
+}
+
+.coin-icon.bnb,
+.coin-icon.binancecoin {
+    background: linear-gradient(135deg, #f3ba2f 0%, #d4a424 100%);
+    color: #000000;
+    text-shadow: none;
+}
+
+.coin-icon.ltc,
+.coin-icon.litecoin {
+    background: linear-gradient(135deg, #bfbbbb 0%, #a0a0a0 100%);
+    color: #000000;
+    text-shadow: none;
+}
+
+.coin-icon.atom,
+.coin-icon.cosmos {
+    background: linear-gradient(135deg, #2e3148 0%, #1e2030 100%);
+}
+
+.coin-icon.uni,
+.coin-icon.uniswap {
+    background: linear-gradient(135deg, #ff007a 0%, #d4006a 100%);
+}
+
+.coin-icon.shib,
+.coin-icon.shiba-inu {
+    background: linear-gradient(135deg, #fda32b 0%, #e08a20 100%);
+}
+
+/* Default fallback gradient */
+.coin-icon.default,
+.coin-icon:not([class*="btc"]):not([class*="eth"]):not([class*="sol"]):not([class*="ada"]):not([class*="dot"]):not([class*="xrp"]):not([class*="doge"]):not([class*="avax"]):not([class*="matic"]):not([class*="link"]):not([class*="bnb"]):not([class*="ltc"]):not([class*="atom"]):not([class*="uni"]):not([class*="shib"]):not([class*="bitcoin"]):not([class*="ethereum"]):not([class*="solana"]):not([class*="cardano"]):not([class*="polkadot"]):not([class*="ripple"]):not([class*="dogecoin"]):not([class*="avalanche"]):not([class*="chainlink"]):not([class*="binancecoin"]):not([class*="litecoin"]):not([class*="cosmos"]):not([class*="uniswap"]):not([class*="shiba"]) {
+    background: linear-gradient(135deg, var(--color-default) 0%, var(--color-default-dark) 100%);
+}

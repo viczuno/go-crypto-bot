@@ -1,0 +1,23 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="Real-time cryptocurrency prices and charts">
+<title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+
+{{/* Concatenate all CSS files in proper order */}}
+{{- $variables := resources.Get "css/base/_variables.css" -}}
+{{- $reset := resources.Get "css/base/_reset.css" -}}
+{{- $header := resources.Get "css/components/_header.css" -}}
+{{- $card := resources.Get "css/components/_card.css" -}}
+{{- $coinIcon := resources.Get "css/components/_coin-icon.css" -}}
+{{- $button := resources.Get "css/components/_button.css" -}}
+{{- $stats := resources.Get "css/components/_stats.css" -}}
+{{- $chart := resources.Get "css/components/_chart.css" -}}
+{{- $colors := resources.Get "css/utilities/_colors.css" -}}
+{{- $responsive := resources.Get "css/utilities/_responsive.css" -}}
+
+{{- $css := slice $variables $reset $header $card $coinIcon $button $stats $chart $colors $responsive | resources.Concat "css/bundle.css" -}}
+{{- $styles := $css | resources.Minify | resources.Fingerprint "sha256" -}}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">

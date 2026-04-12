@@ -1,0 +1,53 @@
+/* Color Utility Classes */
+
+/* Positive (green) */
+.positive {
+    color: var(--color-positive);
+}
+
+.bg-positive {
+    background-color: var(--color-positive-bg);
+}
+
+/* Negative (red) */
+.negative {
+    color: var(--color-negative);
+}
+
+.bg-negative {
+    background-color: var(--color-negative-bg);
+}
+
+/* Neutral (gray) */
+.neutral {
+    color: var(--color-neutral);
+}
+
+.bg-neutral {
+    background-color: var(--color-neutral-bg);
+}
+
+/* Change badge with background */
+.change-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+}
+
+.change-badge.positive {
+    background: var(--color-positive-bg);
+    color: var(--color-positive);
+}
+
+.change-badge.negative {
+    background: var(--color-negative-bg);
+    color: var(--color-negative);
+}
+
+.change-badge.neutral {
+    background: var(--color-neutral-bg);
+    color: var(--color-neutral);
+}

@@ -1,0 +1,87 @@
+/* Responsive Utilities */
+
+/* Small screens (mobile) */
+@media (max-width: 480px) {
+    body {
+        padding: var(--space-3);
+        padding-top: max(var(--space-3), env(safe-area-inset-top));
+        padding-bottom: max(var(--space-3), env(safe-area-inset-bottom));
+    }
+
+    .card {
+        padding: var(--space-4);
+    }
+
+    .price {
+        font-size: var(--font-size-xl);
+    }
+
+    .current-price {
+        font-size: 2rem;
+    }
+
+    .coin-icon {
+        width: 40px;
+        height: 40px;
+        font-size: var(--font-size-sm);
+    }
+
+    .coin-icon--lg {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+    .current-price {
+        font-size: 1.75rem;
+    }
+
+    .stat-card {
+        padding: var(--space-3) var(--space-2);
+    }
+
+    .stat-value {
+        font-size: var(--font-size-base);
+    }
+
+    .header h1 {
+        font-size: var(--font-size-2xl);
+    }
+}
+
+/* Touch device styles */
+@media (hover: none) {
+    .card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .card-link:hover .card {
+        transform: none;
+    }
+
+    .card-link:hover .chevron {
+        transform: none;
+        color: var(--color-text-dim);
+    }
+
+    /* Ensure active states work on touch */
+    .card:active,
+    .card-link:active .card {
+        transform: scale(0.98);
+        opacity: 0.9;
+    }
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

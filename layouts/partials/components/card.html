@@ -1,0 +1,29 @@
+{{/*
+    Crypto Card Component
+    Usage: {{ partial "components/card.html" (dict "coin" . "site" $.Site) }}
+*/}}
+{{- $coin := .coin -}}
+{{- $site := .site -}}
+
+<a href="{{ $site.BaseURL }}coins/{{ $coin.id }}/" class="card-link">
+    <article class="card">
+        <div class="card-header">
+            <div class="coin-info">
+                {{ partial "components/coin-icon.html" (dict "symbol" $coin.symbol) }}
+                <div>
+                    <div class="coin-name">{{ $coin.name }}</div>
+                    <div class="coin-symbol">{{ $coin.symbol }}</div>
+                </div>
+            </div>
+            <div class="card-price">
+                <div class="price">${{ lang.FormatNumber 2 $coin.price }}</div>
+                <span class="chevron">›</span>
+            </div>
+        </div>
+        <div class="changes">
+            {{ partial "components/price-change.html" (dict "label" "24h" "value" $coin.change_24h "ok" true) }}
+            {{ partial "components/price-change.html" (dict "label" "7d" "value" $coin.change_7d "ok" $coin.change_7d_ok) }}
+            {{ partial "components/price-change.html" (dict "label" "30d" "value" $coin.change_30d "ok" $coin.change_30d_ok) }}
+        </div>
+    </article>
+</a>
