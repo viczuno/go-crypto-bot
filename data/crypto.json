@@ -1,59 +1,59 @@
 {
-  "updated_at": "2026-04-15T12:59:08Z",
+  "updated_at": "2026-04-16T01:28:51Z",
   "coins": [
-    {
-      "id": "polkadot",
-      "name": "Polkadot",
-      "symbol": "DOT",
-      "price": 1.17,
-      "change_24h": -0.376202905638105,
-      "change_7d": -4.878048780487809,
-      "change_7d_ok": true,
-      "change_30d": -26.41509433962265,
-      "change_30d_ok": true
-    },
     {
       "id": "bitcoin",
       "name": "Bitcoin",
       "symbol": "BTC",
-      "price": 74375,
-      "change_24h": -0.09773538401720039,
-      "change_7d": 8.843587191945208,
+      "price": 74606,
+      "change_24h": -0.09505548188088332,
+      "change_7d": 3.6482356210058344,
       "change_7d_ok": true,
-      "change_30d": 0.7559234322716989,
+      "change_30d": -0.9689922480620154,
       "change_30d_ok": true
     },
     {
       "id": "ethereum",
       "name": "Ethereum",
       "symbol": "ETH",
-      "price": 2337.58,
-      "change_24h": -1.5445374142208397,
-      "change_7d": 12.283246712074769,
+      "price": 2351.43,
+      "change_24h": 0.6649994465995815,
+      "change_7d": 4.294312541858668,
       "change_7d_ok": true,
-      "change_30d": 2.2362177174222095,
+      "change_30d": -0.21938385810065658,
       "change_30d_ok": true
     },
     {
       "id": "solana",
       "name": "Solana",
       "symbol": "SOL",
-      "price": 83.77,
-      "change_24h": -2.4121756308042284,
-      "change_7d": 6.118571066632883,
+      "price": 84.78,
+      "change_24h": 1.1931683504821404,
+      "change_7d": 0.24831500532104525,
       "change_7d_ok": true,
-      "change_30d": -10.769066893907116,
+      "change_30d": -11.00146966197775,
       "change_30d_ok": true
     },
     {
       "id": "cardano",
       "name": "Cardano",
       "symbol": "ADA",
-      "price": 0.242324,
-      "change_24h": -0.5040531557455952,
-      "change_7d": 0.28140570425916384,
+      "price": 0.244879,
+      "change_24h": 1.7402605958635051,
+      "change_7d": -4.867370089507712,
       "change_7d_ok": true,
-      "change_30d": -15.219155844155846,
+      "change_30d": -15.574103953773793,
+      "change_30d_ok": true
+    },
+    {
+      "id": "polkadot",
+      "name": "Polkadot",
+      "symbol": "DOT",
+      "price": 1.18,
+      "change_24h": 0.11374466528002718,
+      "change_7d": -9.230769230769239,
+      "change_7d_ok": true,
+      "change_30d": -27.160493827160504,
       "change_30d_ok": true
     }
   ]
