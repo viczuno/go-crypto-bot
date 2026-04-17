@@ -10,7 +10,7 @@
 
 [![View Dashboard](https://img.shields.io/badge/View-Live%20Dashboard-blue?style=for-the-badge)](https://viczuno.github.io/go-crypto-bot/)
 
-🕐 *Last updated: Friday, April 17, 2026 at 01:26 UTC*
+🕐 *Last updated: Friday, April 17, 2026 at 12:55 UTC*
 
 </div>
 
@@ -31,38 +31,38 @@
 <tbody>
 <tr>
 <td><b>Bitcoin BTC</b><br/></td>
-<td align="right"><code>$74738.00</code></td>
-<td align="center">🟢 +0.17%</td>
-<td align="center">🟢 +4.91%</td>
-<td align="center">🟢 +1.14%</td>
+<td align="right"><code>$76136.00</code></td>
+<td align="center">🟢 +2.03%</td>
+<td align="center">🟢 +6.87%</td>
+<td align="center">🟢 +5.12%</td>
 </tr>
 <tr>
 <td><b>Ethereum ETH</b><br/></td>
-<td align="right"><code>$2333.27</code></td>
-<td align="center">🔴 -0.78%</td>
-<td align="center">🟢 +6.96%</td>
-<td align="center">🟢 +0.33%</td>
+<td align="right"><code>$2372.68</code></td>
+<td align="center">🟢 +1.43%</td>
+<td align="center">🟢 +8.76%</td>
+<td align="center">🟢 +5.87%</td>
 </tr>
 <tr>
 <td><b>Solana SOL</b><br/></td>
-<td align="right"><code>$88.47</code></td>
-<td align="center">🟢 +4.36%</td>
-<td align="center">🟢 +7.58%</td>
-<td align="center">🔴 -6.52%</td>
+<td align="right"><code>$88.70</code></td>
+<td align="center">🟢 +4.02%</td>
+<td align="center">🟢 +7.86%</td>
+<td align="center">🔴 -2.15%</td>
 </tr>
 <tr>
 <td><b>Cardano ADA</b><br/></td>
-<td align="right"><code>$0.2572</code></td>
-<td align="center">🟢 +4.97%</td>
-<td align="center">🟢 +2.53%</td>
-<td align="center">🔴 -10.94%</td>
+<td align="right"><code>$0.2598</code></td>
+<td align="center">🟢 +3.90%</td>
+<td align="center">🟢 +3.60%</td>
+<td align="center">🔴 -6.03%</td>
 </tr>
 <tr>
 <td><b>Polkadot DOT</b><br/></td>
-<td align="right"><code>$1.31</code></td>
-<td align="center">🟢 +11.45%</td>
-<td align="center">🟢 +4.80%</td>
-<td align="center">🔴 -19.63%</td>
+<td align="right"><code>$1.32</code></td>
+<td align="center">🟢 +3.18%</td>
+<td align="center">🟢 +5.60%</td>
+<td align="center">🔴 -16.98%</td>
 </tr>
 </tbody>
 </table>
@@ -143,7 +143,7 @@
 
 <div align="center">
 
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B0.17%2C+-0.78%2C+4.36%2C+4.97%2C+11.45%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
+![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B2.03%2C+1.43%2C+4.02%2C+3.90%2C+3.18%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
 
 </div>
 
