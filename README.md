@@ -10,7 +10,7 @@
 
 [![View Dashboard](https://img.shields.io/badge/View-Live%20Dashboard-blue?style=for-the-badge)](https://viczuno.github.io/go-crypto-bot/)
 
-🕐 *Last updated: Friday, April 17, 2026 at 12:55 UTC*
+🕐 *Last updated: Saturday, April 18, 2026 at 01:19 UTC*
 
 </div>
 
@@ -31,38 +31,38 @@
 <tbody>
 <tr>
 <td><b>Bitcoin BTC</b><br/></td>
-<td align="right"><code>$76136.00</code></td>
-<td align="center">🟢 +2.03%</td>
-<td align="center">🟢 +6.87%</td>
-<td align="center">🟢 +5.12%</td>
+<td align="right"><code>$77310.00</code></td>
+<td align="center">🟢 +3.18%</td>
+<td align="center">🟢 +6.86%</td>
+<td align="center">🟢 +8.88%</td>
 </tr>
 <tr>
 <td><b>Ethereum ETH</b><br/></td>
-<td align="right"><code>$2372.68</code></td>
-<td align="center">🟢 +1.43%</td>
-<td align="center">🟢 +8.76%</td>
-<td align="center">🟢 +5.87%</td>
+<td align="right"><code>$2424.85</code></td>
+<td align="center">🟢 +3.42%</td>
+<td align="center">🟢 +8.91%</td>
+<td align="center">🟢 +10.65%</td>
 </tr>
 <tr>
 <td><b>Solana SOL</b><br/></td>
-<td align="right"><code>$88.70</code></td>
-<td align="center">🟢 +4.02%</td>
-<td align="center">🟢 +7.86%</td>
-<td align="center">🔴 -2.15%</td>
+<td align="right"><code>$89.07</code></td>
+<td align="center">🟢 +0.26%</td>
+<td align="center">🟢 +5.70%</td>
+<td align="center">🔴 -1.14%</td>
 </tr>
 <tr>
 <td><b>Cardano ADA</b><br/></td>
-<td align="right"><code>$0.2598</code></td>
-<td align="center">🟢 +3.90%</td>
-<td align="center">🟢 +3.60%</td>
-<td align="center">🔴 -6.03%</td>
+<td align="right"><code>$0.2593</code></td>
+<td align="center">🟢 +0.31%</td>
+<td align="center">🟢 +2.54%</td>
+<td align="center">🔴 -4.95%</td>
 </tr>
 <tr>
 <td><b>Polkadot DOT</b><br/></td>
-<td align="right"><code>$1.32</code></td>
-<td align="center">🟢 +3.18%</td>
-<td align="center">🟢 +5.60%</td>
-<td align="center">🔴 -16.98%</td>
+<td align="right"><code>$1.34</code></td>
+<td align="center">🟢 +1.86%</td>
+<td align="center">🟢 +3.08%</td>
+<td align="center">🔴 -14.10%</td>
 </tr>
 </tbody>
 </table>
@@ -143,7 +143,7 @@
 
 <div align="center">
 
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B2.03%2C+1.43%2C+4.02%2C+3.90%2C+3.18%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
+![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B3.18%2C+3.42%2C+0.26%2C+0.31%2C+1.86%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
 
 </div>
 
