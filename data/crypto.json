@@ -1,59 +1,59 @@
 {
-  "updated_at": "2026-04-27T01:46:52Z",
+  "updated_at": "2026-04-27T13:16:26Z",
   "coins": [
+    {
+      "id": "solana",
+      "name": "Solana",
+      "symbol": "SOL",
+      "price": 85.14,
+      "change_24h": -1.0250063010398964,
+      "change_7d": -0.6302521008403433,
+      "change_7d_ok": true,
+      "change_30d": 2.368642539377178,
+      "change_30d_ok": true
+    },
     {
       "id": "cardano",
       "name": "Cardano",
       "symbol": "ADA",
-      "price": 0.254921,
-      "change_24h": 2.397249373092955,
-      "change_7d": 2.754264615781499,
+      "price": 0.247932,
+      "change_24h": -1.8019951904425286,
+      "change_7d": -0.0628809132243355,
       "change_7d_ok": true,
-      "change_30d": 3.503564874214346,
+      "change_30d": 0.6658762769395686,
       "change_30d_ok": true
     },
     {
       "id": "polkadot",
       "name": "Polkadot",
       "symbol": "DOT",
-      "price": 1.27,
-      "change_24h": 2.0755656802456146,
-      "change_7d": 0,
+      "price": 1.23,
+      "change_24h": -2.189648115229712,
+      "change_7d": -3.1496062992126013,
       "change_7d_ok": true,
-      "change_30d": -0.7812500000000007,
+      "change_30d": -3.9062500000000036,
       "change_30d_ok": true
     },
     {
       "id": "bitcoin",
       "name": "Bitcoin",
       "symbol": "BTC",
-      "price": 79092,
-      "change_24h": 2.032730030068685,
-      "change_7d": 4.7035306265637615,
+      "price": 77720,
+      "change_24h": -0.2076435008512496,
+      "change_7d": 2.887250294549835,
       "change_7d_ok": true,
-      "change_30d": 18.845980465815177,
+      "change_30d": 16.784372652141247,
       "change_30d_ok": true
     },
     {
       "id": "ethereum",
       "name": "Ethereum",
       "symbol": "ETH",
-      "price": 2387.53,
-      "change_24h": 3.1031859393325623,
-      "change_7d": 2.509134468826883,
+      "price": 2315.01,
+      "change_24h": -0.6731475878202077,
+      "change_7d": -0.6045279486838175,
       "change_7d_ok": true,
-      "change_30d": 20.185952389342233,
-      "change_30d_ok": true
-    },
-    {
-      "id": "solana",
-      "name": "Solana",
-      "symbol": "SOL",
-      "price": 87.62,
-      "change_24h": 1.831022983168836,
-      "change_7d": 2.2642390289449086,
-      "change_7d_ok": true,
-      "change_30d": 5.3504869544306874,
+      "change_30d": 16.535365687908072,
       "change_30d_ok": true
     }
   ]
