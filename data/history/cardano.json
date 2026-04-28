@@ -2,31 +2,19 @@
   "id": "cardano",
   "name": "Cardano",
   "symbol": "ADA",
-  "updated_at": "2026-04-27T13:16:26Z",
+  "updated_at": "2026-04-28T01:54:29Z",
   "current": {
     "id": "cardano",
     "name": "Cardano",
     "symbol": "ADA",
-    "price": 0.247932,
-    "change_24h": -1.800552919462277,
-    "change_7d": 0.3602626274074861,
+    "price": 0.247831,
+    "change_24h": -2.7812538001969287,
+    "change_7d": -0.3353909878752544,
     "change_7d_ok": true,
-    "change_30d": -0.9037023417921305,
+    "change_30d": 1.0317977986139444,
     "change_30d_ok": true
   },
   "history": [
-    {
-      "timestamp": "2026-03-28T01:13:30Z",
-      "price": 0.24602
-    },
-    {
-      "timestamp": "2026-03-28T10:35:31Z",
-      "price": 0.247781
-    },
-    {
-      "timestamp": "2026-03-28T12:32:12Z",
-      "price": 0.248411
-    },
     {
       "timestamp": "2026-03-29T01:21:46Z",
       "price": 0.246214
@@ -258,6 +246,10 @@
     {
       "timestamp": "2026-04-27T13:16:26Z",
       "price": 0.247932
+    },
+    {
+      "timestamp": "2026-04-28T01:54:29Z",
+      "price": 0.247831
     }
   ]
 }
