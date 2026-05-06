@@ -1,59 +1,59 @@
 {
-  "updated_at": "2026-05-06T01:50:23Z",
+  "updated_at": "2026-05-06T13:28:11Z",
   "coins": [
-    {
-      "id": "bitcoin",
-      "name": "Bitcoin",
-      "symbol": "BTC",
-      "price": 81395,
-      "change_24h": 1.344758153864602,
-      "change_7d": 6.927038175560285,
-      "change_7d_ok": true,
-      "change_30d": 21.82509391884813,
-      "change_30d_ok": true
-    },
-    {
-      "id": "ethereum",
-      "name": "Ethereum",
-      "symbol": "ETH",
-      "price": 2372.36,
-      "change_24h": 0.4084542035020756,
-      "change_7d": 4.610635858541315,
-      "change_7d_ok": true,
-      "change_30d": 16.652980542757255,
-      "change_30d_ok": true
-    },
-    {
-      "id": "solana",
-      "name": "Solana",
-      "symbol": "SOL",
-      "price": 86.84,
-      "change_24h": 2.964658670902999,
-      "change_7d": 4.19966402687785,
-      "change_7d_ok": true,
-      "change_30d": 9.260191243080019,
-      "change_30d_ok": true
-    },
     {
       "id": "cardano",
       "name": "Cardano",
       "symbol": "ADA",
-      "price": 0.262374,
-      "change_24h": 4.66471449632416,
-      "change_7d": 6.738972128766643,
+      "price": 0.267962,
+      "change_24h": 3.5987264295609664,
+      "change_7d": 9.0122818936654,
       "change_7d_ok": true,
-      "change_30d": 8.689384336241393,
+      "change_30d": 11.0042336721928,
       "change_30d_ok": true
     },
     {
       "id": "polkadot",
       "name": "Polkadot",
       "symbol": "DOT",
-      "price": 1.29,
-      "change_24h": 4.746703294098368,
-      "change_7d": 5.737704918032792,
+      "price": 1.31,
+      "change_24h": 2.5026722879001797,
+      "change_7d": 7.377049180327876,
       "change_7d_ok": true,
-      "change_30d": 4.878048780487809,
+      "change_30d": 6.504065040650413,
+      "change_30d_ok": true
+    },
+    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "price": 81900,
+      "change_24h": 0.5184677894346252,
+      "change_7d": 7.590446914164104,
+      "change_7d_ok": true,
+      "change_30d": 22.58093484800862,
+      "change_30d_ok": true
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "price": 2382.7,
+      "change_24h": -0.3185452291831458,
+      "change_7d": 5.066584354881367,
+      "change_7d_ok": true,
+      "change_30d": 17.16141594835003,
+      "change_30d_ok": true
+    },
+    {
+      "id": "solana",
+      "name": "Solana",
+      "symbol": "SOL",
+      "price": 88.5,
+      "change_24h": 3.2221816934834364,
+      "change_7d": 6.191504679625625,
+      "change_7d_ok": true,
+      "change_30d": 11.348766985405128,
       "change_30d_ok": true
     }
   ]
