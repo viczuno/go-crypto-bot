@@ -2,27 +2,19 @@
   "id": "bitcoin",
   "name": "Bitcoin",
   "symbol": "BTC",
-  "updated_at": "2026-05-17T12:54:54Z",
+  "updated_at": "2026-05-18T02:12:01Z",
   "current": {
     "id": "bitcoin",
     "name": "Bitcoin",
     "symbol": "BTC",
-    "price": 78364,
-    "change_24h": 0.4615147941131224,
-    "change_7d": -3.1359315706851585,
+    "price": 77110,
+    "change_24h": -0.801461412784789,
+    "change_7d": -5.36095633177054,
     "change_7d_ok": true,
-    "change_30d": 3.7397900422298416,
+    "change_30d": 3.7652061578210785,
     "change_30d_ok": true
   },
   "history": [
-    {
-      "timestamp": "2026-04-17T01:26:11Z",
-      "price": 74738
-    },
-    {
-      "timestamp": "2026-04-17T12:55:05Z",
-      "price": 76136
-    },
     {
       "timestamp": "2026-04-18T01:19:50Z",
       "price": 77310
@@ -262,6 +254,10 @@
     {
       "timestamp": "2026-05-17T12:54:54Z",
       "price": 78364
+    },
+    {
+      "timestamp": "2026-05-18T02:12:01Z",
+      "price": 77110
     }
   ]
 }
