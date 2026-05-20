@@ -1,15 +1,15 @@
 {
-  "updated_at": "2026-05-19T14:34:22Z",
+  "updated_at": "2026-05-20T02:10:08Z",
   "coins": [
     {
       "id": "cardano",
       "name": "Cardano",
       "symbol": "ADA",
-      "price": 0.248542,
-      "change_24h": 0.3250729627263932,
-      "change_7d": -11.38469656615787,
+      "price": 0.247634,
+      "change_24h": -1.2989690519683545,
+      "change_7d": -9.366604935108676,
       "change_7d_ok": true,
-      "change_30d": -1.0368470929260143,
+      "change_30d": -0.18299958079391584,
       "change_30d_ok": true
     },
     {
@@ -17,43 +17,43 @@
       "name": "Polkadot",
       "symbol": "DOT",
       "price": 1.23,
-      "change_24h": 0.13702150733874002,
-      "change_7d": -9.558823529411772,
+      "change_24h": -1.234560638029205,
+      "change_7d": -7.518796992481209,
       "change_7d_ok": true,
-      "change_30d": -4.651162790697678,
+      "change_30d": -3.1496062992126013,
       "change_30d_ok": true
     },
     {
       "id": "bitcoin",
       "name": "Bitcoin",
       "symbol": "BTC",
-      "price": 76343,
-      "change_24h": -0.08226736717322992,
-      "change_7d": -5.665529853697113,
+      "price": 76756,
+      "change_24h": 0.1954449816611867,
+      "change_7d": -4.874270346639567,
       "change_7d_ok": true,
-      "change_30d": 0.2547636869821009,
+      "change_30d": 1.611088311997776,
       "change_30d_ok": true
     },
     {
       "id": "ethereum",
       "name": "Ethereum",
       "symbol": "ETH",
-      "price": 2105.32,
-      "change_24h": -0.18968435736952446,
-      "change_7d": -9.305441277198838,
+      "price": 2112.47,
+      "change_24h": -0.4716872710276548,
+      "change_7d": -7.1996520761215415,
       "change_7d_ok": true,
-      "change_30d": -10.645377609140363,
+      "change_30d": -9.300628142321694,
       "change_30d_ok": true
     },
     {
       "id": "solana",
       "name": "Solana",
       "symbol": "SOL",
-      "price": 84.16,
-      "change_24h": 0.24513647229114804,
-      "change_7d": -11.503680336487907,
+      "price": 84.28,
+      "change_24h": -0.5500785695101368,
+      "change_7d": -11.172006745362557,
       "change_7d_ok": true,
-      "change_30d": -2.9855907780979867,
+      "change_30d": -1.6339869281045816,
       "change_30d_ok": true
     }
   ]
