@@ -1,5 +1,5 @@
 baseURL = "https://viczuno.github.io/go-crypto-bot/"
-languageCode = "en-us"
+locale = "en-us"
 title = "Crypto Dashboard"
 
 # Disable unused features for faster builds
@@ -13,6 +13,8 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
 
 # Security settings for content adapters
 [security]
+  allowContent = ['^text/html$']
+
   [security.funcs]
     getenv = ["^HUGO_", "^CI$"]
   [security.http]
