@@ -13,7 +13,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
 
 # Security settings for content adapters
 [security]
-  allowContent = ['^text/html$']
+  allowContent = ['^text/html$', '^text/markdown$']
 
   [security.funcs]
     getenv = ["^HUGO_", "^CI$"]
