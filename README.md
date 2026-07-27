@@ -10,7 +10,7 @@
 
 [![View Dashboard](https://img.shields.io/badge/View-Live%20Dashboard-blue?style=for-the-badge)](https://viczuno.github.io/go-crypto-bot/)
 
-🕐 *Last updated: Sunday, July 26, 2026 at 13:13 UTC*
+🕐 *Last updated: Monday, July 27, 2026 at 02:35 UTC*
 
 </div>
 
@@ -31,38 +31,38 @@
 <tbody>
 <tr>
 <td><b>Bitcoin BTC</b><br/></td>
-<td align="right"><code>$64372.00</code></td>
-<td align="center">🟢 +0.46%</td>
-<td align="center">🔴 -16.68%</td>
-<td align="center">🔴 -16.68%</td>
+<td align="right"><code>$65075.00</code></td>
+<td align="center">🟢 +1.06%</td>
+<td align="center">🔴 -15.77%</td>
+<td align="center">🔴 -15.77%</td>
 </tr>
 <tr>
 <td><b>Ethereum ETH</b><br/></td>
-<td align="right"><code>$1882.85</code></td>
-<td align="center">🟢 +1.12%</td>
-<td align="center">🔴 -11.37%</td>
-<td align="center">🔴 -11.37%</td>
+<td align="right"><code>$1942.57</code></td>
+<td align="center">🟢 +3.49%</td>
+<td align="center">🔴 -8.56%</td>
+<td align="center">🔴 -8.56%</td>
 </tr>
 <tr>
 <td><b>Solana SOL</b><br/></td>
-<td align="right"><code>$74.76</code></td>
-<td align="center">🟢 +1.12%</td>
-<td align="center">🔴 -12.49%</td>
-<td align="center">🔴 -12.49%</td>
+<td align="right"><code>$76.41</code></td>
+<td align="center">🟢 +2.29%</td>
+<td align="center">🔴 -10.56%</td>
+<td align="center">🔴 -10.56%</td>
 </tr>
 <tr>
 <td><b>Cardano ADA</b><br/></td>
-<td align="right"><code>$0.1644</code></td>
-<td align="center">🟢 +0.53%</td>
-<td align="center">🔴 -33.10%</td>
-<td align="center">🔴 -33.10%</td>
+<td align="right"><code>$0.1646</code></td>
+<td align="center">🔴 -0.19%</td>
+<td align="center">🔴 -33.00%</td>
+<td align="center">🔴 -33.00%</td>
 </tr>
 <tr>
 <td><b>Polkadot DOT</b><br/></td>
-<td align="right"><code>$0.8234</code></td>
-<td align="center">🟢 +0.79%</td>
-<td align="center">🔴 -36.67%</td>
-<td align="center">🔴 -36.67%</td>
+<td align="right"><code>$0.8164</code></td>
+<td align="center">🟢 +0.06%</td>
+<td align="center">🔴 -37.20%</td>
+<td align="center">🔴 -37.20%</td>
 </tr>
 </tbody>
 </table>
@@ -143,7 +143,7 @@
 
 <div align="center">
 
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B0.46%2C+1.12%2C+1.12%2C+0.53%2C+0.79%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
+![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B1.06%2C+3.49%2C+2.29%2C+-0.19%2C+0.06%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
 
 </div>
 
