@@ -10,7 +10,7 @@
 
 [![View Dashboard](https://img.shields.io/badge/View-Live%20Dashboard-blue?style=for-the-badge)](https://viczuno.github.io/go-crypto-bot/)
 
-🕐 *Last updated: Friday, July 31, 2026 at 13:56 UTC*
+🕐 *Last updated: Saturday, August 1, 2026 at 02:29 UTC*
 
 </div>
 
@@ -31,38 +31,38 @@
 <tbody>
 <tr>
 <td><b>Bitcoin BTC</b><br/></td>
-<td align="right"><code>$63243.00</code></td>
-<td align="center">🔴 -2.64%</td>
-<td align="center">🔴 -18.15%</td>
-<td align="center">🔴 -18.15%</td>
+<td align="right"><code>$63004.00</code></td>
+<td align="center">🔴 -2.11%</td>
+<td align="center">🔴 -18.46%</td>
+<td align="center">🔴 -18.46%</td>
 </tr>
 <tr>
 <td><b>Ethereum ETH</b><br/></td>
-<td align="right"><code>$1865.46</code></td>
-<td align="center">🔴 -3.28%</td>
-<td align="center">🔴 -12.19%</td>
-<td align="center">🔴 -12.19%</td>
+<td align="right"><code>$1867.20</code></td>
+<td align="center">🔴 -1.96%</td>
+<td align="center">🔴 -12.10%</td>
+<td align="center">🔴 -12.10%</td>
 </tr>
 <tr>
 <td><b>Solana SOL</b><br/></td>
-<td align="right"><code>$73.16</code></td>
-<td align="center">🔴 -1.99%</td>
-<td align="center">🔴 -14.36%</td>
-<td align="center">🔴 -14.36%</td>
+<td align="right"><code>$73.06</code></td>
+<td align="center">🔴 -1.53%</td>
+<td align="center">🔴 -14.48%</td>
+<td align="center">🔴 -14.48%</td>
 </tr>
 <tr>
 <td><b>Cardano ADA</b><br/></td>
-<td align="right"><code>$0.1691</code></td>
-<td align="center">🟢 +0.46%</td>
-<td align="center">🔴 -31.16%</td>
-<td align="center">🔴 -31.16%</td>
+<td align="right"><code>$0.1701</code></td>
+<td align="center">🔴 -0.22%</td>
+<td align="center">🔴 -30.78%</td>
+<td align="center">🔴 -30.78%</td>
 </tr>
 <tr>
 <td><b>Polkadot DOT</b><br/></td>
-<td align="right"><code>$0.7565</code></td>
-<td align="center">🔴 -1.53%</td>
-<td align="center">🔴 -41.81%</td>
-<td align="center">🔴 -41.81%</td>
+<td align="right"><code>$0.7640</code></td>
+<td align="center">🔴 -0.20%</td>
+<td align="center">🔴 -41.23%</td>
+<td align="center">🔴 -41.23%</td>
 </tr>
 </tbody>
 </table>
@@ -143,7 +143,7 @@
 
 <div align="center">
 
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B-2.64%2C+-3.28%2C+-1.99%2C+0.46%2C+-1.53%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
+![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B-2.11%2C+-1.96%2C+-1.53%2C+-0.22%2C+-0.20%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
 
 </div>
 
