@@ -2,27 +2,19 @@
   "id": "ethereum",
   "name": "Ethereum",
   "symbol": "ETH",
-  "updated_at": "2026-09-14T17:35:47Z",
+  "updated_at": "2026-09-15T03:13:17Z",
   "current": {
     "id": "ethereum",
     "name": "Ethereum",
     "symbol": "ETH",
-    "price": 2524.52,
-    "change_24h": 1.4935453913169368,
-    "change_7d": 1.4291166957954224,
+    "price": 2500.68,
+    "change_24h": -0.6278611393692849,
+    "change_7d": 0.47128307117459245,
     "change_7d_ok": true,
-    "change_30d": 32.984960623699536,
+    "change_30d": 31.090375340742295,
     "change_30d_ok": true
   },
   "history": [
-    {
-      "timestamp": "2026-08-15T01:01:24Z",
-      "price": 1880.6
-    },
-    {
-      "timestamp": "2026-08-15T12:30:49Z",
-      "price": 1876.84
-    },
     {
       "timestamp": "2026-08-16T01:04:28Z",
       "price": 1879.92
@@ -262,6 +254,10 @@
     {
       "timestamp": "2026-09-14T17:35:47Z",
       "price": 2524.52
+    },
+    {
+      "timestamp": "2026-09-15T03:13:17Z",
+      "price": 2500.68
     }
   ]
 }
