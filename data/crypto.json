@@ -1,59 +1,59 @@
 {
-  "updated_at": "2026-09-22T03:08:19Z",
+  "updated_at": "2026-09-22T16:12:22Z",
   "coins": [
+    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "price": 86253,
+      "change_24h": 0.579984661156947,
+      "change_7d": 9.54013792052425,
+      "change_7d_ok": true,
+      "change_30d": 11.560499256289207,
+      "change_30d_ok": true
+    },
     {
       "id": "ethereum",
       "name": "Ethereum",
       "symbol": "ETH",
-      "price": 2739.11,
-      "change_24h": 2.824768594920004,
-      "change_7d": 8.500229746644912,
+      "price": 2736.96,
+      "change_24h": -0.4592815976332623,
+      "change_7d": 8.415065042067404,
       "change_7d_ok": true,
-      "change_30d": 12.47156501244159,
+      "change_30d": 12.383283101610424,
       "change_30d_ok": true
     },
     {
       "id": "solana",
       "name": "Solana",
       "symbol": "SOL",
-      "price": 116.72,
-      "change_24h": 4.728457468207703,
-      "change_7d": 13.673548889754569,
+      "price": 117.03,
+      "change_24h": -0.6753155835997446,
+      "change_7d": 13.975457732761972,
       "change_7d_ok": true,
-      "change_30d": 23.959218351741722,
+      "change_30d": 24.28844519966016,
       "change_30d_ok": true
     },
     {
       "id": "cardano",
       "name": "Cardano",
       "symbol": "ADA",
-      "price": 0.245847,
-      "change_24h": 6.511293439817702,
-      "change_7d": 16.520135929968575,
+      "price": 0.249474,
+      "change_24h": 1.9755804706538858,
+      "change_7d": 18.239166599523195,
       "change_7d_ok": true,
-      "change_30d": 8.595899941251044,
+      "change_30d": 10.19802373811217,
       "change_30d_ok": true
     },
     {
       "id": "polkadot",
       "name": "Polkadot",
       "symbol": "DOT",
-      "price": 1.19,
-      "change_24h": 2.752476126316257,
-      "change_7d": 18.172790466732877,
+      "price": 1.17,
+      "change_24h": -2.319769802008468,
+      "change_7d": 16.186693147964252,
       "change_7d_ok": true,
-      "change_30d": 27.8173522259553,
-      "change_30d_ok": true
-    },
-    {
-      "id": "bitcoin",
-      "name": "Bitcoin",
-      "symbol": "BTC",
-      "price": 85669,
-      "change_24h": 5.309974736255366,
-      "change_7d": 8.798465856415337,
-      "change_7d_ok": true,
-      "change_30d": 10.805147772101146,
+      "change_30d": 25.669161432241765,
       "change_30d_ok": true
     }
   ]
