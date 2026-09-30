@@ -1,59 +1,59 @@
 {
-  "updated_at": "2026-09-30T03:49:08Z",
+  "updated_at": "2026-09-30T17:33:25Z",
   "coins": [
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "price": 2683.21,
+      "change_24h": 0.194820226296625,
+      "change_7d": -1.963857710744768,
+      "change_7d_ok": true,
+      "change_30d": 8.252006116183273,
+      "change_30d_ok": true
+    },
     {
       "id": "solana",
       "name": "Solana",
       "symbol": "SOL",
-      "price": 119.42,
-      "change_24h": 1.25864630160117,
-      "change_7d": 2.0422113987866366,
+      "price": 119.54,
+      "change_24h": 1.322765186844064,
+      "change_7d": 2.144749209604379,
       "change_7d_ok": true,
-      "change_30d": 12.448210922787192,
+      "change_30d": 12.561205273069683,
       "change_30d_ok": true
     },
     {
       "id": "cardano",
       "name": "Cardano",
       "symbol": "ADA",
-      "price": 0.244155,
-      "change_24h": 0.5133242397439586,
-      "change_7d": -2.1320859087520105,
+      "price": 0.247432,
+      "change_24h": 2.2538977561000353,
+      "change_7d": -0.8185221706470366,
       "change_7d_ok": true,
-      "change_30d": 20.202935225163582,
+      "change_30d": 21.816275188436347,
       "change_30d_ok": true
     },
     {
       "id": "polkadot",
       "name": "Polkadot",
       "symbol": "DOT",
-      "price": 1.21,
-      "change_24h": 4.141735879744269,
-      "change_7d": 3.4188034188034218,
+      "price": 1.24,
+      "change_24h": 6.142377899739709,
+      "change_7d": 5.982905982905988,
       "change_7d_ok": true,
-      "change_30d": 42.125206433925875,
+      "change_30d": 45.6489718827009,
       "change_30d_ok": true
     },
     {
       "id": "bitcoin",
       "name": "Bitcoin",
       "symbol": "BTC",
-      "price": 83292,
-      "change_24h": 0.19433686185494808,
-      "change_7d": -3.4329240722061845,
+      "price": 84091,
+      "change_24h": 1.096292665361619,
+      "change_7d": -2.506579481293404,
       "change_7d_ok": true,
-      "change_30d": 5.720632100019039,
-      "change_30d_ok": true
-    },
-    {
-      "id": "ethereum",
-      "name": "Ethereum",
-      "symbol": "ETH",
-      "price": 2672.09,
-      "change_24h": 0.21013332538928148,
-      "change_7d": -2.37014790132117,
-      "change_7d_ok": true,
-      "change_30d": 7.803378424719712,
+      "change_30d": 6.7347845402043545,
       "change_30d_ok": true
     }
   ]
