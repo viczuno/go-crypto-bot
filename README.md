@@ -10,7 +10,7 @@
 
 [![View Dashboard](https://img.shields.io/badge/View-Live%20Dashboard-blue?style=for-the-badge)](https://viczuno.github.io/go-crypto-bot/)
 
-🕐 *Last updated: Monday, October 5, 2026 at 20:19 UTC*
+🕐 *Last updated: Tuesday, October 6, 2026 at 04:40 UTC*
 
 </div>
 
@@ -30,39 +30,39 @@
 </thead>
 <tbody>
 <tr>
-<td><b>Ethereum ETH</b><br/></td>
-<td align="right"><code>$2709.54</code></td>
-<td align="center">🟢 +0.29%</td>
-<td align="center">🟢 +0.65%</td>
-<td align="center">🟢 +10.26%</td>
-</tr>
-<tr>
-<td><b>Solana SOL</b><br/></td>
-<td align="right"><code>$120.25</code></td>
-<td align="center">🔴 -0.56%</td>
-<td align="center">🔴 -1.50%</td>
-<td align="center">🟢 +18.46%</td>
-</tr>
-<tr>
-<td><b>Cardano ADA</b><br/></td>
-<td align="right"><code>$0.2678</code></td>
-<td align="center">🟢 +6.50%</td>
-<td align="center">🟢 +4.77%</td>
-<td align="center">🟢 +25.20%</td>
-</tr>
-<tr>
 <td><b>Polkadot DOT</b><br/></td>
-<td align="right"><code>$1.23</code></td>
-<td align="center">🟢 +1.17%</td>
-<td align="center">🔴 -0.81%</td>
-<td align="center">🟢 +44.13%</td>
+<td align="right"><code>$1.22</code></td>
+<td align="center">🟢 +1.36%</td>
+<td align="center">🟢 +4.27%</td>
+<td align="center">🟢 +33.29%</td>
 </tr>
 <tr>
 <td><b>Bitcoin BTC</b><br/></td>
-<td align="right"><code>$85738.00</code></td>
-<td align="center">🟢 +0.32%</td>
-<td align="center">🟢 +1.42%</td>
-<td align="center">🟢 +7.84%</td>
+<td align="right"><code>$85591.00</code></td>
+<td align="center">🟢 +0.06%</td>
+<td align="center">🟢 +2.31%</td>
+<td align="center">🟢 +7.35%</td>
+</tr>
+<tr>
+<td><b>Ethereum ETH</b><br/></td>
+<td align="right"><code>$2702.48</code></td>
+<td align="center">🟢 +0.09%</td>
+<td align="center">🟢 +0.65%</td>
+<td align="center">🟢 +10.00%</td>
+</tr>
+<tr>
+<td><b>Solana SOL</b><br/></td>
+<td align="right"><code>$120.26</code></td>
+<td align="center">🟢 +0.02%</td>
+<td align="center">🟢 +0.98%</td>
+<td align="center">🟢 +16.86%</td>
+</tr>
+<tr>
+<td><b>Cardano ADA</b><br/></td>
+<td align="right"><code>$0.2687</code></td>
+<td align="center">🟢 +1.75%</td>
+<td align="center">🟢 +9.10%</td>
+<td align="center">🟢 +24.17%</td>
 </tr>
 </tbody>
 </table>
@@ -82,30 +82,6 @@
 </thead>
 <tbody>
 <tr>
-<td><b>ETH</b></td>
-<td align="center">⚪ <b>Hold</b><br/><sub>51% conf</sub></td>
-<td align="center">⚪ 38.6</td>
-<td align="center">🟠 ↓</td>
-<td align="center">🟠 ↓ Bearish</td>
-<td align="center">🔵 Lower</td>
-</tr>
-<tr>
-<td><b>SOL</b></td>
-<td align="center">⚪ <b>Hold</b><br/><sub>47% conf</sub></td>
-<td align="center">⚪ 42.5</td>
-<td align="center">🟠 ↓</td>
-<td align="center">🔵 ↑ Bullish</td>
-<td align="center">🔵 Lower</td>
-</tr>
-<tr>
-<td><b>ADA</b></td>
-<td align="center">⚪ <b>Hold</b><br/><sub>47% conf</sub></td>
-<td align="center">⚪ 43.3</td>
-<td align="center">🟠 ↓</td>
-<td align="center">🔵 ↑ Bullish</td>
-<td align="center">🔵 Lower</td>
-</tr>
-<tr>
 <td><b>DOT</b></td>
 <td align="center">⚪ <b>Hold</b><br/><sub>50% conf</sub></td>
 <td align="center">⚪ 53.7</td>
@@ -115,10 +91,34 @@
 </tr>
 <tr>
 <td><b>BTC</b></td>
-<td align="center">🟠 <b>Sell</b><br/><sub>49% conf</sub></td>
-<td align="center">⚪ 42.8</td>
+<td align="center">🟠 <b>Sell</b><br/><sub>43% conf</sub></td>
+<td align="center">⚪ 47.9</td>
 <td align="center">🟠 ↓</td>
 <td align="center">🟠 ↓ Bearish</td>
+<td align="center">⚪ Middle</td>
+</tr>
+<tr>
+<td><b>ETH</b></td>
+<td align="center">🟠 <b>Sell</b><br/><sub>48% conf</sub></td>
+<td align="center">⚪ 41.8</td>
+<td align="center">🟠 ↓</td>
+<td align="center">🟠 ↓ Bearish</td>
+<td align="center">⚪ Middle</td>
+</tr>
+<tr>
+<td><b>SOL</b></td>
+<td align="center">⚪ <b>Hold</b><br/><sub>43% conf</sub></td>
+<td align="center">⚪ 44.5</td>
+<td align="center">🟠 ↓</td>
+<td align="center">🔵 ↑ Bullish</td>
+<td align="center">⚪ Middle</td>
+</tr>
+<tr>
+<td><b>ADA</b></td>
+<td align="center">⚪ <b>Hold</b><br/><sub>52% conf</sub></td>
+<td align="center">⚪ 47.5</td>
+<td align="center">🟠 ↓</td>
+<td align="center">🔵 ↑ Bullish</td>
 <td align="center">⚪ Middle</td>
 </tr>
 </tbody>
@@ -143,7 +143,7 @@
 
 <div align="center">
 
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%2C+%27BTC%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B0.29%2C+-0.56%2C+6.50%2C+1.17%2C+0.32%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
+![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27DOT%27%2C+%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B1.36%2C+0.06%2C+0.09%2C+0.02%2C+1.75%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%2C+%27rgba%2834%2C+197%2C+94%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
 
 </div>
 
