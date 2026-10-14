@@ -2,27 +2,19 @@
   "id": "solana",
   "name": "Solana",
   "symbol": "SOL",
-  "updated_at": "2026-10-13T18:49:44Z",
+  "updated_at": "2026-10-14T03:23:28Z",
   "current": {
     "id": "solana",
     "name": "Solana",
     "symbol": "SOL",
-    "price": 107.71,
-    "change_24h": -0.8651633686148291,
-    "change_7d": -8.921021478099114,
+    "price": 107.62,
+    "change_24h": -0.6187090220703682,
+    "change_7d": -8.997124978860139,
     "change_7d_ok": true,
-    "change_30d": 8.776004847505552,
+    "change_30d": 10.834191555097847,
     "change_30d_ok": true
   },
   "history": [
-    {
-      "timestamp": "2026-09-13T02:57:26Z",
-      "price": 101.91
-    },
-    {
-      "timestamp": "2026-09-13T15:33:21Z",
-      "price": 100.34
-    },
     {
       "timestamp": "2026-09-14T03:11:21Z",
       "price": 101.12
@@ -258,6 +250,10 @@
     {
       "timestamp": "2026-10-13T18:49:44Z",
       "price": 107.71
+    },
+    {
+      "timestamp": "2026-10-14T03:23:28Z",
+      "price": 107.62
     }
   ]
 }
