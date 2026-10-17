@@ -10,7 +10,7 @@
 
 [![View Dashboard](https://img.shields.io/badge/View-Live%20Dashboard-blue?style=for-the-badge)](https://viczuno.github.io/go-crypto-bot/)
 
-🕐 *Last updated: Saturday, October 17, 2026 at 02:50 UTC*
+🕐 *Last updated: Saturday, October 17, 2026 at 14:53 UTC*
 
 </div>
 
@@ -31,38 +31,38 @@
 <tbody>
 <tr>
 <td><b>Bitcoin BTC</b><br/></td>
-<td align="right"><code>$81384.00</code></td>
-<td align="center">🔴 -0.71%</td>
-<td align="center">🔴 -1.54%</td>
-<td align="center">🟢 +7.48%</td>
+<td align="right"><code>$81478.00</code></td>
+<td align="center">🔴 -0.87%</td>
+<td align="center">🔴 -1.43%</td>
+<td align="center">🟢 +7.60%</td>
 </tr>
 <tr>
 <td><b>Ethereum ETH</b><br/></td>
-<td align="right"><code>$2418.75</code></td>
-<td align="center">🔴 -0.78%</td>
-<td align="center">🔴 -2.67%</td>
-<td align="center">🟢 +1.15%</td>
+<td align="right"><code>$2424.73</code></td>
+<td align="center">🔴 -1.84%</td>
+<td align="center">🔴 -2.43%</td>
+<td align="center">🟢 +1.40%</td>
 </tr>
 <tr>
 <td><b>Solana SOL</b><br/></td>
-<td align="right"><code>$104.31</code></td>
-<td align="center">🔴 -0.98%</td>
-<td align="center">🔴 -4.91%</td>
-<td align="center">🟢 +7.46%</td>
+<td align="right"><code>$104.19</code></td>
+<td align="center">🔴 -1.84%</td>
+<td align="center">🔴 -5.02%</td>
+<td align="center">🟢 +7.33%</td>
 </tr>
 <tr>
 <td><b>Cardano ADA</b><br/></td>
-<td align="right"><code>$0.2240</code></td>
-<td align="center">🔴 -2.32%</td>
-<td align="center">🔴 -5.87%</td>
-<td align="center">🟢 +17.29%</td>
+<td align="right"><code>$0.2217</code></td>
+<td align="center">🔴 -3.41%</td>
+<td align="center">🔴 -6.84%</td>
+<td align="center">🟢 +16.07%</td>
 </tr>
 <tr>
 <td><b>Polkadot DOT</b><br/></td>
-<td align="right"><code>$1.16</code></td>
-<td align="center">🔴 -0.80%</td>
-<td align="center">🔴 -3.33%</td>
-<td align="center">🟢 +19.33%</td>
+<td align="right"><code>$1.14</code></td>
+<td align="center">🔴 -5.87%</td>
+<td align="center">🔴 -5.00%</td>
+<td align="center">🟢 +17.27%</td>
 </tr>
 </tbody>
 </table>
@@ -83,40 +83,40 @@
 <tbody>
 <tr>
 <td><b>BTC</b></td>
-<td align="center">⚪ <b>Hold</b><br/><sub>44% conf</sub></td>
-<td align="center">⚪ 57.4</td>
+<td align="center">⚪ <b>Hold</b><br/><sub>49% conf</sub></td>
+<td align="center">⚪ 48.8</td>
 <td align="center">🔵 ↑</td>
 <td align="center">🟠 ↓ Bearish</td>
 <td align="center">⚪ Middle</td>
 </tr>
 <tr>
 <td><b>ETH</b></td>
-<td align="center">⚪ <b>Hold</b><br/><sub>47% conf</sub></td>
-<td align="center">⚪ 57.0</td>
-<td align="center">🔵 ↑</td>
+<td align="center">⚪ <b>Hold</b><br/><sub>39% conf</sub></td>
+<td align="center">⚪ 48.1</td>
+<td align="center">⚪ ↑</td>
 <td align="center">🟠 ↓ Bearish</td>
-<td align="center">🟠 Upper</td>
+<td align="center">⚪ Middle</td>
 </tr>
 <tr>
 <td><b>SOL</b></td>
-<td align="center">🔵 <b>Buy</b><br/><sub>51% conf</sub></td>
-<td align="center">⚪ 59.9</td>
-<td align="center">⚪ ↓</td>
-<td align="center">🟢 ✨ Golden</td>
+<td align="center">🟠 <b>Sell</b><br/><sub>41% conf</sub></td>
+<td align="center">⚪ 53.3</td>
+<td align="center">🟠 ↓</td>
+<td align="center">🟠 ↓ Bearish</td>
 <td align="center">⚪ Middle</td>
 </tr>
 <tr>
 <td><b>ADA</b></td>
-<td align="center">🔵 <b>Buy</b><br/><sub>50% conf</sub></td>
-<td align="center">⚪ 58.7</td>
-<td align="center">🔵 ↑</td>
+<td align="center">⚪ <b>Hold</b><br/><sub>48% conf</sub></td>
+<td align="center">⚪ 52.7</td>
+<td align="center">⚪ ↓</td>
 <td align="center">🔵 ↑ Bullish</td>
 <td align="center">⚪ Middle</td>
 </tr>
 <tr>
 <td><b>DOT</b></td>
-<td align="center">⚪ <b>Hold</b><br/><sub>60% conf</sub></td>
-<td align="center">🟠 72.5</td>
+<td align="center">⚪ <b>Hold</b><br/><sub>59% conf</sub></td>
+<td align="center">🟠 70.7</td>
 <td align="center">🔵 ↑</td>
 <td align="center">🔵 ↑ Bullish</td>
 <td align="center">🟠 Upper</td>
@@ -143,7 +143,7 @@
 
 <div align="center">
 
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B-0.71%2C+-0.78%2C+-0.98%2C+-2.32%2C+-0.80%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
+![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%2C+%27DOT%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B-0.87%2C+-1.84%2C+-1.84%2C+-3.41%2C+-5.87%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
 
 </div>
 
