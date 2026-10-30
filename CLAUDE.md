@@ -1,5 +1,8 @@
 # CLAUDE.md - Go Crypto Bot
 
+Read `AGENTS.md` first for repository-wide engineering, Git, PR, validation, and
+deployment rules. This file supplements it with architecture and domain notes.
+
 ## Project Overview
 
 A Go cryptocurrency tracking bot that fetches prices from CoinGecko API, stores historical data in SQLite, calculates technical indicators (RSI, MACD, Moving Averages, Bollinger Bands), and generates a README with price tables and charts. Runs via GitHub Actions every 12 hours.
@@ -51,28 +54,14 @@ internal/
 
 ### Starting a New Feature
 
-```bash
-# 1. Create feature branch from main
-git checkout main
-git pull origin main
-git checkout -b feature/your-feature-name
+Follow `AGENTS.md`: branch from current `origin/main` using names such as
+`feat/your-feature-name`, validate the change, review and stage explicit paths,
+and make a meaningful Conventional Commit. Push feature branches and open draft
+PRs only within the current task's authorization; never merge automatically.
+Initial setup must stay local and must not change GitHub metadata or settings.
 
-# 2. Implement changes following project patterns
-
-# 3. Run tests
-make test
-
-# 4. Format and lint
-make fmt
-make lint
-
-# 5. Commit with descriptive message
-git add .
-git commit -m "Add feature description"
-
-# 6. Push and create PR
-git push -u origin feature/your-feature-name
-```
+Run `golangci-lint run` directly when installed; the current `make lint` target
+masks failures and cannot establish that lint passed.
 
 ### Code Patterns to Follow
 
@@ -286,7 +275,11 @@ type CoinSource interface {
 Workflow runs every 12 hours (`.github/workflows/bot.yaml`):
 1. Checkout → Setup Go 1.24 → Run tests
 2. Setup Hugo → Run bot → Build site
-3. Commit data files → Deploy to GitHub Pages
+3. Commit data files → Deploy to GitHub Pages (legacy migration debt)
+
+Vercel is the exclusive approved website deployment platform. The existing Pages
+workflow and URLs must be replaced during the Vercel migration; their presence
+does not override `AGENTS.md`. GitHub Actions may continue data collection and CI.
 
 ## Dependencies
 
