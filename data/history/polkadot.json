@@ -2,16 +2,16 @@
   "id": "polkadot",
   "name": "Polkadot",
   "symbol": "DOT",
-  "updated_at": "2026-10-30T04:12:41Z",
+  "updated_at": "2026-10-30T17:40:47Z",
   "current": {
     "id": "polkadot",
     "name": "Polkadot",
     "symbol": "DOT",
-    "price": 0.926417,
-    "change_24h": -4.354159805325461,
-    "change_7d": -20.13646551724137,
+    "price": 0.955069,
+    "change_24h": -3.4972885202403687,
+    "change_7d": -12.217922794117658,
     "change_7d_ok": true,
-    "change_30d": -22.1498319327731,
+    "change_30d": -21.71565573770492,
     "change_30d_ok": true
   },
   "history": [
@@ -258,6 +258,10 @@
     {
       "timestamp": "2026-10-30T04:12:41Z",
       "price": 0.926417
+    },
+    {
+      "timestamp": "2026-10-30T17:40:47Z",
+      "price": 0.955069
     }
   ]
 }
