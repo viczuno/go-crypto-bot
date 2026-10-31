@@ -1,0 +1,12 @@
+-- Run once as the database owner. Choose passwords through your provider's UI
+-- or psql \password; never put production passwords in a committed file.
+CREATE ROLE crypto_web LOGIN;
+CREATE ROLE crypto_ingest LOGIN;
+GRANT CONNECT ON DATABASE crypto TO crypto_web, crypto_ingest;
+GRANT USAGE ON SCHEMA public TO crypto_web, crypto_ingest;
+GRANT SELECT ON assets, observations, daily_samples, analytics, ingestion_runs TO crypto_web;
+GRANT SELECT,INSERT,UPDATE ON assets,observations,daily_samples,analytics,ingestion_runs,ingestion_assets TO crypto_ingest;
+GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO crypto_ingest;
+ALTER ROLE crypto_web SET default_transaction_read_only=on;
+ALTER ROLE crypto_web SET statement_timeout='5s';
+-- Use the database owner only for schema migrations and historical imports.

@@ -39,20 +39,15 @@ func (sg *SignalGenerator) GenerateSignals(coinID string, prices []domain.Crypto
 		CalculatedAt: time.Now().UTC(),
 	}
 
-	// Check if we have enough data for any indicator
-	maxRequired := sg.maxDataPointsRequired()
-	if len(prices) < maxRequired {
-		summary.InsufficientData = true
-		summary.Consensus = domain.SignalHold
-		summary.Confidence = 0.0
-		return summary
-	}
-
 	// Calculate all indicators
 	for _, wc := range sg.calculators {
 		result := wc.calculator.Calculate(coinID, prices)
 		summary.Indicators = append(summary.Indicators, result)
-		sg.updateSignalCounts(&summary.SignalCounts, result.Signal)
+		if result.Error == nil {
+			sg.updateSignalCounts(&summary.SignalCounts, result.Signal)
+		} else {
+			summary.InsufficientData = true
+		}
 	}
 
 	// Calculate consensus signal

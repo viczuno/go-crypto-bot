@@ -32,11 +32,6 @@ type Closer interface {
 	Close() error
 }
 
-// ReadmeGenerator defines the interface for generating README content.
-type ReadmeGenerator interface {
-	Generate(stats []CoinStats, coins []CoinMetadata) string
-}
-
 // CoinSource defines the interface for fetching coin metadata from various sources.
 type CoinSource interface {
 	FetchCoins(ctx context.Context) ([]CoinMetadata, error)

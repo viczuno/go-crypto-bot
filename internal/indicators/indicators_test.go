@@ -1,6 +1,7 @@
 package indicators
 
 import (
+	"math"
 	"testing"
 	"time"
 
@@ -12,7 +13,7 @@ import (
 func makePrices(values []float64) []domain.CryptoPrice {
 	prices := make([]domain.CryptoPrice, len(values))
 	baseTime := time.Now()
-	// Data is stored newest first in the system, so reverse the order
+	// Production contract: ascending completed UTC daily samples.
 	for i, v := range values {
 		// Index 0 in values is oldest, should map to furthest in past
 		daysAgo := len(values) - 1 - i
@@ -21,10 +22,6 @@ func makePrices(values []float64) []domain.CryptoPrice {
 			PriceUSD:  v,
 			FetchedAt: baseTime.Add(-time.Duration(daysAgo) * 24 * time.Hour),
 		}
-	}
-	// Reverse so newest is first (matching repository convention)
-	for i, j := 0, len(prices)-1; i < j; i, j = i+1, j-1 {
-		prices[i], prices[j] = prices[j], prices[i]
 	}
 	return prices
 }
@@ -545,5 +542,30 @@ func TestSignal_Emoji(t *testing.T) {
 		if got := tt.signal.Emoji(); got != tt.want {
 			t.Errorf("Signal(%d).Emoji() = %v, want %v", tt.signal, got, tt.want)
 		}
+	}
+}
+
+func TestDailyReferenceValues(t *testing.T) {
+	prices := makePrices(risingPrices(1, 201, 1))
+	r := NewRSICalculator().Calculate("test", prices)
+	if r.Value != 100 {
+		t.Fatalf("rising RSI=%v", r.Value)
+	}
+	ma := NewMovingAverageCalculator().Calculate("test", prices[:200])
+	if ma.Metadata["sma_50"] != 175.5 || ma.Metadata["sma_200"] != 100.5 {
+		t.Fatalf("SMA values %+v", ma.Metadata)
+	}
+	if ma.Metadata["golden_cross"] != 0 || ma.Metadata["death_cross"] != 0 {
+		t.Fatal("crossover needs previous complete window")
+	}
+	bb := NewBollingerBandsCalculator().Calculate("test", makePrices(risingPrices(1, 20, 1)))
+	// Population variance of integers 1..20 is (20^2-1)/12 = 33.25.
+	expected := 10.5 + 2*math.Sqrt(33.25)
+	if math.Abs(bb.Metadata["upper_band"]-expected) > 1e-10 {
+		t.Fatalf("band=%v want %v", bb.Metadata["upper_band"], expected)
+	}
+	macd := NewMACDCalculator().Calculate("test", prices)
+	if math.Abs(macd.Value-7) > 1e-8 || math.Abs(macd.Metadata["signal_line"]-7) > 1e-8 {
+		t.Fatalf("linear series MACD %+v", macd)
 	}
 }
