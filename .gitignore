@@ -8,8 +8,19 @@
 Thumbs.db
 /bin/
 
-# Hugo output
-public/
-resources/_gen/
-.hugo_build.lock
 
+# Local tooling, credentials, frontend and test artifacts
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+.vercel/
+coverage/
+coverage.out
+coverage.html
+playwright-report/
+test-results/
+.local/
+
+*.tsbuildinfo
