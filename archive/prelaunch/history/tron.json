@@ -1,0 +1,23 @@
+{
+  "id": "tron",
+  "name": "TRON",
+  "symbol": "TRX",
+  "updated_at": "2026-03-26T04:51:43Z",
+  "current": {
+    "id": "tron",
+    "name": "TRON",
+    "symbol": "TRX",
+    "price": 0.31537,
+    "change_24h": 0,
+    "change_7d": 0,
+    "change_7d_ok": false,
+    "change_30d": 0,
+    "change_30d_ok": false
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-26T04:51:43Z",
+      "price": 0.31537
+    }
+  ]
+}
