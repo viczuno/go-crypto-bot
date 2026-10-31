@@ -149,3 +149,72 @@ func TestDatabaseIntegration(t *testing.T) {
 	c.Exec(ctx, "DELETE FROM observations WHERE asset_id='test-asset'")
 	c.Exec(ctx, "DELETE FROM assets WHERE id='test-asset'")
 }
+
+func TestDatabaseLockAndDailyGap(t *testing.T) {
+	if os.Getenv("CRYPTO_TEST_DATABASE") != "1" || os.Getenv("DATABASE_DIRECT_URL") == "" {
+		t.Skip("requires isolated migrated PostgreSQL")
+	}
+	ctx := context.Background()
+	c, err := Connect(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer c.Close(ctx)
+	other, err := Connect(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer other.Close(ctx)
+	if _, err = c.Exec(ctx, "SELECT pg_advisory_lock(482941)"); err != nil {
+		t.Fatal(err)
+	}
+	defer c.Exec(ctx, "SELECT pg_advisory_unlock(482941)")
+	config := filepath.Join(t.TempDir(), "coins.yaml")
+	if err = os.WriteFile(config, []byte("coin_sources:\n  - type: static\n    coins:\n      - id: bitcoin\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if err = Ingest(ctx, other, &Client{}, config); err == nil || err.Error() != "another ingestion is running" {
+		t.Fatalf("overlap was not rejected: %v", err)
+	}
+	if _, err = c.Exec(ctx, "SELECT pg_advisory_unlock(482941)"); err != nil {
+		t.Fatal(err)
+	}
+	tx, err := c.Begin(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer tx.Rollback(ctx)
+	if _, err = tx.Exec(ctx, "INSERT INTO assets(id,name,symbol) VALUES('gap-regression','Gap','GAP')"); err != nil {
+		t.Fatal(err)
+	}
+	for day := 0; day < 22; day++ {
+		if day == 20 {
+			continue
+		}
+		at := time.Date(2025, 1, 1+day, 12, 0, 0, 0, time.UTC)
+		if _, err = tx.Exec(ctx, "INSERT INTO observations(asset_id,observed_at,price,source) VALUES('gap-regression',$1,100,'test')", at); err != nil {
+			t.Fatal(err)
+		}
+	}
+	// Two observations in one day must produce one sample, taking the later price.
+	if _, err = tx.Exec(ctx, "INSERT INTO observations(asset_id,observed_at,price,source) VALUES('gap-regression','2025-01-22T18:00:00Z',110,'test')"); err != nil {
+		t.Fatal(err)
+	}
+	if err = Rebuild(ctx, tx, "gap-regression"); err != nil {
+		t.Fatal(err)
+	}
+	var samples, coverage, count int
+	var price float64
+	if err = tx.QueryRow(ctx, "SELECT (result->>'samples')::int,(result->>'coverage')::int FROM analytics WHERE asset_id='gap-regression' ORDER BY day DESC LIMIT 1").Scan(&samples, &coverage); err != nil {
+		t.Fatal(err)
+	}
+	if samples != 1 || coverage != 0 {
+		t.Fatalf("gap should restart indicators: samples=%d coverage=%d", samples, coverage)
+	}
+	if err = tx.QueryRow(ctx, "SELECT count(*),max(price)::float8 FROM daily_samples WHERE asset_id='gap-regression'").Scan(&count, &price); err != nil {
+		t.Fatal(err)
+	}
+	if count != 21 || price != 110 {
+		t.Fatalf("daily reduction incorrect: count=%d max=%v", count, price)
+	}
+}

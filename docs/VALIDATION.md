@@ -25,8 +25,9 @@ wait for the streamed coin view to settle before choosing an overlay.
 - Empty/unavailable database states exist but lack dedicated end-to-end scenarios.
 - Automated accessibility coverage currently scans the explorer only; expand to
   coin/compare and keyboard navigation before declaring a complete accessibility audit.
-- Add explicit advisory-lock concurrency and day-gap regression tests. Current
-  integration tests cover repeated import, ingestion idempotency and partial runs.
+- Explicit advisory-lock contention, daily-gap reset and last-sample-per-day
+  regressions now pass uncached in PostgreSQL, along with repeated import,
+  ingestion idempotency and partial runs.
 - Preview/prod Neon roles, external import, Vercel routing, and scheduled default-
   branch ingestion require provisioning and user-controlled activation.
 - Vite emits a config-loader compatibility warning; tests pass. Turbopack process

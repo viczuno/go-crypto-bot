@@ -21,8 +21,8 @@ verification returns 2,716 source rows / 2,256 canonical observations / 16 asset
 
 ## Next work, in order
 1. Inspect remote CI results for this branch/draft PR; fix failures if present.
-2. Expand Phase 5 tests for empty/unavailable datasets, lock contention, daily gaps,
-   and accessibility on details/comparison. Do not rerun live CoinGecko ingestion
+2. Expand Phase 5 tests for empty/unavailable datasets and accessibility on
+   details/comparison. Lock contention and daily-gap regression tests now pass. Do not rerun live CoinGecko ingestion
    merely to test code.
 3. User provisions Neon and Vercel; follow DATABASE.md and VERCEL_DEPLOYMENT.md.
    Use separate preview/prod databases and read-only web credentials.
@@ -41,4 +41,10 @@ Do not commit .local, credentials, node_modules, .next or test artifacts.
 ## External status
 No production deployment, external migration or merge has been performed.
 Feature push, draft PR and repository description/topics updates are authorized.
-Record the final PR URL in this document after creation.
+Draft PR: https://github.com/viczuno/go-crypto-bot/pull/10
+
+Commits: 5da716d (data), 0ea7ffe (web), 99f3aa1 (CI/cleanup/docs).
+Repository description/topics updated to implemented features. Remote CI run
+41179337887 was in progress at this checkpoint; no remote green claim is made.
+The follow-up test commit adds overlapping-worker rejection, gap-reset and
+last-sample-per-day regression coverage, validated uncached against crypto_test.
