@@ -1,6 +1,7 @@
 import "server-only";
 import { logReadError, type ReadStage } from "./read-error";
 import { Pool } from "pg";
+import { marketSnapshotSQL } from "./market-query";
 import { unstable_cache } from "next/cache";
 import {
   assetSchema,
@@ -21,7 +22,7 @@ function database() {
     options: "-c default_transaction_read_only=on",
   }));
 }
-export const snapshot = unstable_cache(
+const cachedSnapshot = unstable_cache(
   async (): Promise<Snapshot> => {
     const asOf = new Date().toISOString();
     let stage: ReadStage = "connect";
@@ -36,15 +37,7 @@ export const snapshot = unstable_cache(
         }
       };
       const [assets, runs] = await Promise.all([
-        query(
-          "assets_query",
-          `SELECT a.*,o.price::float8,o.market_cap::float8 cap,o.volume::float8 volume,o.change_24h change,o.observed_at updated,n.result analysis,
- COALESCE(h.history,'[]'::json) history FROM assets a
- LEFT JOIN LATERAL(SELECT * FROM observations WHERE asset_id=a.id ORDER BY observed_at DESC LIMIT 1)o ON true
- LEFT JOIN LATERAL(SELECT result FROM analytics WHERE asset_id=a.id ORDER BY day DESC LIMIT 1)n ON true
- LEFT JOIN LATERAL(SELECT json_agg(json_build_object('time',day::text,'price',price::float8) ORDER BY day) history FROM (SELECT day,price FROM daily_samples WHERE asset_id=a.id ORDER BY day DESC LIMIT 31)d)h ON true
- ORDER BY a.active DESC,o.market_cap DESC NULLS LAST,a.id LIMIT 250`,
-        ),
+        query("assets_query", marketSnapshotSQL),
         query(
           "runs_query",
           `SELECT status,finished_at,received,expected FROM ingestion_runs ORDER BY id DESC LIMIT 1`,
@@ -76,12 +69,27 @@ export const snapshot = unstable_cache(
     } catch (error) {
       if (!(error instanceof LoggedReadError))
         logReadError("market_read_failed", stage, error);
-      return { assets: [], status: "unavailable", asOf, run: null };
+      // Throw only a sanitized marker: failed reads must never become cache entries.
+      throw new LoggedReadError();
     }
   },
-  ["market-snapshot-v2"],
+  ["market-snapshot-v3"],
   { revalidate: 300 },
 );
+export async function snapshot(): Promise<Snapshot> {
+  try {
+    return await cachedSnapshot();
+  } catch {
+    // The read logs its original error safely before throwing. The fallback is
+    // deliberately outside unstable_cache so the next request can retry.
+    return {
+      assets: [],
+      status: "unavailable",
+      asOf: new Date().toISOString(),
+      run: null,
+    };
+  }
+}
 export async function detail(id: string) {
   const data = await snapshot();
   const asset = data.assets.find((a) => a.id === id);

@@ -60,3 +60,26 @@ not yet been classified. Do not claim a root cause without its sanitized event.
 Next action: inspect market_read_failed from the new Preview after the diagnostic
 commit. 42501=permissions, 42*=SQL/schema, 22*=database values, validation=Zod paths.
 No database writes, reset, migrations or reimport were performed in this investigation.
+
+## Preview follow-up: numeric types and failure recovery
+Read-only inspection of the configured Neon connection confirmed change_24h is
+DOUBLE PRECISION (OID 701), all 2,256 imported observations have NULL change_24h,
+and SELECT permission is present on assets, observations, daily_samples, analytics,
+and ingestion_runs. No schema/value mismatch was found: the actual snapshot SQL
+and all imported analytics records pass the existing Zod schemas. This does not
+prove Preview uses the same connection/role. Preview is access-protected (302),
+and no authenticated Vercel log access is configured in this workspace.
+
+Confirmed application defect fixed: unavailable fallbacks were cached as successful
+snapshots for five minutes. Reads now throw a sanitized marker inside the cache;
+the unavailable response is constructed outside, so the next request retries.
+Successful snapshots still cache normally. The SQL now explicitly casts change_24h
+to float8 and has shared real-PostgreSQL coverage for NUMERIC and DOUBLE PRECISION
+values, NULL market metadata, and imported analytics. No schema coercion or history
+rewrites were needed. Cache namespace v3 avoids prior cached unavailable results.
+
+Validation: 20 tests passed against the local imported database and configured
+Neon database (read-only), plus lint/typecheck and production build. Sanitized
+logging from f728d85 remains active. The original Preview-triggering exception
+still needs its full market_read_failed event (stage/category/sqlstate/issues);
+do not claim the missing cast caused the imported-data outage.
