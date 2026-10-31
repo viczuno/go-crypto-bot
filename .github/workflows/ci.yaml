@@ -2,7 +2,7 @@ name: Validate platform
 on:
   pull_request:
   push:
-    branches: [main, feat/vercel-migration]
+    branches: [main]
 permissions:
   contents: read
 jobs:
