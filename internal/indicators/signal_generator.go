@@ -56,16 +56,6 @@ func (sg *SignalGenerator) GenerateSignals(coinID string, prices []domain.Crypto
 	return summary
 }
 
-func (sg *SignalGenerator) maxDataPointsRequired() int {
-	max := 0
-	for _, wc := range sg.calculators {
-		if wc.calculator.MinDataPoints() > max {
-			max = wc.calculator.MinDataPoints()
-		}
-	}
-	return max
-}
-
 func (sg *SignalGenerator) updateSignalCounts(counts *domain.SignalCounts, signal domain.Signal) {
 	switch signal {
 	case domain.SignalStrongBuy:

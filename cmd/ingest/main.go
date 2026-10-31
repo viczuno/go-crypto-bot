@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/viczuno/go-crypto-bot/internal/platform"
 	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/viczuno/go-crypto-bot/internal/platform"
 )
 
 func main() {

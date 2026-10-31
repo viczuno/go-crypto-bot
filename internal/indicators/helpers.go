@@ -20,13 +20,6 @@ func extractPrices(prices []domain.CryptoPrice) []float64 {
 	return values
 }
 
-// reverse reverses a slice in place.
-func reverse(s []float64) {
-	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
-		s[i], s[j] = s[j], s[i]
-	}
-}
-
 // abs returns the absolute value of a float64.
 func abs(x float64) float64 {
 	if x < 0 {

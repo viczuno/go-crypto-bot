@@ -3,7 +3,6 @@ package platform
 import (
 	"context"
 	"encoding/json"
-	"github.com/viczuno/go-crypto-bot/internal/domain"
 	"math"
 	"net/http"
 	"net/http/httptest"
@@ -11,6 +10,8 @@ import (
 	"path/filepath"
 	"testing"
 	"time"
+
+	"github.com/viczuno/go-crypto-bot/internal/domain"
 )
 
 func TestRetryClassification(t *testing.T) {

@@ -4,10 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
-	"github.com/viczuno/go-crypto-bot/internal/platform"
 	"log"
 	"os"
 	"time"
+
+	"github.com/viczuno/go-crypto-bot/internal/platform"
 )
 
 func main() {

@@ -6,39 +6,14 @@ import "time"
 type CryptoPrice struct {
 	Coin      string
 	PriceUSD  float64
-	Change24h float64
 	FetchedAt time.Time
-}
-
-// PriceChange represents historical price change data
-type PriceChange struct {
-	PastPrice    float64
-	CurrentPrice float64
-	AbsChange    float64
-	PctChange    float64
-	HasData      bool
-	Days         int
-}
-
-// CoinStats aggregates all statistics for a single coin.
-// ID is the coin identifier (e.g., "bitcoin"), not the display name.
-type CoinStats struct {
-	ID         string
-	Symbol     string
-	Price      float64
-	Change24h  float64
-	Change7d   PriceChange
-	Change30d  PriceChange
-	Indicators *IndicatorSummary
 }
 
 // CoinMetadata contains display information for coins
 type CoinMetadata struct {
-	ID        string
-	Name      string
-	Symbol    string
-	MarketCap float64
-	Rank      int
+	ID     string
+	Name   string
+	Symbol string
 }
 
 // DefaultCoins returns the list of tracked cryptocurrencies with metadata

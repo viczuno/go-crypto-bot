@@ -42,24 +42,6 @@ func (s Signal) String() string {
 	}
 }
 
-// Emoji returns the emoji representation of the signal.
-func (s Signal) Emoji() string {
-	switch s {
-	case SignalStrongBuy:
-		return "🟢"
-	case SignalBuy:
-		return "🔵"
-	case SignalHold:
-		return "⚪"
-	case SignalSell:
-		return "🟠"
-	case SignalStrongSell:
-		return "🔴"
-	default:
-		return "❓"
-	}
-}
-
 // IndicatorResult represents the result of a single indicator calculation.
 type IndicatorResult struct {
 	Indicator  Indicator

@@ -3,11 +3,12 @@ package platform
 import (
 	"context"
 	"fmt"
-	"github.com/jackc/pgx/v5"
-	"gopkg.in/yaml.v3"
 	"os"
 	"sort"
 	"time"
+
+	"github.com/jackc/pgx/v5"
+	"gopkg.in/yaml.v3"
 )
 
 type Config struct {

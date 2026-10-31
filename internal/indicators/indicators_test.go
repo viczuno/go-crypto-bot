@@ -526,25 +526,6 @@ func TestSignal_String(t *testing.T) {
 	}
 }
 
-func TestSignal_Emoji(t *testing.T) {
-	tests := []struct {
-		signal domain.Signal
-		want   string
-	}{
-		{domain.SignalStrongBuy, "🟢"},
-		{domain.SignalBuy, "🔵"},
-		{domain.SignalHold, "⚪"},
-		{domain.SignalSell, "🟠"},
-		{domain.SignalStrongSell, "🔴"},
-	}
-
-	for _, tt := range tests {
-		if got := tt.signal.Emoji(); got != tt.want {
-			t.Errorf("Signal(%d).Emoji() = %v, want %v", tt.signal, got, tt.want)
-		}
-	}
-}
-
 func TestDailyReferenceValues(t *testing.T) {
 	prices := makePrices(risingPrices(1, 201, 1))
 	r := NewRSICalculator().Calculate("test", prices)

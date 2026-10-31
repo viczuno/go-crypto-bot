@@ -7,15 +7,16 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/jackc/pgx/v5"
-	"github.com/viczuno/go-crypto-bot/internal/domain"
 	"math"
-	_ "modernc.org/sqlite"
 	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
 	"time"
+
+	"github.com/jackc/pgx/v5"
+	"github.com/viczuno/go-crypto-bot/internal/domain"
+	_ "modernc.org/sqlite"
 )
 
 type Record struct {

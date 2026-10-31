@@ -5,12 +5,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/jackc/pgx/v5"
-	"github.com/viczuno/go-crypto-bot/internal/domain"
-	"github.com/viczuno/go-crypto-bot/internal/indicators"
 	"math"
 	"os"
 	"time"
+
+	"github.com/jackc/pgx/v5"
+	"github.com/viczuno/go-crypto-bot/internal/domain"
+	"github.com/viczuno/go-crypto-bot/internal/indicators"
 )
 
 func Connect(ctx context.Context) (*pgx.Conn, error) {
