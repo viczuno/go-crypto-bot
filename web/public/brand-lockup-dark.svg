@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196 48" role="img" aria-labelledby="title desc">
+  <title id="title">CRYPTO Market Observatory</title>
+  <desc id="desc">A geometric C-shaped market signal paired with the CRYPTO wordmark.</desc>
+  <g fill="none" stroke="#39d5b4" stroke-linecap="round">
+    <path d="M37 10H23a14 14 0 1 0 0 28h14" stroke-width="7"/>
+    <path d="M14 25h6l3-6 4 11 3-5h4" stroke-linejoin="round" stroke-width="3.5"/>
+  </g>
+  <text x="62" y="25" fill="#e7edf5" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="2.5">CRYPTO</text>
+  <text x="63" y="39" fill="#91a0b6" font-family="Inter, Arial, sans-serif" font-size="6.5" font-weight="600" letter-spacing="1.65">MARKET OBSERVATORY</text>
+</svg>

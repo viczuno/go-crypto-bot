@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import { ThemeProvider, useTheme } from "next-themes";
 import { createContext, useContext, useSyncExternalStore } from "react";
 import {
-  Activity,
   LayoutDashboard,
   Search,
   Star,
@@ -78,12 +77,17 @@ function Navigation() {
   const { ids } = useWatch();
   return (
     <>
-      <Link href="/" className="brand">
-        <span className="brand-icon">
-          <Activity size={24} />
+      <Link
+        href="/"
+        className="brand"
+        aria-label="Crypto Market Observatory home"
+      >
+        <span className="brand-icon" aria-hidden="true">
+          <span className="brand-symbol" />
         </span>
-        <span>
-          CRYPTO<span className="brand-sub">MARKET OBSERVATORY</span>
+        <span className="brand-copy">
+          <span className="brand-name">CRYPTO</span>
+          <span className="brand-sub">MARKET OBSERVATORY</span>
         </span>
       </Link>
       <div className="nav-caption">WORKSPACE</div>
