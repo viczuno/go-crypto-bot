@@ -7,10 +7,11 @@ These instructions apply throughout the repository. Read any more specific
 take precedence. `CLAUDE.md` contains supplementary architecture and domain notes;
 keep shared workflow guidance consistent with this file.
 
-The current application is a Go bot with SQLite storage, CoinGecko integration,
-technical indicators, generated market data, and a Hugo website. Go's required
-version is declared in `go.mod`. There is currently no TypeScript package or
-Node lockfile; apply the TypeScript standards below when one is introduced.
+The application is Next.js in `web/`, PostgreSQL, and Go ingestion/analytics.
+Use `docs/ARCHITECTURE.md`, `docs/DATABASE.md`, and `docs/VERCEL_DEPLOYMENT.md`.
+Go version is in go.mod; Node 24 and npm use the committed web/package-lock.json.
+Daily analytics use ascending consecutive completed UTC days with explicit gaps.
+The archive is immutable migration input and must never serve the production UI.
 
 ## Git workflow and authorization
 
@@ -32,10 +33,6 @@ Node lockfile; apply the TypeScript standards below when one is introduced.
 - Feature-branch pushes and draft PR creation are authorized unless the current
   task restricts them. Never merge PRs automatically, enable auto-merge, push
   directly to `main`, or force-push without explicit user authorization.
-- Initial repository setup is local only: do not push, create a PR, or change
-  GitHub metadata/settings as part of that setup. Report findings and permission
-  gaps instead.
-
 ## Go standards
 
 - Follow idiomatic Go: format changed Go files with `gofmt`, use clear package
@@ -77,23 +74,19 @@ Node lockfile; apply the TypeScript standards below when one is introduced.
 
 - Review the full diff, run `git diff --check`, and verify the staged diff before
   committing. Confirm the branch and ensure only intended files are staged.
-- For Go changes, format changed files and run `go test -race ./...`,
-  `go vet ./...`, and `go build ./...`. `make test`, `make vet`, and `make build`
-  provide related repository targets. Run `golangci-lint run` directly when
-  available: the current `make lint` target masks lint failures, so its exit
-  status alone is not evidence of a passing lint check.
+- For Go changes, format changed files and run `go test -race ./cmd/... ./internal/...`,
+  `go vet ./cmd/... ./internal/...`, and `go build ./cmd/... ./internal/...`. `make test`, `make lint`, and `make build`
+  provide repository targets. Formatting and lint failures must fail validation.
 - For TypeScript changes, run the package's formatting check, lint, typecheck,
   tests, and production build using its committed lockfile and scripts. Do not
   claim these passed before a TypeScript toolchain exists.
-- For Hugo/template/config changes, also build the site with `hugo --minify`
-  and review affected pages. For documentation-only changes, check accuracy,
-  consistency, and whitespace; code tests are needed only when behavior changes.
+- For UI changes, run browser checks on mobile/desktop and dark/light themes.
+  For documentation-only changes, check accuracy, consistency and whitespace.
 - Report exact checks and outcomes. Investigate failures; if tooling, permissions,
   or pre-existing problems block validation, report the limitation before
   committing and in the PR. Never describe skipped checks as passing.
-- Do not run `make run` or the bot merely to validate code: it fetches live data
-  and rewrites `README.md`, SQLite, and exported JSON. Do not hand-edit generated
-  market data or include incidental generated changes.
+- Live ingestion writes the configured database. Tests must use an isolated DB;
+  never use production credentials for integration tests or preview builds.
 
 ## GitHub pull requests
 
@@ -119,9 +112,6 @@ Node lockfile; apply the TypeScript standards below when one is introduced.
 - GitHub Actions may continue collecting data, testing, and building artifacts;
   website releases must target Vercel. Keep deployment credentials in managed
   secrets and environment variables.
-- Migration debt at setup: `.github/workflows/bot.yaml` still deploys to GitHub
-  Pages, and `hugo.toml` and the generated README still use the Pages URL. These
-  are legacy configuration, not the approved deployment architecture. Replace
-  them during the Vercel migration, updating generated links at their source.
-- This setup establishes policy only. Do not trigger a deployment or claim the
-  Vercel migration is complete without configuration and successful validation.
+- GitHub automatically builds Vercel previews through Vercel's Git integration.
+  Production activation and merging remain user-controlled. Do not run external
+  migrations or claim a production URL is live without verification.

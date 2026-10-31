@@ -1,171 +1,90 @@
-<div align="center">
+# Go Crypto Bot · Market Observatory
 
-# 🚀 Crypto Market Tracker
+A cryptocurrency research platform with a Next.js interface, Go technical
+analytics and durable PostgreSQL history. The website targets **Vercel**;
+GitHub Actions collects market observations twice daily.
 
-[![Update Status](https://img.shields.io/badge/auto--update-every%2012h-brightgreen)]()
-[![Data Source](https://img.shields.io/badge/data-CoinGecko-orange)](https://coingecko.com)
-[![Built with Go](https://img.shields.io/badge/built%20with-Go-00ADD8?logo=go)](https://golang.org)
+## Features
 
-**Real-time cryptocurrency tracking powered by GitHub Actions**
+- Responsive dark/light dashboard with tracked-universe market cap, volume,
+  gainers/losers, signal distribution and observation freshness.
+- Searchable market explorer with sorting, signal/freshness filters, pagination,
+  compact rows, favorites and genuine daily sparklines.
+- Coin research pages with interactive price charts, available timeframes,
+  moving-average/Bollinger overlays and RSI/MACD histories.
+- Browser-local watchlists and normalized comparisons of up to five assets.
+- Go ingestion with static/top-market-cap/trending discovery, request batching,
+  retries, timeouts, overlap protection, idempotency and partial-run reporting.
+- Verified historical import from the preserved SQLite and JSON archive.
 
-[![View Dashboard](https://img.shields.io/badge/View-Live%20Dashboard-blue?style=for-the-badge)](https://viczuno.github.io/go-crypto-bot/)
+The default universe is the top 25 assets plus the original five. Statistics
+represent tracked assets only. Data is sampled twice daily, not streamed live.
+Indicators use consecutive completed UTC-day samples, not invented OHLC candles.
+Missing days and insufficient history are explicit. Heuristic signal strength is
+not a calibrated probability of profit. No authentication or trading integration.
 
-🕐 *Last updated: Friday, October 30, 2026 at 17:40 UTC*
+## Local development
 
-</div>
+Requirements: Go matching `go.mod`, Node 24, npm, Docker (or PostgreSQL 17).
 
----
+```sh
+cp .env.example .env
+cp web/.env.example web/.env.local
+set -a
+. ./.env
+set +a
+make install
+make db-up
+make db-migrate
+make import-history
+make verify-history
+make dev
+```
 
-## 💰 Live Prices & Trends
+Open http://localhost:3000. The importer adds genuine archived observations;
+market cap and volume remain unavailable until ingestion supplies them.
 
-<table>
-<thead>
-<tr>
-<th align="left">Asset</th>
-<th align="right">Price (USD)</th>
-<th align="center">24h</th>
-<th align="center">7 Days</th>
-<th align="center">30 Days</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><b>Polkadot DOT</b><br/></td>
-<td align="right"><code>$0.9551</code></td>
-<td align="center">🔴 -4.30%</td>
-<td align="center">🔴 -14.73%</td>
-<td align="center">🔴 -17.67%</td>
-</tr>
-<tr>
-<td><b>Bitcoin BTC</b><br/></td>
-<td align="right"><code>$77146.00</code></td>
-<td align="center">🔴 -4.73%</td>
-<td align="center">🔴 -5.25%</td>
-<td align="center">🔴 -7.10%</td>
-</tr>
-<tr>
-<td><b>Ethereum ETH</b><br/></td>
-<td align="right"><code>$2240.85</code></td>
-<td align="center">🔴 -4.35%</td>
-<td align="center">🔴 -6.21%</td>
-<td align="center">🔴 -15.89%</td>
-</tr>
-<tr>
-<td><b>Solana SOL</b><br/></td>
-<td align="right"><code>$94.56</code></td>
-<td align="center">🔴 -6.68%</td>
-<td align="center">🔴 -9.19%</td>
-<td align="center">🔴 -19.72%</td>
-</tr>
-<tr>
-<td><b>Cardano ADA</b><br/></td>
-<td align="right"><code>$0.1923</code></td>
-<td align="center">🔴 -5.65%</td>
-<td align="center">🔴 -9.92%</td>
-<td align="center">🔴 -20.74%</td>
-</tr>
-</tbody>
-</table>
+```sh
+# Optional CoinGecko Demo key; configure in your shell, not in Git.
+make ingest
+make test
+make lint
+make build
+cd web && npx playwright install chromium && npm run test:e2e
+```
 
-## 📈 Technical Analysis
+Go reads `DATABASE_DIRECT_URL`; Next.js reads `DATABASE_URL` from `web/.env.local`
+or its environment. Use separate least-privilege production credentials. No
+production secrets are necessary for the build. To run Go database integration
+tests, use a dedicated migrated test database; tests add temporary test records.
 
-<table>
-<thead>
-<tr>
-<th align="left">Asset</th>
-<th align="center">Signal</th>
-<th align="center">RSI</th>
-<th align="center">MACD</th>
-<th align="center">MA</th>
-<th align="center">Bollinger</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><b>DOT</b></td>
-<td align="center">⚪ <b>Hold</b><br/><sub>43% conf</sub></td>
-<td align="center">⚪ 47.5</td>
-<td align="center">🟠 ↓</td>
-<td align="center">🔵 ↑ Bullish</td>
-<td align="center">⚪ Middle</td>
-</tr>
-<tr>
-<td><b>BTC</b></td>
-<td align="center">🟠 <b>Sell</b><br/><sub>45% conf</sub></td>
-<td align="center">🔵 29.0</td>
-<td align="center">🟠 ↓</td>
-<td align="center">🔴 ☠️ Death</td>
-<td align="center">⚪ Middle</td>
-</tr>
-<tr>
-<td><b>ETH</b></td>
-<td align="center">⚪ <b>Hold</b><br/><sub>40% conf</sub></td>
-<td align="center">⚪ 36.1</td>
-<td align="center">🟠 ↓</td>
-<td align="center">🔵 ↑ Bullish</td>
-<td align="center">⚪ Middle</td>
-</tr>
-<tr>
-<td><b>SOL</b></td>
-<td align="center">🟠 <b>Sell</b><br/><sub>43% conf</sub></td>
-<td align="center">⚪ 42.1</td>
-<td align="center">🟠 ↓</td>
-<td align="center">🟠 ↓ Bearish</td>
-<td align="center">⚪ Middle</td>
-</tr>
-<tr>
-<td><b>ADA</b></td>
-<td align="center">⚪ <b>Hold</b><br/><sub>42% conf</sub></td>
-<td align="center">⚪ 48.9</td>
-<td align="center">🟠 ↓</td>
-<td align="center">🔵 ↑ Bullish</td>
-<td align="center">⚪ Middle</td>
-</tr>
-</tbody>
-</table>
+## Deployment and operations
 
-<details>
-<summary><b>📖 Signal Legend</b></summary>
+Import this repository in Vercel with root **web**, framework **Next.js**, Node
+**24.x**, install **npm ci**, build **npm run build**. Connect a read-only Neon URL
+as `DATABASE_URL`. Scope preview and production to separate databases. The user
+controls production activation and merging; this repository does not claim a live
+production deployment.
 
-| Signal | Meaning |
-|--------|--------|
-| 🟢 Strong Buy | Multiple indicators suggest strong upward momentum |
-| 🔵 Buy | Indicators lean bullish |
-| ⚪ Hold | Mixed or neutral signals |
-| 🟠 Sell | Indicators lean bearish |
-| 🔴 Strong Sell | Multiple indicators suggest strong downward momentum |
+After provisioning/migration and user merge, configure GitHub Actions secrets
+`DATABASE_DIRECT_URL` and `COINGECKO_API_KEY`. Ingestion runs at 00:17 and 12:17 UTC.
+Schedules are best effort and run from the default branch. The workflow never
+commits data or deploys the website. `/api/health` checks database reachability;
+market freshness and ingestion status appear in the application.
 
-**Indicators used:** RSI (14), MACD (12/26/9), Moving Averages (50/200), Bollinger Bands (20, 2σ)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Database, roles and lossless import](docs/DATABASE.md)
+- [Vercel deployment walkthrough](docs/VERCEL_DEPLOYMENT.md)
+- [Migration progress and rollout](docs/MIGRATION_PLAN.md)
+- [Validation results](docs/VALIDATION.md)
 
-</details>
+## Repository layout
 
-## 24-Hour Performance
+`web/` contains the Next.js application and browser tests. `cmd/` contains ingestion,
+schema migration and historical import commands. `internal/` holds Go domain,
+analytics and persistence code. `migrations/` owns the SQL schema. `archive/` holds
+immutable migration inputs; the website never reads them. The README is maintained
+by developers and is never generated by the ingestion job.
 
-<div align="center">
-
-![24h Performance Chart](https://quickchart.io/chart?w=700&h=350&c=%7B%0A++type%3A+%27bar%27%2C%0A++data%3A+%7B%0A++++labels%3A+%5B%27DOT%27%2C+%27BTC%27%2C+%27ETH%27%2C+%27SOL%27%2C+%27ADA%27%5D%2C%0A++++datasets%3A+%5B%7B%0A++++++label%3A+%2724h+Change%27%2C%0A++++++data%3A+%5B-4.30%2C+-4.73%2C+-4.35%2C+-6.68%2C+-5.65%5D%2C%0A++++++backgroundColor%3A+%5B%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%2C+%27rgba%28239%2C+68%2C+68%2C+0.8%29%27%5D%2C%0A++++++borderRadius%3A+5%0A++++%7D%5D%0A++%7D%2C%0A++options%3A+%7B%0A++++plugins%3A+%7B%0A++++++title%3A+%7Bdisplay%3A+true%2C+text%3A+%2724-Hour+Performance+%28%25%29%27%2C+font%3A+%7Bsize%3A+16%7D%7D%2C%0A++++++legend%3A+%7Bdisplay%3A+false%7D%0A++++%7D%2C%0A++++scales%3A+%7B%0A++++++y%3A+%7B%0A++++++++beginAtZero%3A+true%2C%0A++++++++grid%3A+%7Bcolor%3A+%27rgba%280%2C0%2C0%2C0.1%29%27%7D%0A++++++%7D%0A++++%7D%0A++%7D%0A%7D)
-
-</div>
-
----
-
-<details>
-<summary><b>ℹ️ About This Project</b></summary>
-
-This automated tracker runs every 12 hours via GitHub Actions.
-
-**Features:**
-- Auto-updates twice daily
-- Historical trend tracking using SQLite
-- Dynamic chart generation
-- No external server required
-
-**Tech Stack:** Go • SQLite • GitHub Actions • CoinGecko API
-
-</details>
-
-<div align="center">
-
-*Data provided by [CoinGecko](https://coingecko.com)*
-
-</div>
+Prices provided by [CoinGecko](https://www.coingecko.com/). Interactive financial
+charts use [TradingView Lightweight Charts](https://www.tradingview.com/).

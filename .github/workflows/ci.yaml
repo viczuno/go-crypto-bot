@@ -1,0 +1,55 @@
+name: Validate platform
+on:
+  pull_request:
+  push:
+    branches: [main, feat/vercel-migration]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: crypto
+          POSTGRES_PASSWORD: local-development-only
+          POSTGRES_DB: crypto
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U crypto"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CRYPTO_TEST_DATABASE: '1'
+      DATABASE_DIRECT_URL: postgres://crypto:local-development-only@localhost:5432/crypto?sslmode=disable
+      DATABASE_URL: postgres://crypto:local-development-only@localhost:5432/crypto?sslmode=disable
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: go run ./cmd/db
+      - run: test -z "$(gofmt -l cmd internal)"
+      - run: go vet ./cmd/... ./internal/...
+      - run: go test -race ./cmd/... ./internal/...
+      - run: go build ./cmd/... ./internal/...
+      - run: go run ./cmd/import-history -mode import
+      - run: go run ./cmd/import-history -mode verify
+      - run: npm ci
+        working-directory: web
+      - run: npm run format:check && npm run lint && npm run typecheck && npm test && npm run build
+        working-directory: web
+      - run: npx playwright install --with-deps chromium
+        working-directory: web
+      - run: npm run test:e2e
+        working-directory: web
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-results
+          path: web/test-results
