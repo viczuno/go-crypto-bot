@@ -1,0 +1,267 @@
+{
+  "id": "bitcoin",
+  "name": "Bitcoin",
+  "symbol": "BTC",
+  "updated_at": "2026-10-30T17:40:47Z",
+  "current": {
+    "id": "bitcoin",
+    "name": "Bitcoin",
+    "symbol": "BTC",
+    "price": 77146,
+    "change_24h": -4.454875345231166,
+    "change_7d": -4.690955363650964,
+    "change_7d_ok": true,
+    "change_30d": -9.093480079657802,
+    "change_30d_ok": true
+  },
+  "history": [
+    {
+      "timestamp": "2026-09-30T03:49:08Z",
+      "price": 83292
+    },
+    {
+      "timestamp": "2026-09-30T17:33:25Z",
+      "price": 84091
+    },
+    {
+      "timestamp": "2026-10-01T03:56:40Z",
+      "price": 83692
+    },
+    {
+      "timestamp": "2026-10-01T17:57:53Z",
+      "price": 84896
+    },
+    {
+      "timestamp": "2026-10-02T03:53:34Z",
+      "price": 85364
+    },
+    {
+      "timestamp": "2026-10-02T17:23:22Z",
+      "price": 84863
+    },
+    {
+      "timestamp": "2026-10-03T03:38:29Z",
+      "price": 84600
+    },
+    {
+      "timestamp": "2026-10-03T15:39:41Z",
+      "price": 84796
+    },
+    {
+      "timestamp": "2026-10-04T04:08:25Z",
+      "price": 84831
+    },
+    {
+      "timestamp": "2026-10-04T16:23:29Z",
+      "price": 85243
+    },
+    {
+      "timestamp": "2026-10-05T03:52:59Z",
+      "price": 86259
+    },
+    {
+      "timestamp": "2026-10-05T20:19:46Z",
+      "price": 85738
+    },
+    {
+      "timestamp": "2026-10-06T04:40:51Z",
+      "price": 85591
+    },
+    {
+      "timestamp": "2026-10-06T17:52:12Z",
+      "price": 85593
+    },
+    {
+      "timestamp": "2026-10-07T04:06:49Z",
+      "price": 84174
+    },
+    {
+      "timestamp": "2026-10-07T18:23:11Z",
+      "price": 83219
+    },
+    {
+      "timestamp": "2026-10-08T04:19:10Z",
+      "price": 82646
+    },
+    {
+      "timestamp": "2026-10-08T18:22:58Z",
+      "price": 80921
+    },
+    {
+      "timestamp": "2026-10-09T04:24:24Z",
+      "price": 82438
+    },
+    {
+      "timestamp": "2026-10-09T17:55:41Z",
+      "price": 82661
+    },
+    {
+      "timestamp": "2026-10-10T04:09:37Z",
+      "price": 82639
+    },
+    {
+      "timestamp": "2026-10-10T16:54:02Z",
+      "price": 82975
+    },
+    {
+      "timestamp": "2026-10-11T03:46:25Z",
+      "price": 82910
+    },
+    {
+      "timestamp": "2026-10-11T17:16:48Z",
+      "price": 83761
+    },
+    {
+      "timestamp": "2026-10-12T04:08:45Z",
+      "price": 83492
+    },
+    {
+      "timestamp": "2026-10-12T20:51:37Z",
+      "price": 83035
+    },
+    {
+      "timestamp": "2026-10-13T05:18:13Z",
+      "price": 83557
+    },
+    {
+      "timestamp": "2026-10-13T18:49:44Z",
+      "price": 83021
+    },
+    {
+      "timestamp": "2026-10-14T03:23:28Z",
+      "price": 83739
+    },
+    {
+      "timestamp": "2026-10-14T16:27:02Z",
+      "price": 81619
+    },
+    {
+      "timestamp": "2026-10-15T03:01:42Z",
+      "price": 81458
+    },
+    {
+      "timestamp": "2026-10-15T16:14:43Z",
+      "price": 82378
+    },
+    {
+      "timestamp": "2026-10-16T02:59:02Z",
+      "price": 81973
+    },
+    {
+      "timestamp": "2026-10-16T16:00:52Z",
+      "price": 81350
+    },
+    {
+      "timestamp": "2026-10-17T02:50:48Z",
+      "price": 81384
+    },
+    {
+      "timestamp": "2026-10-17T14:53:40Z",
+      "price": 81478
+    },
+    {
+      "timestamp": "2026-10-18T02:52:33Z",
+      "price": 81685
+    },
+    {
+      "timestamp": "2026-10-18T15:19:28Z",
+      "price": 81099
+    },
+    {
+      "timestamp": "2026-10-19T03:05:35Z",
+      "price": 82571
+    },
+    {
+      "timestamp": "2026-10-19T18:16:56Z",
+      "price": 81970
+    },
+    {
+      "timestamp": "2026-10-20T03:14:37Z",
+      "price": 81931
+    },
+    {
+      "timestamp": "2026-10-20T16:17:54Z",
+      "price": 82479
+    },
+    {
+      "timestamp": "2026-10-21T03:09:50Z",
+      "price": 82728
+    },
+    {
+      "timestamp": "2026-10-21T16:33:09Z",
+      "price": 84619
+    },
+    {
+      "timestamp": "2026-10-22T03:08:12Z",
+      "price": 82855
+    },
+    {
+      "timestamp": "2026-10-22T16:34:12Z",
+      "price": 81418
+    },
+    {
+      "timestamp": "2026-10-23T03:13:33Z",
+      "price": 81765
+    },
+    {
+      "timestamp": "2026-10-23T16:24:08Z",
+      "price": 81544
+    },
+    {
+      "timestamp": "2026-10-24T03:07:44Z",
+      "price": 80943
+    },
+    {
+      "timestamp": "2026-10-24T15:19:51Z",
+      "price": 79451
+    },
+    {
+      "timestamp": "2026-10-25T03:02:13Z",
+      "price": 80842
+    },
+    {
+      "timestamp": "2026-10-25T15:29:43Z",
+      "price": 80496
+    },
+    {
+      "timestamp": "2026-10-26T03:01:36Z",
+      "price": 79484
+    },
+    {
+      "timestamp": "2026-10-26T18:10:36Z",
+      "price": 80263
+    },
+    {
+      "timestamp": "2026-10-27T03:33:39Z",
+      "price": 79683
+    },
+    {
+      "timestamp": "2026-10-27T17:24:15Z",
+      "price": 80561
+    },
+    {
+      "timestamp": "2026-10-28T03:49:41Z",
+      "price": 81084
+    },
+    {
+      "timestamp": "2026-10-28T17:51:40Z",
+      "price": 80704
+    },
+    {
+      "timestamp": "2026-10-29T04:12:55Z",
+      "price": 79733
+    },
+    {
+      "timestamp": "2026-10-29T17:59:05Z",
+      "price": 80743
+    },
+    {
+      "timestamp": "2026-10-30T04:12:41Z",
+      "price": 77892
+    },
+    {
+      "timestamp": "2026-10-30T17:40:47Z",
+      "price": 77146
+    }
+  ]
+}

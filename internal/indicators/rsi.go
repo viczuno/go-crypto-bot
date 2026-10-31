@@ -43,9 +43,8 @@ func (r *RSICalculator) Calculate(coinID string, prices []domain.CryptoPrice) do
 		return result
 	}
 
-	// Extract price values (newest first, so reverse for calculation)
+	// Input is validated ascending daily samples.
 	priceValues := extractPrices(prices)
-	reverse(priceValues)
 
 	rsi := calculateRSI(priceValues, r.period)
 	result.Value = rsi
@@ -118,6 +117,9 @@ func calculateRSI(prices []float64, period int) float64 {
 	}
 
 	// Calculate RSI
+	if avgLoss == 0 && avgGain == 0 {
+		return 50
+	}
 	if avgLoss == 0 {
 		return 100.0 // All gains, no losses
 	}

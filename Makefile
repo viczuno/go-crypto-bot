@@ -1,58 +1,37 @@
-.PHONY: build test lint clean run help
+SHELL := /bin/sh
+.DEFAULT_GOAL := help
+.PHONY: help install dev db-up db-migrate import-history verify-history ingest test test-go test-web build lint fmt
+install: ## Install locked dependencies
+	go mod download
+	npm --prefix web ci
+dev: ## Start Next.js
+	npm --prefix web run dev
+db-up: ## Start optional Docker PostgreSQL
+	docker compose up -d --wait
+db-migrate: ## Apply schema to configured direct DB
+	go run ./cmd/db
+import-history: ## Import immutable recovery archive
+	go run ./cmd/import-history -mode import
+verify-history: ## Verify archive against configured DB
+	go run ./cmd/import-history -mode verify
+ingest: ## Run configured Go ingestion
+	go run ./cmd/ingest
+test: test-go test-web ## Run Go and frontend tests
+test-go: ## Run Go race tests; DB tests opt in
+	go test -race ./cmd/... ./internal/...
+test-web: ## Run frontend tests
+	npm --prefix web test
+build: ## Build Go and Next.js
+	go build ./cmd/... ./internal/...
+	npm --prefix web run build
+lint: ## Check Go, frontend types, lint and format
+	go vet ./cmd/... ./internal/...
+	npm --prefix web run lint
+	npm --prefix web run typecheck
+	npm --prefix web run format:check
+fmt: ## Format Go and frontend source
+	gofmt -w cmd internal
+	npm --prefix web run format
 
-# Default target
-all: lint test build
-
-# Build the application
-build:
-	@echo "Building..."
-	@go build -o bin/crypto-bot ./cmd/main.go
-
-# Run all tests with race detection and coverage
-test:
-	@echo "Running tests..."
-	@go test -v -race -cover ./...
-
-# Run tests with coverage report
-test-coverage:
-	@echo "Running tests with coverage report..."
-	@go test -v -race -coverprofile=coverage.out ./...
-	@go tool cover -html=coverage.out -o coverage.html
-	@echo "Coverage report generated: coverage.html"
-
-# Run linter (requires golangci-lint)
-lint:
-	@echo "Running linter..."
-	@golangci-lint run || echo "Note: golangci-lint not installed. Run 'go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest'"
-
-# Run go vet
-vet:
-	@echo "Running go vet..."
-	@go vet ./...
-
-# Format code
-fmt:
-	@echo "Formatting code..."
-	@gofmt -s -w .
-
-# Clean build artifacts
-clean:
-	@echo "Cleaning..."
-	@rm -rf bin/ coverage.out coverage.html
-
-# Run the application
-run:
-	@go run ./cmd/main.go
-
-# Show help
-help:
-	@echo "Available targets:"
-	@echo "  build         - Build the application"
-	@echo "  test          - Run tests with race detection"
-	@echo "  test-coverage - Run tests with coverage report"
-	@echo "  lint          - Run golangci-lint"
-	@echo "  vet           - Run go vet"
-	@echo "  fmt           - Format code with gofmt"
-	@echo "  clean         - Remove build artifacts"
-	@echo "  run           - Run the application"
-	@echo "  help          - Show this help message"
+help: ## List developer commands
+	@awk 'BEGIN {FS = ":.*## "} /^[a-z-]+:.*## / {printf "%-18s %s\n", $$1, $$2}' $(MAKEFILE_LIST)

@@ -50,9 +50,8 @@ func (m *MACDCalculator) Calculate(coinID string, prices []domain.CryptoPrice) d
 		return result
 	}
 
-	// Extract price values (newest first, so reverse for calculation)
+	// Input is validated ascending daily samples.
 	priceValues := extractPrices(prices)
-	reverse(priceValues)
 
 	// Calculate MACD components
 	macdLine, signalLine, histogram := m.calculateMACD(priceValues)
@@ -98,14 +97,14 @@ func (m *MACDCalculator) calculateMACDHistory(prices []float64) []float64 {
 		return nil
 	}
 
-	// Generate MACD values for each point starting from slowPeriod
-	macdHistory := make([]float64, 0, len(prices)-m.slowPeriod+1)
-
-	for i := m.slowPeriod; i <= len(prices); i++ {
-		subset := prices[:i]
-		fastEMA := calculateEMA(subset, m.fastPeriod)
-		slowEMA := calculateEMA(subset, m.slowPeriod)
-		macdHistory = append(macdHistory, fastEMA-slowEMA)
+	// Seed each EMA with its own SMA and advance once per sample.
+	fast := calculateEMA(prices[:m.slowPeriod], m.fastPeriod)
+	slow := calculateSMA(prices[:m.slowPeriod], m.slowPeriod)
+	macdHistory := []float64{fast - slow}
+	for _, price := range prices[m.slowPeriod:] {
+		fast += (price - fast) * 2 / float64(m.fastPeriod+1)
+		slow += (price - slow) * 2 / float64(m.slowPeriod+1)
+		macdHistory = append(macdHistory, fast-slow)
 	}
 
 	return macdHistory
@@ -120,7 +119,12 @@ func (m *MACDCalculator) determineSignal(macdLine, signalLine, histogram float64
 	crossoverDown := prevHistogram > 0 && histogram < 0
 
 	// Calculate signal strength based on histogram magnitude
-	histogramStrength := abs(histogram) / abs(signalLine)
+	histogramStrength := 0.0
+	if signalLine != 0 {
+		histogramStrength = abs(histogram) / abs(signalLine)
+	} else if histogram != 0 {
+		histogramStrength = 1
+	}
 	if histogramStrength > 1 {
 		histogramStrength = 1
 	}

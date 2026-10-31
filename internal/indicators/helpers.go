@@ -3,6 +3,7 @@ package indicators
 
 import (
 	"errors"
+	"math"
 
 	"github.com/viczuno/go-crypto-bot/internal/domain"
 )
@@ -17,13 +18,6 @@ func extractPrices(prices []domain.CryptoPrice) []float64 {
 		values[i] = p.PriceUSD
 	}
 	return values
-}
-
-// reverse reverses a slice in place.
-func reverse(s []float64) {
-	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
-		s[i], s[j] = s[j], s[i]
-	}
 }
 
 // abs returns the absolute value of a float64.
@@ -42,9 +36,9 @@ func calculateSMA(prices []float64, period int) float64 {
 
 	sum := 0.0
 	for i := len(prices) - period; i < len(prices); i++ {
-		sum += prices[i]
+		sum += prices[i] - prices[len(prices)-period]
 	}
-	return sum / float64(period)
+	return prices[len(prices)-period] + sum/float64(period)
 }
 
 // calculateEMA computes the Exponential Moving Average for the given period.
@@ -57,9 +51,9 @@ func calculateEMA(prices []float64, period int) float64 {
 	// Start with SMA for first period values
 	sma := 0.0
 	for i := 0; i < period; i++ {
-		sma += prices[i]
+		sma += prices[i] - prices[0]
 	}
-	sma /= float64(period)
+	sma = prices[0] + sma/float64(period)
 
 	if len(prices) == period {
 		return sma
@@ -94,13 +88,4 @@ func calculateStdDev(prices []float64, mean float64, period int) float64 {
 }
 
 // sqrt computes square root using Newton's method.
-func sqrt(x float64) float64 {
-	if x <= 0 {
-		return 0
-	}
-	z := x / 2
-	for i := 0; i < 10; i++ {
-		z -= (z*z - x) / (2 * z)
-	}
-	return z
-}
+func sqrt(x float64) float64 { return math.Sqrt(x) }

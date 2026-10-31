@@ -48,9 +48,8 @@ func (bb *BollingerBandsCalculator) Calculate(coinID string, prices []domain.Cry
 		return result
 	}
 
-	// Extract price values (newest first, so reverse for calculation)
+	// Input is validated ascending daily samples.
 	priceValues := extractPrices(prices)
-	reverse(priceValues)
 
 	currentPrice := priceValues[len(priceValues)-1]
 
@@ -63,7 +62,7 @@ func (bb *BollingerBandsCalculator) Calculate(coinID string, prices []domain.Cry
 	// Calculate %B (position within bands)
 	// %B = (Price - Lower Band) / (Upper Band - Lower Band)
 	bandWidth := upperBand - lowerBand
-	var percentB float64
+	percentB := 0.5
 	if bandWidth > 0 {
 		percentB = (currentPrice - lowerBand) / bandWidth
 	}
@@ -96,8 +95,8 @@ func (bb *BollingerBandsCalculator) determineSignal(
 	price, upperBand, middleBand, lowerBand, percentB, bandwidth float64,
 ) (domain.Signal, float64) {
 	// Determine distance from bands (for confidence calculation)
-	distanceFromUpper := (upperBand - price) / (upperBand - middleBand)
-	distanceFromLower := (price - lowerBand) / (middleBand - lowerBand)
+	distanceFromUpper := 0.0
+	distanceFromLower := 0.0
 
 	switch {
 	case percentB <= 0:

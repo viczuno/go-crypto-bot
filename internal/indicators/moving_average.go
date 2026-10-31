@@ -47,9 +47,8 @@ func (ma *MovingAverageCalculator) Calculate(coinID string, prices []domain.Cryp
 		return result
 	}
 
-	// Extract price values (newest first, so reverse for calculation)
+	// Input is validated ascending daily samples.
 	priceValues := extractPrices(prices)
-	reverse(priceValues)
 
 	currentPrice := priceValues[len(priceValues)-1]
 
@@ -75,8 +74,8 @@ func (ma *MovingAverageCalculator) Calculate(coinID string, prices []domain.Cryp
 	priceAboveLong := currentPrice > longSMA
 
 	// Detect crossovers
-	goldenCross := prevShortSMA <= prevLongSMA && shortSMA > longSMA
-	deathCross := prevShortSMA >= prevLongSMA && shortSMA < longSMA
+	goldenCross := len(prices) > ma.longPeriod && prevShortSMA <= prevLongSMA && shortSMA > longSMA
+	deathCross := len(prices) > ma.longPeriod && prevShortSMA >= prevLongSMA && shortSMA < longSMA
 
 	result.Metadata["golden_cross"] = boolToFloat(goldenCross)
 	result.Metadata["death_cross"] = boolToFloat(deathCross)
