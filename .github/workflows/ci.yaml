@@ -23,6 +23,7 @@ jobs:
       CRYPTO_TEST_DATABASE: '1'
       DATABASE_DIRECT_URL: postgres://crypto:local-development-only@localhost:5432/crypto?sslmode=disable
       DATABASE_URL: postgres://crypto:local-development-only@localhost:5432/crypto?sslmode=disable
+      MARKET_TEST_DATABASE_URL: postgres://crypto:local-development-only@localhost:5432/crypto?sslmode=disable
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5

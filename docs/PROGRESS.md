@@ -48,3 +48,15 @@ Repository description/topics updated to implemented features. Remote CI run
 41179337887 was in progress at this checkpoint; no remote green claim is made.
 The follow-up test commit adds overlapping-worker rejection, gap-reset and
 last-sample-per-day regression coverage, validated uncached against crypto_test.
+
+## Preview market-read investigation
+Sanitized diagnostics added for market/detail reads: stage, SQLSTATE category/code,
+and allowlisted Zod issue paths only. No error messages, SQL, row values or URLs.
+Existing local imported database and the configured Neon database both returned
+ready with the actual query/schema; the packaged production server also returned
+HTTP 200/ready for that Neon connection. SSL warning was reproduced without read
+failure. Preview may use different credentials/settings; its exact failure has
+not yet been classified. Do not claim a root cause without its sanitized event.
+Next action: inspect market_read_failed from the new Preview after the diagnostic
+commit. 42501=permissions, 42*=SQL/schema, 22*=database values, validation=Zod paths.
+No database writes, reset, migrations or reimport were performed in this investigation.
