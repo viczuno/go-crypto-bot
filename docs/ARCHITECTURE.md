@@ -19,7 +19,7 @@ Go owns the relational schema and persisted analytics JSON. Zod validates the
 TypeScript read contract. Unknown values are null, not zero. SQL uses parameters
 and explicit limits. Market lists carry only 31 daily samples per asset; detail
 and comparisons retrieve at most 2,000 per selected asset. Comparisons cap at five.
-Public reads cache for five minutes; no page view calls CoinGecko.
+Pages read PostgreSQL on every request; public API responses are CDN-cached for up to 60 seconds. No page view calls CoinGecko.
 
 Analytics use ascending consecutive completed UTC-day samples. A sample is the
 last price observed that day, not an exchange closing price or an OHLC candle.

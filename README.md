@@ -43,7 +43,8 @@ flowchart LR
 CoinGecko supplies provider timestamps and market fields. Go discovers assets,
 validates and stores observations, selects completed UTC-day samples, and calculates
 indicators. PostgreSQL owns production data. Next.js performs bounded read-only
-queries and caches successful snapshots for five minutes. Browsers store only
+queries on every page request; there is no server-side snapshot cache, and API
+responses are CDN-cached for at most 60 seconds. Browsers store only
 watchlists/preferences. Vercel's Git integration builds the website when code changes.
 
 Market updates write PostgreSQL directly: they do **not** commit SQLite/JSON, rewrite
@@ -309,7 +310,7 @@ not require database credentials or run migrations. Webpack is selected explicit
 or valid data. Verify the dashboard, an asset page and comparisons as well. Inspect
 Vercel build and runtime logs. Errors log safe stage, SQLSTATE/category or redacted
 validation paths, never raw queries/parameters/credentials. Failed market reads
-are retryable and are not cached as successful unavailable snapshots.
+are retried on the next request; nothing is cached server-side.
 
 ## Testing
 
@@ -359,6 +360,7 @@ accessibility/security audit. Use the dedicated test database for repeatable res
 | Lock/pool problems | Use direct URL for Go; pooled URL only for request reads |
 | Missing tables/columns | Check database/branch and run reviewed pending migrations on the intended dev DB |
 | SQLSTATE 42501 | Grant required SELECT to web or write/sequence access to ingest; do not use owner as workaround |
+| Preview: health 503, "Market data is unavailable" | The Preview deployment cannot reach a database: set `DATABASE_URL` (separate reader credentials) in the Vercel Preview environment scope and redeploy |
 | Health OK, market unavailable | Inspect sanitized `market_read_failed` stage/SQLSTATE/Zod paths; health only executes SELECT 1 |
 | Empty market | Confirm imported/ingested rows and environment scopes; do not invent fallback prices |
 | Stale data | Check latest provider timestamps, Actions failures and ingestion_runs |
@@ -367,7 +369,7 @@ accessibility/security audit. Use the dedicated test database for repeatable res
 | Vercel build failure | Check Node 24, root web, npm lockfile and build logs; reproduce make build |
 | TLS-mode warning | Use sslmode=verify-full explicitly; do not disable certificate validation in production |
 
-Freshness becomes stale after 18 hours; successful snapshots cache for five minutes.
+Freshness becomes stale after 18 hours; API responses are CDN-cached for up to 60 seconds.
 Inspect Neon storage/compute and API usage, GitHub job logs, and Vercel runtime/build
 logs. Free tiers have quotas and no assumed production SLA; paid upgrades are an
 operational choice, not required by the architecture. Keep backups independent of
