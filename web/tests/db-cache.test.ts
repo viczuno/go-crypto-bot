@@ -6,21 +6,8 @@ vi.mock("pg", () => ({
     query = query;
   },
 }));
-// Cache successful values like unstable_cache; rejected reads remain retryable.
-vi.mock("next/cache", () => ({
-  unstable_cache: (read: () => Promise<unknown>) => {
-    let stored: unknown;
-    let cached = false;
-    return async () => {
-      if (cached) return stored;
-      stored = await read();
-      cached = true;
-      return stored;
-    };
-  },
-}));
 import { snapshot } from "../lib/db";
-it("does not cache unavailable fallbacks after a transient SQL failure", async () => {
+it("reads fresh rows on every call and recovers after a transient SQL failure", async () => {
   process.env.DATABASE_URL = "unused-in-mock";
   const log = vi.spyOn(console, "error").mockImplementation(() => {});
   try {
@@ -35,8 +22,14 @@ it("does not cache unavailable fallbacks after a transient SQL failure", async (
       .mockResolvedValueOnce({ rows: [] });
     expect((await snapshot()).status).toBe("empty");
     expect(query).toHaveBeenCalledTimes(4);
-    expect((await snapshot()).status).toBe("empty");
-    expect(query).toHaveBeenCalledTimes(4);
+    // No snapshot cache: a later call must query again so data is never stale.
+    query
+      .mockResolvedValueOnce({ rows: [] })
+      .mockResolvedValueOnce({ rows: [] });
+    const again = await snapshot();
+    expect(query).toHaveBeenCalledTimes(6);
+    expect(again.status).toBe("empty");
+    expect(Date.parse(again.asOf)).toBeLessThanOrEqual(Date.now());
     expect(JSON.parse(log.mock.calls[0][0])).toMatchObject({
       category: "database",
       sqlstate: "08006",

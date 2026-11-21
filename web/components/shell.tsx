@@ -1,8 +1,14 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ThemeProvider, useTheme } from "next-themes";
-import { createContext, useContext, useSyncExternalStore } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import {
   LayoutDashboard,
   Search,
@@ -72,7 +78,7 @@ const nav = [
   { href: "/watchlist", label: "Watchlist", icon: Star },
   { href: "/compare", label: "Compare", icon: GitCompareArrows },
 ];
-function Navigation() {
+function Navigation({ onNavigate }: { onNavigate?: () => void }) {
   const path = usePathname();
   const { ids } = useWatch();
   return (
@@ -96,6 +102,7 @@ function Navigation() {
           <Link
             key={n.href}
             href={n.href}
+            onClick={onNavigate}
             className={`nav-link ${path === n.href ? "active" : ""}`}
           >
             <n.icon size={18} />
@@ -124,8 +131,35 @@ function Navigation() {
     </>
   );
 }
+const REFRESH_MS = 5 * 60 * 1000;
+// Observations land twice a day, so a light re-fetch of server data is enough
+// to keep an open tab current without polling the API.
+function AutoRefresh() {
+  const router = useRouter();
+  useEffect(() => {
+    const refresh = () => {
+      if (document.visibilityState === "visible") router.refresh();
+    };
+    const timer = window.setInterval(refresh, REFRESH_MS);
+    document.addEventListener("visibilitychange", refresh);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", refresh);
+    };
+  }, [router]);
+  return null;
+}
 export function Shell({ children }: { children: React.ReactNode }) {
   const { resolvedTheme, setTheme } = useTheme();
+  const path = usePathname();
+  const [drawer, setDrawer] = useState(false);
+  const [drawerPath, setDrawerPath] = useState(path);
+  // Close the drawer once navigation completes so its modal layer (overlay and
+  // body pointer-events lock) never outlives the page it opened on.
+  if (drawerPath !== path) {
+    setDrawerPath(path);
+    setDrawer(false);
+  }
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -141,7 +175,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       </aside>
       <div className="workspace">
         <header className="topbar">
-          <Dialog.Root>
+          <Dialog.Root open={drawer} onOpenChange={setDrawer}>
             <Dialog.Trigger
               className="icon-button mobile-menu"
               aria-label="Open navigation"
@@ -161,7 +195,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
                 >
                   <X />
                 </Dialog.Close>
-                <Navigation />
+                <Navigation onNavigate={() => setDrawer(false)} />
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>
@@ -188,6 +222,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             </button>
           </div>
         </header>
+        <AutoRefresh />
         <main id="main">{children}</main>
         <footer className="footer">
           <span>Go Crypto Bot · Independent market research</span>
