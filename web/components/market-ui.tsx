@@ -88,8 +88,8 @@ export function Freshness({ data }: { data: Snapshot }) {
     .flatMap((a) => (a.updated ? [a.updated] : []))
     .sort();
   const time = times.at(-1);
-  const old = data.assets.filter((a) =>
-    stale(a.updated, Date.parse(data.asOf)),
+  const old = data.assets.filter(
+    (a) => a.active && stale(a.updated, Date.parse(data.asOf)),
   ).length;
   return (
     <div className="freshness">
@@ -172,9 +172,11 @@ function Change({ value }: { value: number | null }) {
 export function MarketTable({
   assets,
   compact = false,
+  empty = "No assets match these filters.",
 }: {
   assets: Asset[];
   compact?: boolean;
+  empty?: string;
 }) {
   return (
     <div className="table-scroll">
@@ -218,10 +220,51 @@ export function MarketTable({
           ))}
         </tbody>
       </table>
-      {!assets.length && (
-        <p className="empty-inline">No assets match these filters.</p>
-      )}
+      {!assets.length && <p className="empty-inline">{empty}</p>}
     </div>
+  );
+}
+const ADD_RESULTS = 8;
+function WatchlistAdder({ assets }: { assets: Asset[] }) {
+  const { ids } = useWatch();
+  const [term, setTerm] = useState("");
+  // Mirror the Dashboard: prefer active assets, but never hide everything.
+  const tracked = assets.some((a) => a.active)
+    ? assets.filter((a) => a.active)
+    : assets;
+  const candidates = tracked.filter((a) => !ids.includes(a.id));
+  const matches = filterAssets(candidates, term, "cap", "desc").slice(
+    0,
+    ADD_RESULTS,
+  );
+  return (
+    <section className="panel" aria-labelledby="watchlist-add-title">
+      <h2 id="watchlist-add-title">Add assets</h2>
+      <div className="filters">
+        <label className="search">
+          <Search size={17} />
+          <input
+            placeholder="Search assets to add…"
+            aria-label="Search assets to add"
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+          />
+        </label>
+      </div>
+      <MarketTable
+        assets={matches}
+        compact
+        empty={
+          candidates.length
+            ? "No matching assets to add."
+            : "Every tracked asset is already on your watchlist."
+        }
+      />
+      <p className="muted">
+        Showing the largest {ADD_RESULTS} matches. Use the star to add an asset,
+        or browse all of them in <Link href="/market">Markets</Link>.
+      </p>
+    </section>
   );
 }
 export function Dashboard({ data }: { data: Snapshot }) {
@@ -599,6 +642,9 @@ export function Explorer({
       />
       <Freshness data={data} />
       <State data={data} />
+      {watchlist && data.status === "ready" && (
+        <WatchlistAdder assets={data.assets} />
+      )}
       {data.status === "ready" && (
         <section className="panel market-panel">
           <div className="filters">
@@ -688,6 +734,11 @@ export function Explorer({
           <MarketTable
             assets={assets.slice((current - 1) * 25, current * 25)}
             compact={compact}
+            empty={
+              watchlist && !ids.length
+                ? "Your watchlist is empty. Star an asset above to follow it."
+                : undefined
+            }
           />
           <div className="pagination">
             <span>

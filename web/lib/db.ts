@@ -2,7 +2,6 @@ import "server-only";
 import { logReadError, type ReadStage } from "./read-error";
 import { Pool } from "pg";
 import { marketSnapshotSQL } from "./market-query";
-import { unstable_cache } from "next/cache";
 import {
   assetSchema,
   analysisSchema,
@@ -22,66 +21,64 @@ function database() {
     options: "-c default_transaction_read_only=on",
   }));
 }
-const cachedSnapshot = unstable_cache(
-  async (): Promise<Snapshot> => {
-    const asOf = new Date().toISOString();
-    let stage: ReadStage = "connect";
-    try {
-      const db = database();
-      const query = async (queryStage: ReadStage, sql: string) => {
-        try {
-          return await db.query(sql);
-        } catch (error) {
-          logReadError("market_read_failed", queryStage, error);
-          throw new LoggedReadError();
-        }
-      };
-      const [assets, runs] = await Promise.all([
-        query("assets_query", marketSnapshotSQL),
-        query(
-          "runs_query",
-          `SELECT status,finished_at,received,expected FROM ingestion_runs ORDER BY id DESC LIMIT 1`,
-        ),
-      ]);
-      stage = "asset_validation";
-      const parsed = assets.rows.map((r) =>
-        assetSchema.parse({
-          ...r,
-          updated: r.updated?.toISOString() ?? null,
-          analysis: r.analysis ? analysisSchema.parse(r.analysis) : null,
-        }),
-      );
-      stage = "run_mapping";
-      const run = runs.rows[0];
-      return {
-        assets: parsed,
-        status: parsed.length ? "ready" : "empty",
-        asOf,
-        run: run
-          ? {
-              status: run.status,
-              finished: run.finished_at?.toISOString() ?? null,
-              received: run.received,
-              expected: run.expected,
-            }
-          : null,
-      };
-    } catch (error) {
-      if (!(error instanceof LoggedReadError))
-        logReadError("market_read_failed", stage, error);
-      // Throw only a sanitized marker: failed reads must never become cache entries.
-      throw new LoggedReadError();
-    }
-  },
-  ["market-snapshot-v3"],
-  { revalidate: 300 },
-);
+async function readSnapshot(): Promise<Snapshot> {
+  const asOf = new Date().toISOString();
+  let stage: ReadStage = "connect";
+  try {
+    const db = database();
+    const query = async (queryStage: ReadStage, sql: string) => {
+      try {
+        return await db.query(sql);
+      } catch (error) {
+        logReadError("market_read_failed", queryStage, error);
+        throw new LoggedReadError();
+      }
+    };
+    const [assets, runs] = await Promise.all([
+      query("assets_query", marketSnapshotSQL),
+      query(
+        "runs_query",
+        `SELECT status,finished_at,received,expected FROM ingestion_runs ORDER BY id DESC LIMIT 1`,
+      ),
+    ]);
+    stage = "asset_validation";
+    const parsed = assets.rows.map((r) =>
+      assetSchema.parse({
+        ...r,
+        updated: r.updated?.toISOString() ?? null,
+        analysis: r.analysis ? analysisSchema.parse(r.analysis) : null,
+      }),
+    );
+    stage = "run_mapping";
+    const run = runs.rows[0];
+    return {
+      assets: parsed,
+      status: parsed.length ? "ready" : "empty",
+      asOf,
+      run: run
+        ? {
+            status: run.status,
+            finished: run.finished_at?.toISOString() ?? null,
+            received: run.received,
+            expected: run.expected,
+          }
+        : null,
+    };
+  } catch (error) {
+    if (!(error instanceof LoggedReadError))
+      logReadError("market_read_failed", stage, error);
+    // Throw only a sanitized marker so callers never see raw database errors.
+    throw new LoggedReadError();
+  }
+}
+// Reads are intentionally uncached: pages are force-dynamic, so every request
+// sees current rows and `asOf` is the real read time (a cached snapshot could
+// otherwise be served arbitrarily old while looking fresh).
 export async function snapshot(): Promise<Snapshot> {
   try {
-    return await cachedSnapshot();
+    return await readSnapshot();
   } catch {
-    // The read logs its original error safely before throwing. The fallback is
-    // deliberately outside unstable_cache so the next request can retry.
+    // The read logs its original error safely before throwing.
     return {
       assets: [],
       status: "unavailable",

@@ -14,6 +14,6 @@ export async function GET(
     return Response.json({ error: { code: "NOT_FOUND" } }, { status: 404 });
   return Response.json(
     { history: d.asset.history, indicators: d.series },
-    { headers: { "Cache-Control": "public, s-maxage=300" } },
+    { headers: { "Cache-Control": "public, s-maxage=60" } },
   );
 }

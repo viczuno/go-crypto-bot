@@ -22,9 +22,9 @@ test("dashboard, watchlist, filters and comparison", async ({ page }) => {
   await expect(bitcoin).toHaveCount(1);
   await bitcoin.getByRole("button", { name: "Add to watchlist" }).click();
   await page.goto("/watchlist");
-  await expect(page.locator("tbody tr")).toHaveCount(1);
+  await expect(page.locator(".market-panel tbody tr")).toHaveCount(1);
   await page.reload();
-  await expect(page.locator("tbody tr")).toHaveCount(1);
+  await expect(page.locator(".market-panel tbody tr")).toHaveCount(1);
   await page.goto("/coins/bitcoin");
   await expect(
     page.getByRole("heading", { name: "Technical analysis" }),
@@ -62,4 +62,30 @@ test("accessibility and bounded API", async ({ page, request }) => {
   await expect(
     page.getByRole("heading", { name: "Asset not found" }),
   ).toBeVisible();
+});
+
+test("watchlist can be filled from its own page", async ({ page }) => {
+  await page.goto("/watchlist");
+  await expect(page.getByText("Your watchlist is empty")).toBeVisible();
+  await page
+    .getByRole("textbox", { name: "Search assets to add" })
+    .fill("bitcoin");
+  await page.getByRole("button", { name: "Add to watchlist" }).first().click();
+  await expect(
+    page.locator(".market-panel tbody tr").filter({
+      has: page.locator('a[href="/coins/bitcoin"]'),
+    }),
+  ).toHaveCount(1);
+});
+test("mobile drawer closes after navigating", async ({ page }, info) => {
+  test.skip(info.project.name !== "mobile", "drawer is mobile only");
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open navigation" }).click();
+  await page
+    .getByRole("dialog")
+    .getByRole("link", { name: /Watchlist/ })
+    .click();
+  await expect(page).toHaveURL(/\/watchlist$/);
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.getByRole("textbox", { name: "Search assets to add" }).fill("eth");
 });

@@ -133,11 +133,9 @@ func Ingest(ctx context.Context, c *pgx.Conn, api *Client, path string) (err err
 		return err
 	}
 	defer tx.Rollback(ctx)
-	if !partial {
-		if _, err = tx.Exec(ctx, "UPDATE assets SET active=false"); err != nil {
-			return err
-		}
-	}
+	// Only retire assets that are no longer tracked, and only when discovery
+	// completed. Tracked assets whose provider batch fails keep their state.
+	discoveryComplete := !partial
 	for start := 0; start < len(list); start += 100 {
 		end := start + 100
 		if end > len(list) {
@@ -176,6 +174,11 @@ func Ingest(ctx context.Context, c *pgx.Conn, api *Client, path string) (err err
 			if _, err = tx.Exec(ctx, `INSERT INTO ingestion_assets(run_id,asset_id,status,message) VALUES($1,$2,$3,$4)`, run, id, assetStatus, reason); err != nil {
 				return err
 			}
+		}
+	}
+	if discoveryComplete {
+		if _, err = tx.Exec(ctx, "UPDATE assets SET active=false WHERE active AND NOT (id = ANY($1))", list); err != nil {
+			return err
 		}
 	}
 	if err = tx.Commit(ctx); err != nil {

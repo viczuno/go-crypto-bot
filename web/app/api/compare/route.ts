@@ -17,6 +17,6 @@ export async function GET(req: Request) {
     return Response.json({ error: { code: "UNAVAILABLE" } }, { status: 503 });
   return Response.json(
     { assets: results.flatMap((r) => (r.asset ? [r.asset] : [])) },
-    { headers: { "Cache-Control": "public, s-maxage=300" } },
+    { headers: { "Cache-Control": "public, s-maxage=60" } },
   );
 }
