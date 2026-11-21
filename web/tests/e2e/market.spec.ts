@@ -66,7 +66,9 @@ test("accessibility and bounded API", async ({ page, request }) => {
 
 test("watchlist can be filled from its own page", async ({ page }) => {
   await page.goto("/watchlist");
-  await expect(page.getByText("Your watchlist is empty")).toBeVisible();
+  await expect(
+    page.locator("#main").getByText("Your watchlist is empty"),
+  ).toBeVisible();
   await page
     .getByRole("textbox", { name: "Search assets to add" })
     .fill("bitcoin");
