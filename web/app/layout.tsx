@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Providers, Shell } from "@/components/shell";
 import "./globals.css";
 const canonicalHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
@@ -32,6 +33,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Providers>
           <Shell>{children}</Shell>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
