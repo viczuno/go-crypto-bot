@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">CRYPTO market signal mark</title>
+  <path d="M37 10H23a14 14 0 1 0 0 28h14" fill="none" stroke="#087f6d" stroke-linecap="round" stroke-width="7"/>
+  <path d="M14 25h6l3-6 4 11 3-5h4" fill="none" stroke="#087f6d" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+</svg>
