@@ -306,6 +306,10 @@ Preview deployments; merging code to `main` triggers production through Vercel.
 Do not add a GitHub website-deploy workflow. Configure region near Neon. Builds do
 not require database credentials or run migrations. Webpack is selected explicitly.
 
+Vercel Web Analytics (`@vercel/analytics`, cookie-less, no environment variables) is
+rendered from `web/app/layout.tsx`. It only records data after Web Analytics is
+enabled in the Vercel project's Analytics tab; requests go to `/_vercel/insights/*`.
+
 `/api/health` checks connectivity; HTTP 200 alone does not prove table permissions
 or valid data. Verify the dashboard, an asset page and comparisons as well. Inspect
 Vercel build and runtime logs. Errors log safe stage, SQLSTATE/category or redacted
